@@ -76,7 +76,6 @@ Antes de la pandemia, todos trabajaban de manera presencial en un espacio de cow
 
 - Integrar tecnologías más modernas desde el inicio.
 - Aprovechar mucho más las herramientas de Inteligencia Artificial.
-- 
 
 ---
 
@@ -84,9 +83,9 @@ Antes de la pandemia, todos trabajaban de manera presencial en un espacio de cow
 
 ¿Qué enseñanzas deja esta historia para el desarrollo de nuestro proyecto?
 
--
--
--
+- Validar el problema antes de desarrollar una solución para asegurarse de que realmente existe una necesidad.
+- Formar un equipo con perfiles complementarios que aporten conocimientos técnicos, comerciales y administrativos.
+- Aprovechar las nuevas tecnologías, especialmente la Inteligencia Artificial, para desarrollar soluciones más competitivas e innovadoras.
 
 ---
 
@@ -94,10 +93,9 @@ Antes de la pandemia, todos trabajaban de manera presencial en un espacio de cow
 
 Después de escuchar esta historia, ¿qué oportunidades identifica el equipo para mejorar la forma en que los estudiantes proponen ideas, forman equipos y desarrollan proyectos de innovación?
 
--
--
--
-
+- Crear más espacios donde los estudiantes puedan conectar con personas de diferentes disciplinas para formar equipos de trabajo.
+- Fortalecer el acompañamiento en temas de emprendimiento, formalización de empresas y acercamiento a potenciales clientes.
+- Promover el uso de tecnologías emergentes, como la Inteligencia Artificial, mediante talleres y mentorías que impulsen el desarrollo de proyectos innovadores.
 ---
 
 ## Reflexión final
