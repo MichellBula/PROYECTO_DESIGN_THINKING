@@ -104,3 +104,104 @@ Escriban algunas frases relevantes utilizando, en lo posible, las palabras exact
 **¿Qué aprendió el equipo de esta entrevista?**
 
 La entrevista nos permitió darnos cuenta que sí existe una oportunidad e interés de los usuarios para desarrollar una plataforma que conecte estudiantes según sus habilidades, intereses y disponibilidad, facilitando la creación de equipos de trabajo para proyectos universitarios. Además, aprendimos que los estudiantes ven la propuesta como valiosa para ejecutarse en el contexto de la feria de Geoexpofisica de la Universidad del Norte, debido a que presentan la problemátca principal, y el poco tiempo que se les da para desarrollar sus ideas hace que el trabajo bajo presión, sin un equipo sólido, afecte su rendimiento.
+
+
+---
+
+## Información del entrevistado #1
+
+**Nombre o seudónimo:** Maria isabel Guerrero
+**Edad, si es relevante:** 18 años
+**Rol:** Estudiante
+**Relación con la Universidad del Norte:** Estudiante de pregrado (ingeniería Mecanica)
+
+---
+
+## Objetivo de la entrevista
+
+**¿Por qué decidieron entrevistar a esta persona?**
+Se decidío entrevisar a esta estudiante de segundo semestre de ingeniería Mecánica, porque pertenece a na carrera en la que el desarrollo de proyectos requiere la aplicacion de conocimientos de distintas áreas. Por esta razón, consideramos que puede ser una posible usuaria de una aplicación orientada a facilitar la creacion de equipos interdisciplinarios.
+
+Aunque todavia no ha participado en Geoexpofisica ni en proyectos interdisciplinarios, su perspectiva resulta importante debido que conocer las expectativas y dificultades que pueden tener los estudiantes de primeros semestres al momento de buscar compañeros, profesores o personas con conocimientos que ayuden a complementar las ideas.
+
+**¿Qué esperan aprender de esta entrevista?**
+Esperamos conocer la percepción de la estudiante sobre la importancia del trabajo en grupo,las dificultades para encontrar personas dispuestas a participar en proyectos y si las herramientas existentes son suficientes para crear equipos de trabajo. Ademas de que buscamos identificar si estaria interesada en utilizar una aplicación que conecte estudiantes, profesores y engresados según sus conocimientos,intereses y disponibilidad. 
+
+---
+
+## Contexto
+
+**¿Dónde y cómo se realizó la entrevista?**
+**Fecha:** 4 de agosto del 2026
+**Lugar o medio:** Prescencial, Sala de usuario 5k
+**Duración aproximada:** 10 minutos
+
+---
+
+## Preguntas realizadas
+
+**Escriban las preguntas más importantes utilizadas durante la entrevista.**
+1. ¿Qué tan frecuente en tu carrera o vida profesional realizas proyectos académicos en grupo?
+2. ¿Consideras que es esencial, para el éxito de un proyecto, integrar a estudiantes/colegas de otras carreras? ¿Por qué?
+3. ¿Crees que, con las herramientas ya existentes, como el correo institucional, LinkedIn, interacción en el salón de clases, entre otros, es suficiente para formar un grupo multidisciplinario para ejecutar un proyecto? ¿Por qué?
+4. ¿Has participado anteriormente en Geoexpofisica? Si la respuesta es sí, ¿Cómo ha sido tu experiencia formando grupo para participar de la feria Geoexpofisica?
+5. ¿Harías uso de una aplicación que facilite el proceso de reclutamiento de estudiantes de distintas áreas para formar un proyecto candidato a Geoexpofisica? ¿Por qué? 
+
+---
+
+## Resumen de las respuestas
+
+**Resuman los aspectos más importantes mencionados por la persona entrevistada**
+La estudiante de segundo semestre de Ingeniería Mecánica, manifiesto que todavia no ha participado en proyectos interdisciplinarios ni en Geoexpofisica. Sin embargo, considera que trabajar con personas de diferentes carreras es importante, debido a que la ingenieria es integral y puedes aplicarse en distintos campos. Tambien expresó que puede ser dificil encontrar profesores que apoyen proyectos estudiantiles, ya que esto depende del área en la que se quiera orientar el proyecto. Algunos docentes no cuentan con suficiente tiempo, tienen horarios limitados, trabajan como catedráticos o pueden no estar de acuerdo con la propuesta.
+
+La estudiante considera que tambien es complejo encontrar personas dispuestas a participar en un proyecto. Una de las principales causas que menciono fue la carga academica, falta de tiempo y ademas insuficiencia de conocimientos a la hora de desarrollar el proyecto. Es por esto que a la estudiante le parecio interesante que la aplicación pueda incluir a egresados, ya que podrian aportar experiencia y conocimientos especializados a los proyectos. Ademas que tambien hizo mención que actualmente los espacios no son suficinetes para facilitar la creación de equipos colaborativos.
+
+## Frases clave
+
+**Escriban algunas frases relevantes utilizando, en lo posible, las palabras exactas de la persona entrevistada.**
+>La ingeniería trabaja de manera integral y debe relacionarse con distintos campos de aplicación. 
+
+>Muchos profesores no cuentan con el espacio y el tiempo.
+
+>Las herramientas actualez no son suficientes.
+
+---
+
+## Necesidades identificadas
+
+**¿Qué necesidades pudieron identificar?**
+- Los estudiantes necesitan identificar profesores que tengan experiencia en el area del proyecto y disponibilidad.
+
+- Es necesario incluir a egresados que puedan aportar conocimientos, experiencia profesional y orientación.
+
+
+---
+
+## Problemas o dificultades
+
+**¿Qué problemas, frustraciones o dificultades mencionó la persona?**
+- Algunos estudiantes no cuentan con los conocimientos necesarios para desarrollar todas las areas del proyecto.
+
+- No existe un espacio centralizado donde estudiantes, profesores y egresados puedan apoyar los proyectos.
+
+- Los profesores tienen poca disponibilidad debido a sus horarios o que trabajan como catedraticos.
+
+
+---
+
+## Hallazgos inesperados
+
+**¿Qué respuestas o comportamientos sorprendieron al equipo?**
+- Los estudiantes de primeros semestres pueden estar interesados en participar en proyectos, aunque no tengan los conocmientos necesarios.
+
+- Nos llamo la atención su interes al querer incluir a egresados dentros de la aplicación debido a que muy pocos estudiantes buscan recurir a ese tipo de ayudas.
+
+- Aunque la estudiante todavia no ha participado en algu proyecto, ya reconoce que es importante el trabajo en grupos con personas de diferentes carreras e areas.
+
+---
+
+## Conclusión
+
+**¿Qué aprendió el equipo de esta entrevista?**
+La entrevista de Maria Isabel nos permitio entender que formar un equipo a la hora del realizar un proyecto universitario no depende solo de tener una buena idea, si no tambien de encontrar personas dispuestas a trabajar en ello y que cuenten con el tiempo suficiente para participar. Aunque ella todavia no ha participado en  proyectos de la universidad, reconoce que su carrera se relaciona con difernetes areas y recibir apoyo de otros estudiantes, docentes o incluso egresados podria mejorar el desarrollo de proyecos. Incluso, señalo que las herramientas ofrecidas actualmente no facilitan este proceso. Consideramos que una aplicación que reúna en un mismo espacio diferentes personas con intereses y tiempo de sobra, pueden ser posibles colaboradores para futuros proyectos y colegas en la vida labora.
+
