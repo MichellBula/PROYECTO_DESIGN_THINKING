@@ -76,11 +76,11 @@ Antes de realizar las entrevistas y conocer la historia de innovación, ¿Qué c
 
 ¿Qué obstáculos enfrentan las iniciativas después de comenzar?
 
--Mantener la disponibilidad y el compromiso de todos los integrantes del equipo durante el desarrollo del proyecto.
+- Mantener la disponibilidad y el compromiso de todos los integrantes del equipo durante el desarrollo del proyecto.
 
--Obtener los recursos financieros necesarios para cubrir gastos de desarrollo, herramientas y operación.
+- Obtener los recursos financieros necesarios para cubrir gastos de desarrollo, herramientas y operación.
 
--Adaptarse a cambios tecnológicos y a situaciones externas que puedan afectar la continuidad del proyecto.
+- Adaptarse a cambios tecnológicos y a situaciones externas que puedan afectar la continuidad del proyecto.
 
 ---
 
@@ -88,17 +88,17 @@ Antes de realizar las entrevistas y conocer la historia de innovación, ¿Qué c
 
 ¿Qué elementos se repitieron en las entrevistas con usuarios?
 
--Que en dado caso proyecto sea viable, el poder tener conexión con personas que si hayan tenido experiencia haciendo proyectos.
+- Que en dado caso proyecto sea viable, el poder tener conexión con personas que si hayan tenido experiencia haciendo proyectos.
 
--Se dificulta a veces conseguir integrantes para actividades grupales en clases donde haya diferentes carreras.
+- Se dificulta a veces conseguir integrantes para actividades grupales en clases donde haya diferentes carreras.
 
 ¿Qué elementos de esas entrevistas también aparecieron en la historia de innovación?
 
--La importancia de conformar equipos con perfiles y habilidades complementarias para aumentar las posibilidades de éxito.
+- La importancia de conformar equipos con perfiles y habilidades complementarias para aumentar las posibilidades de éxito.
 
--La necesidad de validar el problema y comprender las necesidades reales de los usuarios antes de desarrollar una solución.
+- La necesidad de validar el problema y comprender las necesidades reales de los usuarios antes de desarrollar una solución.
 
--La colaboración entre personas con diferentes conocimientos es un factor determinante para crear proyectos de innovación exitosos.
+- La colaboración entre personas con diferentes conocimientos es un factor determinante para crear proyectos de innovación exitosos.
 
 ---
 
