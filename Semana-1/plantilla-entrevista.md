@@ -11,8 +11,11 @@
 ## Información del entrevistado #1
 
 **Nombre o seudónimo:** Deisy Santiesteban
+
 **Edad, si es relevante:** 18 años
+
 **Rol:** Estudiante
+
 **Relación con la Universidad del Norte:** Estudiante de pregrado (geología)
 
 ---
@@ -20,16 +23,16 @@
 ## Objetivo de la entrevista
 
 **¿Por qué decidieron entrevistar a esta persona?**
+
 Decidimos entrevistar a esta persona porque es estudiante de una carrera donde la mayoría de proyectos que realizan son en equipos, por lo que consideramos que un posible usuario que se enfrenta a la problemática de tener dificultades para encontrar compañeros de diferentes programas académicos que complementen sus habilidades es buen público para evaluar la viabilidad de la propuesta. Además como se busca enfocar la propuesta para los proyectos que realizan los estudiantes para Geoexpofisica, era importante entrevistar a alguien que ya ha tenido la experiencia en formar grupos para esta feria académica de la Universidad Del Norte.
 
 **¿Qué esperan aprender de esta entrevista?**
+
 Esperamos aprender cómo fue la experiencia de la estudiante en la formación de grupos para desarrollar proyectos en la feria Geoexpofisica y durante lo que lleva de pregrado, esto con el fin de comprender la dinámica y las dificultades que enfrenta, como el no tener integrantes suficientes o personas de diversas carreras, lo que puede afectar en el éxito del proyecto. 
 
 ---
 
 ## Contexto
-
-**¿Dónde y cómo se realizó la entrevista?**
 
 **Fecha:** 4 de agosto del 2026
 
@@ -53,7 +56,9 @@ Esperamos aprender cómo fue la experiencia de la estudiante en la formación de
 ## Resumen de las respuestas
 
 Resuman los aspectos más importantes mencionados por la persona entrevistada
+
 La estudiante de cuarto semestre de geología nos expresó que durante lo que lleva en su pregrado es muy frecuente que los proyectos académicos se realicen en grupos, porque a sus docentes les gusta fomentar el trabajo colectivo. Además, comentó que la creación de grupos académicos ha sido una experiencia un poco difícil, ya que en algunas clases no conoce a ninguno de sus compañeros, por lo que trabajar con gente de confianza es imposible. Luego de explicarle el posible enfoque de la propuesta (Proyectos de Geoexpofisica), identificamos que ella ya ha participó de esta feria y que ha sido especialmente complicado la búsqueda de compañeros suficientes e ideales, por lo que en ese momento le tocó hablar con los docentes para que la asignaran a un grupo. Al plantear uno de los objetivos principales de nuestra propuesta: creación de grupos multidisciplinarios, la estudiante nos expresó que la considera una buena idea que sí usaría, en sus palabras “la multidisciplinariedad lleva el éxito”, en su opinión sería una app super útil, ya que con las herramientas existentes, expresadas en el planteamiento de la pregunta, no es suficiente para formar equipo. 
+
 ---
 
 ## Frases clave
