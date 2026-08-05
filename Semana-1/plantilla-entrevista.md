@@ -30,8 +30,11 @@ Esperamos aprender cómo fue la experiencia de la estudiante en la formación de
 ## Contexto
 
 **¿Dónde y cómo se realizó la entrevista?**
+
 **Fecha:** 4 de agosto del 2026
+
 **Lugar o medio:** Prescencial, Sala de usuario 5k
+
 **Duración aproximada:** 15 minutos
 
 ---
@@ -49,16 +52,16 @@ Esperamos aprender cómo fue la experiencia de la estudiante en la formación de
 
 ## Resumen de las respuestas
 
-**Resuman los aspectos más importantes mencionados por la persona entrevistada**
+Resuman los aspectos más importantes mencionados por la persona entrevistada
 La estudiante de cuarto semestre de geología nos expresó que durante lo que lleva en su pregrado es muy frecuente que los proyectos académicos se realicen en grupos, porque a sus docentes les gusta fomentar el trabajo colectivo. Además, comentó que la creación de grupos académicos ha sido una experiencia un poco difícil, ya que en algunas clases no conoce a ninguno de sus compañeros, por lo que trabajar con gente de confianza es imposible. Luego de explicarle el posible enfoque de la propuesta (Proyectos de Geoexpofisica), identificamos que ella ya ha participó de esta feria y que ha sido especialmente complicado la búsqueda de compañeros suficientes e ideales, por lo que en ese momento le tocó hablar con los docentes para que la asignaran a un grupo. Al plantear uno de los objetivos principales de nuestra propuesta: creación de grupos multidisciplinarios, la estudiante nos expresó que la considera una buena idea que sí usaría, en sus palabras “la multidisciplinariedad lleva el éxito”, en su opinión sería una app super útil, ya que con las herramientas existentes, expresadas en el planteamiento de la pregunta, no es suficiente para formar equipo. 
 ---
 
 ## Frases clave
 
-**Escriban algunas frases relevantes utilizando, en lo posible, las palabras exactas de la persona entrevistada.**
->La multidisciplinariedad lleva el éxito
->El estar sola en una clase, sin mis amigos, hace más dificil hacer trabajos en grupo
->Herramientas como el correo no ayuda nada, lo único que funciona es convivir con los compañeros adecuados
+Escriban algunas frases relevantes utilizando, en lo posible, las palabras exactas de la persona entrevistada.
+- La multidisciplinariedad lleva el éxito
+- El estar sola en una clase, sin mis amigos, hace más dificil hacer trabajos en grupo
+- Herramientas como el correo no ayuda nada, lo único que funciona es convivir con los compañeros adecuados
 
 ---
 
@@ -94,4 +97,5 @@ La estudiante de cuarto semestre de geología nos expresó que durante lo que ll
 ## Conclusión
 
 **¿Qué aprendió el equipo de esta entrevista?**
+
 La entrevista nos permitió darnos cuenta que sí existe una oportunidad e interés de los usuarios para desarrollar una plataforma que conecte estudiantes según sus habilidades, intereses y disponibilidad, facilitando la creación de equipos de trabajo para proyectos universitarios. Además, aprendimos que los estudiantes ven la propuesta como valiosa para ejecutarse en el contexto de la feria de Geoexpofisica de la Universidad del Norte, debido a que presentan la problemátca principal, y el poco tiempo que se les da para desarrollar sus ideas hace que el trabajo bajo presión, sin un equipo sólido, afecte su rendimiento.
