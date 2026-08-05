@@ -57,6 +57,7 @@ Esperamos aprender cómo fue la experiencia de la estudiante en la formación de
 
 Resuman los aspectos más importantes mencionados por la persona entrevistada
 
+
 La estudiante de cuarto semestre de geología nos expresó que durante lo que lleva en su pregrado es muy frecuente que los proyectos académicos se realicen en grupos, porque a sus docentes les gusta fomentar el trabajo colectivo. Además, comentó que la creación de grupos académicos ha sido una experiencia un poco difícil, ya que en algunas clases no conoce a ninguno de sus compañeros, por lo que trabajar con gente de confianza es imposible. Luego de explicarle el posible enfoque de la propuesta (Proyectos de Geoexpofisica), identificamos que ella ya ha participó de esta feria y que ha sido especialmente complicado la búsqueda de compañeros suficientes e ideales, por lo que en ese momento le tocó hablar con los docentes para que la asignaran a un grupo. Al plantear uno de los objetivos principales de nuestra propuesta: creación de grupos multidisciplinarios, la estudiante nos expresó que la considera una buena idea que sí usaría, en sus palabras “la multidisciplinariedad lleva el éxito”, en su opinión sería una app super útil, ya que con las herramientas existentes, expresadas en el planteamiento de la pregunta, no es suficiente para formar equipo. 
 
 ---
@@ -108,11 +109,14 @@ La entrevista nos permitió darnos cuenta que sí existe una oportunidad e inter
 
 ---
 
-## Información del entrevistado #1
+## Información del entrevistado #2
 
 **Nombre o seudónimo:** Maria isabel Guerrero
+
 **Edad, si es relevante:** 18 años
+
 **Rol:** Estudiante
+
 **Relación con la Universidad del Norte:** Estudiante de pregrado (ingeniería Mecanica)
 
 ---
@@ -120,7 +124,7 @@ La entrevista nos permitió darnos cuenta que sí existe una oportunidad e inter
 ## Objetivo de la entrevista
 
 **¿Por qué decidieron entrevistar a esta persona?**
-Se decidío entrevisar a esta estudiante de segundo semestre de ingeniería Mecánica, porque pertenece a na carrera en la que el desarrollo de proyectos requiere la aplicacion de conocimientos de distintas áreas. Por esta razón, consideramos que puede ser una posible usuaria de una aplicación orientada a facilitar la creacion de equipos interdisciplinarios.
+Se decidío entrevisar a esta estudiante de segundo semestre de ingeniería Mecánica, porque pertenece a na carrera en la que el desarrollo de proyectos requiere la aplicacion de conocimientos de distintas áreas. Por esta razón, consideramos que puede ser una posible usuaria de una aplicación orientada a facilitar la creación de equipos interdisciplinarios.
 
 Aunque todavia no ha participado en Geoexpofisica ni en proyectos interdisciplinarios, su perspectiva resulta importante debido que conocer las expectativas y dificultades que pueden tener los estudiantes de primeros semestres al momento de buscar compañeros, profesores o personas con conocimientos que ayuden a complementar las ideas.
 
@@ -131,9 +135,10 @@ Esperamos conocer la percepción de la estudiante sobre la importancia del traba
 
 ## Contexto
 
-**¿Dónde y cómo se realizó la entrevista?**
 **Fecha:** 4 de agosto del 2026
+
 **Lugar o medio:** Prescencial, Sala de usuario 5k
+
 **Duración aproximada:** 10 minutos
 
 ---
@@ -159,11 +164,11 @@ La estudiante considera que tambien es complejo encontrar personas dispuestas a 
 ## Frases clave
 
 **Escriban algunas frases relevantes utilizando, en lo posible, las palabras exactas de la persona entrevistada.**
->La ingeniería trabaja de manera integral y debe relacionarse con distintos campos de aplicación. 
+- La ingeniería trabaja de manera integral y debe relacionarse con distintos campos de aplicación. 
 
->Muchos profesores no cuentan con el espacio y el tiempo.
+- Muchos profesores no cuentan con el espacio y el tiempo.
 
->Las herramientas actualez no son suficientes.
+- Las herramientas actualez no son suficientes.
 
 ---
 
