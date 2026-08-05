@@ -106,11 +106,11 @@ Antes de realizar las entrevistas y conocer la historia de innovación, ¿Qué c
 
 ¿En qué se diferencia lo que imaginan o esperan los usuarios potenciales de lo que realmente ocurre durante un proceso de innovación?
 
--Los estudiantes esperan que formar equipos para proyectos sea un proceso sencillo, pero en la práctica encontrar personas con las habilidades necesarias resulta difícil y consume mucho tiempo.
+- Los estudiantes esperan que formar equipos para proyectos sea un proceso sencillo, pero en la práctica encontrar personas con las habilidades necesarias resulta difícil y consume mucho tiempo.
 
--Los usuarios imaginan que las herramientas actuales (correo, WhatsApp o LinkedIn) son suficientes para conectar estudiantes, pero en la realidad estas no facilitan la búsqueda de colaboradores adecuados ni la gestión del proyecto.
+- Los usuarios imaginan que las herramientas actuales (correo, WhatsApp o LinkedIn) son suficientes para conectar estudiantes, pero en la realidad estas no facilitan la búsqueda de colaboradores adecuados ni la gestión del proyecto.
 
--Se suele pensar que una buena idea es suficiente para desarrollar un proyecto exitoso, pero la entrevista con Eureka TIC mostró que también es indispensable validar el problema, conformar un equipo multidisciplinario y generar confianza mediante una estructura organizada.
+- Se suele pensar que una buena idea es suficiente para desarrollar un proyecto exitoso, pero la entrevista con Eureka TIC mostró que también es indispensable validar el problema, conformar un equipo multidisciplinario y generar confianza mediante una estructura organizada.
 
 ---
 
