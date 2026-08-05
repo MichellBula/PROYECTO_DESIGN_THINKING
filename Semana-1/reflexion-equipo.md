@@ -121,7 +121,7 @@ Antes de realizar las entrevistas y conocer la historia de innovación, ¿Qué c
 - Existe una necesidad real de contar con una plataforma que facilite la creación de equipos para proyectos universitarios.
 
 - La multidisciplinariedad aporta valor y aumenta las posibilidades de éxito de los proyectos, tanto desde la perspectiva de los estudiantes como de una empresa de innovación.
-- 
+  
 - Validar el problema antes de desarrollar una solución es un paso fundamental para evitar invertir tiempo y recursos en ideas que no responden a una necesidad real.
 
 ---
