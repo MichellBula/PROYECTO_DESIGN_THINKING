@@ -2,15 +2,15 @@
 
 ## Información del equipo
 
-**Nombre del equipo:**
+**Nombre del equipo:** UNCampus Connect
 
-**Integrantes:**
+**Integrantes:** Michell Bula, Sebastian Cotes, Emanuel Siachoque y Paula Suarez
 
 ---
 
 # Información de la iniciativa
 
-**Nombre de la iniciativa o empresa (si aplica):** Eureca TIC
+**Nombre de la iniciativa o empresa (si aplica):** Eureka TIC
 
 **Persona entrevistada:** Daniel Jose Romero Martinez
 
