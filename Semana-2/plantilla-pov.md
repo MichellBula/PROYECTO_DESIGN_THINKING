@@ -44,7 +44,7 @@ El equipo comprendió que los estudiantes sí están interesados en trabajar con
 
 Completen la siguiente estructura:
 
-`[Tipo de usuario] necesita [necesidad] porque [insight].`
+Un estudiante universitario que desea desarrollar proyectos académicos necesita encontrar y conectar fácilmente con personas de diferentes carreras que tengan habilidades, intereses y disponibilidad complementarios, porque muchas buenas ideas terminan abandonándose cuando el estudiante no sabe dónde encontrar los colaboradores adecuados para llevarlas a cabo.
 
 ---
 
@@ -54,17 +54,17 @@ Respondan en un párrafo corto:
 
 ¿Qué problema concreto quiere resolver el equipo y por qué vale la pena enfocarse en él?
 
+Actualmente, los estudiantes que tienen una idea o desean desarrollar un proyecto universitario enfrentan dificultades para encontrar compañeros de diferentes carreras con las habilidades, conocimientos e intereses necesarios para conformar un buen equipo. Aunque existen medios como WhatsApp, correo electrónico o las relaciones personales, estos no están diseñados específicamente para conectar estudiantes según sus perfiles y necesidades. Por esta razón, el equipo busca crear una solución que facilite la formación de equipos multidisciplinarios y permita que más ideas puedan convertirse en proyectos reales.
+
 ---
 
 ## Criterios para una buena solución
 
 La solución que diseñemos debería:
 
-1.
-
-2.
-
-3.
+1. Facilitar la búsqueda de estudiantes según sus habilidades, carrera, intereses y conocimientos, permitiendo encontrar personas adecuadas para cada tipo de proyecto.
+2. Permitir la publicación y visualización de ideas o proyectos, para que otros estudiantes puedan conocerlos y mostrar su interés en participar.
+3. Ayudar a formar equipos multidisciplinarios de manera sencilla, teniendo en cuenta la compatibilidad entre los perfiles de los estudiantes y las necesidades del proyecto.
 
 ---
 
@@ -72,8 +72,5 @@ La solución que diseñemos debería:
 
 ¿Qué aspectos quedan por fuera en esta primera etapa?
 
-- 
-
-- 
-
-- 
+- No se desarrollará inicialmente un sistema completo de gestión y seguimiento de proyectos, como asignación de tareas, calendarios, almacenamiento de archivos o control del avance del equipo.
+- No se buscará resolver la financiación, comercialización o desarrollo empresarial de los proyectos, ya que la primera etapa estará enfocada principalmente en conectar personas y facilitar la formación de equipos.
