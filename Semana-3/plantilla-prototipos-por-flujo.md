@@ -44,17 +44,20 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 
 ### Versión B: paso a paso
 
-1. El usuario...
-2. Luego...
-3. Después...
-4. Finalmente...
+1. El usuario ingresa a la sección de proyectos y revisa las diferentes opciones disponibles según sus intereses.
+
+2. Luego, selecciona un proyecto para consultar su descripción, características, requisitos y demás información relevante.
+
+3. Después, si el proyecto es de su interés y cumple con los requisitos, completa la información necesaria y envía una postulación para formar parte del equipo.
+
+4. Finalmente, el sistema registra la postulación y le permite al usuario consultar posteriormente el estado de su solicitud.
 
 ### Versión B: pantallas o momentos clave
 
-1.
-2.
-3.
-4.
+1. Explorar proyectos.
+2. Información y requisitos del proyecto.
+3. Formulario de postulación.
+4. Estado de la postulación.
 
 ### Evidencia en Figma
 
@@ -112,18 +115,20 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 
 ### Versión B: paso a paso
 
-1. El usuario...
-2. Luego...
-3. Después...
-4. Finalmente...
+1. El usuario ingresa a la sección para registrar una nueva idea y selecciona la opción para crear un proyecto.
+
+2. Luego, define la información principal del proyecto, como su nombre, descripción, objetivos, características y área o evento al que pertenece.
+
+3. Después, revisa la información del proyecto y lo publica para que otros usuarios puedan conocer la idea y consultar los requisitos para participar.
+
+4. Finalmente, el proyecto queda disponible para recibir postulaciones de usuarios interesados en formar parte del equipo.
 
 ### Versión B: pantallas o momentos clave
 
-1.
-2.
-3.
-4.
-
+1. Registrar nueva idea.
+2. Crear y configurar proyecto.
+3. Revisar y publicar proyecto.
+4. Proyecto disponible para postulaciones.
 ### Evidencia en Figma
 
 **Enlace versión A:**
