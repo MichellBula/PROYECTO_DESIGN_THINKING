@@ -65,19 +65,27 @@ Seleccionen entre 2 y 4 flujos para trabajar esta semana.
 
 ### Flujo 1
 
-**Nombre del flujo:**
+**Nombre del flujo:** Postulación a un grupo
 
 **¿Qué quiere lograr el usuario en este flujo?**
 
+El usuario podrá explorar y seleccionar un proyecto o grupo de su interés, completar su información de postulación y enviar la solicitud para formar parte de este. El objetivo es que pueda realizar el proceso de inscripción de manera sencilla, clara y organizada.
+
 **¿Por qué este flujo es importante?**
+
+Este flujo es importante porque constituye uno de los primeros pasos para la conformación de equipos de trabajo interdisciplinarios. Permite que los usuarios puedan postularse a proyectos de su interés y que, a partir de sus habilidades, conocimientos e intereses, se puedan formar equipos diversos y complementarios.
 
 ### Flujo 2
 
-**Nombre del flujo:**
+**Nombre del flujo:** Creación de proyecto
 
 **¿Qué quiere lograr el usuario en este flujo?**
 
+En este flujo, el usuario podrá registrar una nueva idea y crear un proyecto, asumiendo el rol de líder. Podrá definir la información principal del proyecto, establecer sus objetivos y características, y dejarlo disponible para que otros usuarios interesados puedan conocerlo y postularse.
+
 **¿Por qué este flujo es importante?**
+
+Este flujo es importante porque describe el objetivo general de la propuesta de UNCampus Conect, que es brindar una plataforma que permita a los estudiantes formar equipos multidisciplinarios para desarrollar sus ideas de proyectos, ya sea personales o para cumplir con la feria Geoexpofisica.
 
 ### Flujo 3
 
