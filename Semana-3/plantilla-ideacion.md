@@ -89,10 +89,13 @@ Seleccionen entre 2 y 4 flujos para trabajar esta semana.
 
 ### Flujo 4
 
-**Nombre del flujo:**
+**Nombre del flujo:** Consultar y/o editar información y progreso del grupo
 
 **¿Qué quiere lograr el usuario en este flujo?**
 
+El usuario quiere consultar la información de un grupo de trabajo al que pertenece, conocer los detalles del proyecto, el evento o área a la que pertenece, sus integrantes y el progreso del equipo. También podrá consultar las tareas pendientes y los logros alcanzados por cada miembro durante el desarrollo del proyecto, además el administrador del grupo podra editar la informacion de este dado algun cambio en el proyecto. 
+
 **¿Por qué este flujo es importante?**
 
+Es importante porque permite centralizar en un solo lugar la información y el seguimiento del grupo, facilitando que cada integrante conozca el estado del proyecto, sus responsabilidades y los avances de sus compañeros. Además, permite que la aplicación sea útil para diferentes eventos, proyectos y áreas, sin limitarse a una actividad específica.
 > Si el equipo solo va a trabajar 2 o 3 flujos, puede dejar vacío el último.
