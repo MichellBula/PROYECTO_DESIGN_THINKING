@@ -22,11 +22,15 @@ Registren los flujos que el equipo decidió trabajar esta semana.
 
 ### Flujo 2
 
-**Nombre del flujo:**
+**Nombre del flujo:** Postulación a un grupo
 
 **¿Por qué merece prioridad?**
 
+Porque permite que los estudiantes interesados en un proyecto puedan solicitar formar parte de un grupo de trabajo. Este flujo es fundamental para conectar a los estudiantes con proyectos que sean de su interés y facilitar la creación de equipos con personas de diferentes habilidades y carreras.
+
 **¿Qué pasaría si este flujo no funciona bien?**
+
+Los estudiantes podrían tener dificultades para enviar sus postulaciones o no recibir correctamente la información sobre el estado de estas. Esto dificultaría la formación de los grupos y podría provocar que proyectos con vacantes no encuentren los integrantes que necesitan.
 
 ### Flujo 3
 
@@ -38,11 +42,14 @@ Registren los flujos que el equipo decidió trabajar esta semana.
 
 ### Flujo 4
 
-**Nombre del flujo:**
+**Nombre del flujo:** Consultar y/o editar información y progreso del grupo
 
 **¿Por qué merece prioridad?**
 
+
+
 **¿Qué pasaría si este flujo no funciona bien?**
+
 
 > Si el equipo solo trabaja 2 o 3 flujos, puede dejar vacío el último.
 
@@ -174,10 +181,14 @@ Expliquen brevemente:
 
 ## Hipótesis iniciales para la semana 4
 
-Completen las frases:
-
 `Creemos que los usuarios valorarán...`
+
+la posibilidad de encontrar y conectarse con estudiantes de diferentes carreras que tengan habilidades, intereses y disponibilidad compatibles con sus proyectos, además de poder consultar y hacer seguimiento a la información y progreso de sus grupos.
 
 `Creemos que los usuarios usarán esta solución porque...`
 
+las herramientas actuales no son suficientes para encontrar fácilmente personas adecuadas para formar equipos multidisciplinarios y desarrollar proyectos, por lo que una plataforma que centralice este proceso les facilitaría encontrar colaboradores y organizar el trabajo del grupo.
+
 `Sabremos que vamos por buen camino si...`
+
+los estudiantes muestran interés en utilizar la plataforma, crean o exploran proyectos, se postulan para formar parte de grupos y utilizan las funciones de seguimiento para consultar las tareas, avances e información de sus equipos.
