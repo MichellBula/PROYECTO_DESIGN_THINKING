@@ -14,14 +14,6 @@ Registren los flujos que el equipo decidió trabajar esta semana.
 
 ### Flujo 1
 
-**Nombre del flujo:**
-
-**¿Por qué merece prioridad?**
-
-**¿Qué pasaría si este flujo no funciona bien?**
-
-### Flujo 2
-
 **Nombre del flujo:** Postulación a un grupo
 
 **¿Por qué merece prioridad?**
@@ -31,6 +23,16 @@ Porque permite que los estudiantes interesados en un proyecto puedan solicitar f
 **¿Qué pasaría si este flujo no funciona bien?**
 
 Los estudiantes podrían tener dificultades para enviar sus postulaciones o no recibir correctamente la información sobre el estado de estas. Esto dificultaría la formación de los grupos y podría provocar que proyectos con vacantes no encuentren los integrantes que necesitan.
+
+### Flujo 2
+
+**Nombre del flujo:** Postulación a un grupo
+
+**¿Por qué merece prioridad?**
+
+
+**¿Qué pasaría si este flujo no funciona bien?**
+
 
 ### Flujo 3
 
