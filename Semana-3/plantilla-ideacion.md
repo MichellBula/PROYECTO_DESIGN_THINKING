@@ -2,15 +2,17 @@
 
 ## Información del equipo
 
-**Nombre del equipo:**
+**Nombre del equipo:** UNCampus Connect
 
-**Integrantes:**
+**Integrantes:** Michell Bula, Sebastián Cotes, Emanuel Siachoque, Paula Suárez
 
 ---
 
 ## Recordatorio del problema
 
 Escriban su POV o problema en una sola frase.
+
+Los estudiantes de pregrado necesitan encontrar una forma de conectar con estudiantes de diferentes carreras que tengan habilidades, intereses y compromiso, porque actualmente es difícil encontrar personas adecuadas para formar equipos multidisciplinarios y desarrollar proyectos universitarios.
 
 ---
 
@@ -23,6 +25,8 @@ Completen esta estructura:
 Ejemplo:
 
 `¿Cómo podríamos ayudar a los estudiantes a encontrar personas interesadas en sus ideas?`
+
+¿Cómo podríamos facilitar que los estudiantes de pregrado conecten con estudiantes de diferentes carreras para formar equipos con habilidades e intereses complementarios y desarrollar proyectos universitarios?
 
 ---
 
@@ -41,21 +45,21 @@ Ejemplos de flujo:
 
 Registren al menos 6 flujos posibles.
 
-1.
+1. Postularse a un grupo.
 
-2.
+2. Crear proyecto.
 
-3.
+3. Revisar postulaciones de posibles miembros.
 
-4.
+4. registra avances.
 
-5.
+5. Buscar y explorar proyectos disponibles.
 
-6.
+6. Buscar estudiantes según carrera, habilidades e intereses.
 
-7.
+7. Invitar a estudiantes a formar parte de un proyecto.
 
-8.
+8. Consultar el perfil y las habilidades de otros estudiantes.
 
 ---
 
