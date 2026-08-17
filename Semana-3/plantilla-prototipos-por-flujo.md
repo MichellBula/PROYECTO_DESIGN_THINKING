@@ -219,7 +219,7 @@ Se quiere lograr que al momento de que los estudiantes deseen formar parte de un
 
 **Enlace versión A:** https://www.figma.com/proto/fQhIhEwcHTwVCtM9jBqaC5/Flujo_Revisarsolicitudes?node-id=4-264&p=f&t=YOGyUmDnK5TIJfpR-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A2
 
-**Enlace versión B:** https://www.figma.com/proto/LgxdQOu4sMSVhTBWW9Z6TC/Consultar-Informacion?node-id=19-54&t=BSYjTQDEiowcyV6C-1
+**Enlace versión B:** https://www.figma.com/proto/HNmlG4Mq04lyV8MhOj1DAf/Flujo_RevisarPostulaciones?node-id=0-1&t=fa1CtHoiOKCVVZQX-1
 
 ### Resultado de la validación exploratoria
 
@@ -291,7 +291,7 @@ El usuario quiere consultar y registrar los avances realizados dentro de un proy
 
 **Enlace versión A:** https://www.figma.com/proto/zseZadV6JeO4N3lDLYWSSP/POSTULARSE?node-id=1-1225&p=f&viewport=743%2C97%2C0.94&t=klelgFQqDkzahTKd-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A1225&page-id=0%3A1
 
-**Enlace versión B:** https://www.figma.com/proto/HNmlG4Mq04lyV8MhOj1DAf/Flujo_RevisarPostulaciones?t=816VtexJT1FjRfjd-1
+**Enlace versión B:** https://www.figma.com/proto/LgxdQOu4sMSVhTBWW9Z6TC/Consultar-Informacion?node-id=0-1&t=csFh2nwEHD4mPcWR-1
 
 ### Resultado de la validación exploratoria
 
