@@ -204,23 +204,22 @@ Se quiere lograr que al momento de que los estudiantes deseen formar parte de un
 
 ### Versión B: paso a paso
 
-1. El usuario...
-2. Luego...
-3. Después...
-4. Finalmente...
-
+1. El usuario se encuentra en el menu de inicio donde se encuentran los diferentes proyectos que los cuales están pendientes por realizar la entrevista.
+2. Luego, el estudiante procede a responder diferentes preguntas abiertas y de opción multiplies, las cuales contienen los requerimientos para ser actos para el proyecto en cuestión. 
+3. Después se mostrará la finalización de la entrevista y usuario deberá esperar a que se notifique si está aprobado o no el ingreso al proyecto.
+4. Los lideres de grupos y/o proyectos tendrán la opción de revisar todas las entrevista hechas por los estudiantes que quieren ingresar al proyecto.
 ### Versión B: pantallas o momentos clave
 
-1.
-2.
-3.
-4.
+1. Revision de entrevistas.
+2. Menu de proyectos por entrevistarse.
+3. Entrevista.
+4. Pantalla de finalización de entrevista.
 
 ### Evidencia en Figma
 
 **Enlace versión A:** https://www.figma.com/proto/fQhIhEwcHTwVCtM9jBqaC5/Flujo_Revisarsolicitudes?node-id=4-264&p=f&t=YOGyUmDnK5TIJfpR-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A2
 
-**Enlace versión B:**
+**Enlace versión B:** https://www.figma.com/proto/LgxdQOu4sMSVhTBWW9Z6TC/Consultar-Informacion?node-id=19-54&t=BSYjTQDEiowcyV6C-1
 
 ### Resultado de la validación exploratoria
 
@@ -277,23 +276,22 @@ El usuario quiere consultar y registrar los avances realizados dentro de un proy
 
 ### Versión B: paso a paso
 
-1. El usuario...
-2. Luego...
-3. Después...
-4. Finalmente...
+1. El usuario tendrá el menu de proyectos inscritos, donde podrá ver los diferentes proyectos a los que hace parte y sus temáticas.
+2. Luego, Al oprimir alguno de los proyectos mostrará diferentes de opciones donde se podrá evidenciar diferentes aspectos de avances en el proyecto.
+3. Después, el usuario puede seleccionar la opción del avance de su interés, ya sea ver progreso del el quipo, detalles del progreso, los participantes que se encuentran inscritos o los eventos Próximos a exponer 
+4. Finalmente, después de revisar los diferentes avance, el usuario puede regresar al menu de opciones y al menu de proyecto, en ese orden.
 
 ### Versión B: pantallas o momentos clave
 
-1.
-2.
-3.
-4.
+1. Detalles sobre avances del proyecto. 
+2. Menu de opciones de avances.
+3. Menu de proyectos inscritos.
 
 ### Evidencia en Figma
 
 **Enlace versión A:** https://www.figma.com/proto/zseZadV6JeO4N3lDLYWSSP/POSTULARSE?node-id=1-1225&p=f&viewport=743%2C97%2C0.94&t=klelgFQqDkzahTKd-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A1225&page-id=0%3A1
 
-**Enlace versión B:**
+**Enlace versión B:** https://www.figma.com/proto/HNmlG4Mq04lyV8MhOj1DAf/Flujo_RevisarPostulaciones?t=816VtexJT1FjRfjd-1
 
 ### Resultado de la validación exploratoria
 
