@@ -63,7 +63,7 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 
 **Enlace versión A:** https://www.figma.com/proto/3QoiBNJgTdtTVIuPn09YmE/AVANCES?node-id=1-3&p=f&viewport=-375%2C433%2C0.72&t=BGyaQPhsZi2zhqZ2-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A3&page-id=0%3A1
 
-**Enlace versión B:**
+**Enlace versión B:** https://www.figma.com/proto/Wf6yKOOEqslubJwSMXP5R6/Flujo-1B?node-id=3-2&p=f&t=iWC8DhbUXYhzu6p0-1&scaling=contain&content-scaling=fixed&page-id=0%3A1
 
 ### Resultado de la validación exploratoria
 
@@ -141,7 +141,7 @@ El usuario podrá registrar una nueva idea y crear un proyecto, asumiendo el rol
 
 **Enlace versión A:** https://www.figma.com/proto/W5GSxmnYuYUSW3yuFErjre/Flujo_CrearProyecto?node-id=1-2&p=f&t=6yFU1RRyYPglo7ff-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2
 
-**Enlace versión B:**
+**Enlace versión B:** https://www.figma.com/proto/F76FufrF5fOypm5wACuiRv/Sin-t%C3%ADtulo?node-id=4-3&p=f&t=kJhPwJ0e8VF2i3zg-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1
 
 ### Resultado de la validación exploratoria
 
