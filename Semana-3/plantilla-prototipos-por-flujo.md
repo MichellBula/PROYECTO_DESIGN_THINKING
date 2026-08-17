@@ -5,7 +5,7 @@
 
 ## Información del equipo
 
-**Nombre del equipo:**UNCampus Connect
+**Nombre del equipo:** UNCampus Connect
 
 **Integrantes:** Michell Bula, Sebastián Cotes, Emanuel Siachoque, Paula Suárez
 
@@ -95,23 +95,31 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 
 ## Flujo 2
 
-**Nombre del flujo:**
+**Nombre del flujo:** Creación de proyecto
 
 **¿Qué quiere lograr el usuario en este flujo?**
 
+El usuario podrá registrar una nueva idea y crear un proyecto, asumiendo el rol de líder. Podrá definir la información principal del proyecto, como objetivos, numero de integrantes y categoría, y dejarlo disponible para que otros usuarios interesados puedan conocerlo y postularse.
+
 ### Versión A: paso a paso
 
-1. El usuario...
-2. Luego...
-3. Después...
-4. Finalmente...
+1. El usuario líder da click en el botón crear proyecto, que se encuentra en la pantalla de inicio.
+
+2. Luego, le aparecerá el formulario inicial, donde tendrá que llenar la información correspondiente a nombre del proyecto y descripción. Una vez completado, le puede dar al botón continuar.
+
+3. Después tendrá que completar otro formulario con información detallada, la cual incluye categoría, Objetivo, Fecha de finalización, Tipo de proyecto (en este campo especificará que es participante de Geoexpofisica), los perfiles de estudiantes que busca, habilidades necesarias, numero de integrantes y si desea contar con un docente asesor.
+
+4. Una vez completados todos los campos, le puede dar clic en el botón publicar, seguido aparecerá una ventana emergente con la recomendación de confimar información, si todo está correcto puede dar en Publicar, de lo contrario en Editar.
+
+5. Una vez Publicado, saldrá el aviso de publicación exitosa
 
 ### Versión A: pantallas o momentos clave
 
-1.
-2.
-3.
-4.
+1. Pantalla de inicio con Botón CrearProyecto.
+2. Formulario inicial.
+3. Formulario información general.
+4. Ventana emergente "Confirma tu información"
+5. Anuncio "Proyecto creado exitosamente"
 
 ### Versión B: paso a paso
 
@@ -131,7 +139,7 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 4. Proyecto disponible para postulaciones.
 ### Evidencia en Figma
 
-**Enlace versión A:**
+**Enlace versión A:** https://www.figma.com/proto/W5GSxmnYuYUSW3yuFErjre/Flujo_CrearProyecto?node-id=1-2&p=f&t=6yFU1RRyYPglo7ff-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2
 
 **Enlace versión B:**
 
@@ -165,23 +173,34 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 
 ## Flujo 3
 
-**Nombre del flujo:**
+**Nombre del flujo:** Revisión de solicitudes de posibles miembros
 
 **¿Qué quiere lograr el usuario en este flujo?**
 
+Se quiere lograr que al momento de que los estudiantes deseen formar parte de un proyecto, el respectivo líder de proyecto pueda visualizar y gestionar las solicitudes y respuestas de los postulantes. Posteriormente, el responsable del proyecto podrán evaluar si cada solicitante cumple con los criterios establecidos para formar parte del proyecto.
+
 ### Versión A: paso a paso
 
-1. El usuario...
-2. Luego...
-3. Después...
-4. Finalmente...
+1. El usuario líder da click en el botón que despliega un menú que se encuentra en la pantalla de inicio.
+
+2. En el menú desplegable, el usuario líder le da clic al botón Mis solicitudes, para ver a los postulantes.
+
+3. Después se redirige al Panel de solicitudes, donde podrá observar la lista de cada solicitud, con un resumen de los datos del estudiante. Aquí el líder tiene tres caminos: rechazar, aceptar o ver solicitud a detalle.
+
+4. Si decide ver solicitud a detalle, se redirige a la información completa del estudiante postulado, datos como nombre, carrera, semestre, proyecto al que se postuló, ¿por qué está interesado? y sus habilidades. En este punto el líder puede decidir si rechazar, aceptar o solicitar entrevista.
+
+5. Si decidió Solicitar entrevista, se abre el chat con el estudiante para agendar dicha cita.
+
+6. Si decidió Aceptar, se redirige a una pantalla con el anuncio de "Estudiante aceptado exitosamente"
 
 ### Versión A: pantallas o momentos clave
 
-1.
-2.
-3.
-4.
+1. Pantalla de inicio con botón de menú desplegable
+2. Vista del menú desplegable
+3. Panel de solicitudes
+4. Vista detallada de una solicitud
+5. Chat con el estudiante postulado
+6. Anuncio "Estudiante aceptado exitosamente"
 
 ### Versión B: paso a paso
 
@@ -199,7 +218,7 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 
 ### Evidencia en Figma
 
-**Enlace versión A:**
+**Enlace versión A:** https://www.figma.com/proto/fQhIhEwcHTwVCtM9jBqaC5/Flujo_Revisarsolicitudes?node-id=4-264&p=f&t=YOGyUmDnK5TIJfpR-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A2
 
 **Enlace versión B:**
 
