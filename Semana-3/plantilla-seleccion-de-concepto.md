@@ -48,13 +48,13 @@ Los estudiantes podrían tener dificultades para enviar sus postulaciones o no r
 
 **¿Por qué merece prioridad?**
 
-Este flujo merece prioridad debido a que permite centralizar la información y el seguimineto del grupo durante el desarrollo de sus proyectos. Los estudiantes pueden conocer el estado del proyecto, consultar las tareas pendientes , revisar avances y logros de sus compañeros y tambien mantenerse informados de los cambios realizados. Incluso permite que el administrtados o lides mantenga actualizada la información del grupo cuando sea necesario.
+Este flujo merece prioridad debido a que permite centralizar la información y el seguimiento del grupo durante el desarrollo de sus proyectos. Los estudiantes pueden conocer el estado del proyecto, consultar las tareas pendientes, revisar avances y logros de sus compañeros y tambien mantenerse informados de los cambios realizados. Incluso permite que el administrador o lider mantenga actualizada la información del grupo cuando sea necesario.
 
 
 
 **¿Qué pasaría si este flujo no funciona bien?**
 
-Si este flujo no funciona de manera correcta, los integrantes podrian tener dificultades para conocer el estado real de su proyecto, sus tareas pendientes y los avances realizados por el equipo. Tambien podri presentarse información desactualizada si el administrador no puede actualizar datos del grupo, generando desorden, problemas de comunicación y una gran dificultad para realizar un seguimiento del proyecto.
+Si este flujo no funciona de manera correcta, los integrantes podrian tener dificultades para conocer el estado real de su proyecto, sus tareas pendientes y los avances realizados por el equipo. Tambien podria presentarse información desactualizada si el administrador no puede actualizar datos del grupo, generando desorden, problemas de comunicación y una gran dificultad para realizar un seguimiento del proyecto.
 
 ---
 
