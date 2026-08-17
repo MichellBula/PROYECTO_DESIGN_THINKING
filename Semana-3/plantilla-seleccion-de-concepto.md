@@ -2,9 +2,9 @@
 
 ## Información del equipo
 
-**Nombre del equipo:**
+**Nombre del equipo:** UNCampus Connect
 
-**Integrantes:**
+**Integrantes:** Michell Bula, Sebastián Cotes, Emanuel Siachoque, Paula Suárez
 
 ---
 
@@ -36,24 +36,25 @@ Los estudiantes podrían tener dificultades para enviar sus postulaciones o no r
 
 ### Flujo 3
 
-**Nombre del flujo:**
+**Nombre del flujo:** 
 
-**¿Por qué merece prioridad?**
+**¿Por qué merece prioridad?** 
 
 **¿Qué pasaría si este flujo no funciona bien?**
 
 ### Flujo 4
 
-**Nombre del flujo:** Consultar y/o editar información y progreso del grupo
+**Nombre del flujo:** Registrar avances dentro del proyecto
 
 **¿Por qué merece prioridad?**
+
+Este flujo merece prioridad debido a que permite centralizar la información y el seguimineto del grupo durante el desarrollo de sus proyectos. Los estudiantes pueden conocer el estado del proyecto, consultar las tareas pendientes , revisar avances y logros de sus compañeros y tambien mantenerse informados de los cambios realizados. Incluso permite que el administrtados o lides mantenga actualizada la información del grupo cuando sea necesario.
 
 
 
 **¿Qué pasaría si este flujo no funciona bien?**
 
-
-> Si el equipo solo trabaja 2 o 3 flujos, puede dejar vacío el último.
+Si este flujo no funciona de manera correcta, los integrantes podrian tener dificultades para conocer el estado real de su proyecto, sus tareas pendientes y los avances realizados por el equipo. Tambien podri presentarse información desactualizada si el administrador no puede actualizar datos del grupo, generando desorden, problemas de comunicación y una gran dificultad para realizar un seguimiento del proyecto.
 
 ---
 
