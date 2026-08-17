@@ -96,9 +96,11 @@ Este flujo es importante porque describe el objetivo general de la propuesta de 
 **Nombre del flujo:** revision de solicitudes de miembros
 
 **¿Qué quiere lograr el usuario en este flujo?**
+
 Al momento de que los estudiantes deseen formar parte de un proyecto, deberán responder una serie de preguntas a modo de entrevista, con el fin de recopilar información relevante sobre sus conocimientos, habilidades, experiencia, motivación y disponibilidad. Posteriormente, los responsables del grupo podrán revisar las respuestas y evaluar si cada solicitante cumple con los criterios establecidos para formar parte del proyecto.
 
 **¿Por qué este flujo es importante?**
+
 El objetivo de la entrevista es poder filtrar las diferentes solicitudes de las personas que estén interesado en unirse. La evaluación de las solicitudes permitirá identificar a los estudiantes o participantes que mejor se adapten a las necesidades del proyecto, teniendo en cuenta sus capacidades, conocimientos, disponibilidad, motivación y disposición para cumplir con los objetivos establecidos por el grupo.
 
 ### Flujo 4
