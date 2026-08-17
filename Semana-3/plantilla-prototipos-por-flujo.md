@@ -61,7 +61,7 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 
 ### Evidencia en Figma
 
-**Enlace versión A:** https://www.figma.com/design/zseZadV6JeO4N3lDLYWSSP/POSTULARSE?node-id=0-1&t=3jISKMoN35fYAQgV-1 
+**Enlace versión A:** https://www.figma.com/proto/3QoiBNJgTdtTVIuPn09YmE/AVANCES?node-id=1-3&p=f&viewport=-375%2C433%2C0.72&t=BGyaQPhsZi2zhqZ2-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A3&page-id=0%3A1
 
 **Enlace versión B:**
 
@@ -291,7 +291,7 @@ El usuario quiere consultar y registrar los avances realizados dentro de un proy
 
 ### Evidencia en Figma
 
-**Enlace versión A:** https://www.figma.com/design/3QoiBNJgTdtTVIuPn09YmE/AVANCES?node-id=0-1&t=2ZgY9X3XMeKXDqY7-1 
+**Enlace versión A:** https://www.figma.com/proto/zseZadV6JeO4N3lDLYWSSP/POSTULARSE?node-id=1-1225&p=f&viewport=743%2C97%2C0.94&t=klelgFQqDkzahTKd-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A1225&page-id=0%3A1
 
 **Enlace versión B:**
 
