@@ -69,7 +69,8 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 
 **¿Con quién se probó este flujo?** 
 
-Estudiante de Eléctrica 4, Geología 4 y Sistemas 2.
+El flujo fue evaluado con tres posibles usuarios de la aplicación: un estudiante de Ingeniería de Sistemas de segundo semestre, una estudiante de Ingeniería Eléctrica de cuarto semestre y una estudiante de Geología de cuarto semestre. Al igual que los demás flujos, estas pruebas permitieron conocer cómo interactúan distintos perfiles de estudiantes con la propuesta.
+
 
 **¿Qué reacción generó la versión A?**
 
