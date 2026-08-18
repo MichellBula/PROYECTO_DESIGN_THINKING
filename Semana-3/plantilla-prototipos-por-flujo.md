@@ -67,29 +67,29 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 
 ### Resultado de la validación exploratoria
 
-**¿Con quién se probó este flujo?**
+**¿Con quién se probó este flujo?** Estudiante de Eléctrica 4, Geología 4 y Sistemas 2.
 
 **¿Qué reacción generó la versión A?**
 
-- 
-- 
-- 
+- Los estudiantes pudieron seguir de manera clara el proceso de postulación planteado en la versión A.
+- Durante la prueba, utilizaron la opción de seleccionar su disponibilidad al momento de realizar la postulación.
+- También probaron el filtro por categorías para buscar grupos o proyectos de acuerdo con sus intereses.
+- Al finalizar el flujo, pudieron ver la confirmación de que la postulación había sido enviada correctamente.
 
 **¿Qué reacción generó la versión B?**
 
-- 
-- 
-- 
+- Los estudiantes pudieron seguir el proceso de postulación planteado en la versión B, aunque la versión A resultó más clara durante la prueba.
+- También probaron la función de consultar posteriormente el estado de la postulación.
 
 ### Versión seleccionada para la semana 4
 
-**Versión elegida:**
+**Versión elegida:** Versión A, con la función de consultar posteriormente el estado de la postulación de la versión B.
 
 **¿Por qué?**
 
-- 
-- 
-- 
+- La versión A presentó el proceso de postulación de manera más clara y sencilla durante la prueba.
+- Se mantuvieron las funciones de seleccionar la disponibilidad y filtrar por categorías, que ya estaban incluidas en la versión A y fueron probadas por los estudiantes, además que el filtro introduce un nivel de confianza al ser también un cuestionario para conocer al estudiante con el que se esta postulando, ademas que tambien cuenta 
+- Se agregó la función de consultar posteriormente el estado de la postulación, tomada de la versión B, para permitir que el usuario pueda conocer qué ocurrió con su solicitud después de enviarla.
 
 ---
 
