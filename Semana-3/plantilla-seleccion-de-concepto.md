@@ -94,17 +94,17 @@ Expliquen brevemente:
 
 **¿Qué aprendieron al comparar las dos versiones de este flujo?**
 
-- 
+- Aprendimos que la versión A presenta el proceso de postulación de una manera más clara y sencilla para los usuarios.
 
-- 
+- Aprendimos que incluir la disponibilidad y el filtro por categorías aporta valor al proceso de búsqueda. Además, el filtro genera mayor confianza, ya que incluye un cuestionario que permite conocer mejor al estudiante con el que se está realizando la postulación.
 
-- 
+- Aprendimos que la posibilidad de consultar posteriormente el estado de la postulación es una función útil que complementa el flujo y permite al usuario hacer seguimiento a su solicitud.
 
 **¿Qué versión pasa a la semana 4?**
 
 - Versión A
-- Versión B
 
+  
 ### Flujo 2
 
 **¿Qué aprendieron al comparar las dos versiones de este flujo?**
