@@ -67,7 +67,9 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 
 ### Resultado de la validación exploratoria
 
-**¿Con quién se probó este flujo?** Estudiante de Eléctrica 4, Geología 4 y Sistemas 2.
+**¿Con quién se probó este flujo?** 
+
+Estudiante de Eléctrica 4, Geología 4 y Sistemas 2.
 
 **¿Qué reacción generó la versión A?**
 
@@ -147,27 +149,30 @@ El usuario podrá registrar una nueva idea y crear un proyecto, asumiendo el rol
 
 **¿Con quién se probó este flujo?**
 
+Este flujo, al igual que los demás, se probó con 3 usuarios potenciales de la aplicación: un estudiante de ingeniería de sistemas de segundo semestre, una de eléctrica de cuarto semestre y una estudiante de geología de cuarto. 
+
 **¿Qué reacción generó la versión A?**
 
-- 
-- 
-- 
+- Los usuarios expresaron que el diseño es bastante intuitivo.
+- Generó aceptación con los campos que se solicitaban a la hora de crear proyecto, especialmente cuando se pide especificar la fecha de finalización de proyecto.
+- Algunos usuarios recomendaron poner fecha de cierre para la convocatoria de postulantes.
+- A la mayoría de los entrevistados les pareció muy relevante la presencia de los campos de habilidades necesarias y perfiles necesitados.
 
 **¿Qué reacción generó la versión B?**
 
-- 
-- 
-- 
+- Los usuarios expresaron que no se sentía intuitivo el diseño.
+- Los entrevistados no entendían muy bien la estructura de la pantalla de revisar y publicar, la dinámica de los campos no era muy clara.
+- Sienten que faltaron campos por solicitar para que la información inicial del proyecto quedara clara para los postulantes.
 
 ### Versión seleccionada para la semana 4
 
-**Versión elegida:**
+**Versión elegida:** Versión A
 
 **¿Por qué?**
 
-- 
-- 
-- 
+- Los usuarios expresaron que es la versión más completa, en comparación con la B.
+- Consideraron que los campos requeridos son los más pertinentes por solicitar a la hora de crear un nuevo proyecto.
+- Sin conocer el funcionamiento del flujo previamente, ya se ubicaban en como era el paso a paso para poder publicar un proyecto nuevo, es decir, es bastante intuitivo
 
 ---
 
