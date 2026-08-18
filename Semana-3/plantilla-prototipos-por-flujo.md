@@ -61,7 +61,7 @@ El usuario quiere encontrar un proyecto de su interés, ya sea conocer sus carac
 
 ### Evidencia en Figma
 
-**Enlace versión A:** https://www.figma.com/proto/3QoiBNJgTdtTVIuPn09YmE/AVANCES?node-id=1-3&p=f&viewport=-375%2C433%2C0.72&t=BGyaQPhsZi2zhqZ2-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A3&page-id=0%3A1
+**Enlace versión A:** https://www.figma.com/proto/zseZadV6JeO4N3lDLYWSSP/POSTULARSE?node-id=1-1225&p=f&viewport=743%2C97%2C0.94&t=klelgFQqDkzahTKd-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A1225&page-id=0%3A1
 
 **Enlace versión B:** https://www.figma.com/proto/Wf6yKOOEqslubJwSMXP5R6/Flujo-1B?node-id=3-2&p=f&t=iWC8DhbUXYhzu6p0-1&scaling=contain&content-scaling=fixed&page-id=0%3A1
 
@@ -289,7 +289,7 @@ El usuario quiere consultar y registrar los avances realizados dentro de un proy
 
 ### Evidencia en Figma
 
-**Enlace versión A:** https://www.figma.com/proto/zseZadV6JeO4N3lDLYWSSP/POSTULARSE?node-id=1-1225&p=f&viewport=743%2C97%2C0.94&t=klelgFQqDkzahTKd-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A1225&page-id=0%3A1
+**Enlace versión A:** https://www.figma.com/proto/3QoiBNJgTdtTVIuPn09YmE/AVANCES?node-id=1-3&p=f&viewport=-375%2C433%2C0.72&t=BGyaQPhsZi2zhqZ2-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A3&page-id=0%3A1
 
 **Enlace versión B:** https://www.figma.com/proto/LgxdQOu4sMSVhTBWW9Z6TC/Consultar-Informacion?node-id=0-1&t=csFh2nwEHD4mPcWR-1
 
