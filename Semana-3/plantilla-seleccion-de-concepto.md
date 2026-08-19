@@ -139,16 +139,16 @@ Expliquen brevemente:
 
 **¿Qué aprendieron al comparar las dos versiones de este flujo?**
 
-- 
+- La versión A resultó más sencilla e intuitiva para el usuario al momento de registrar y publicar avances.
 
-- 
+- La versión B ofrece una estructura más completa y permite registrar información más detallada sobre el progreso del proyecto.
 
-- 
+- Se identificó que la mejor alternativa es aprovechar la estructura de la versión B e integrar aspectos positivos de la versión A, como el registro automático de la fecha, el uso de categorías y una publicación de avances más intuitiva.
 
 **¿Qué versión pasa a la semana 4?**
 
-- Versión A
-- Versión B
+- Se avanzará con la versión B incorporando las características de la versión A que fueron valoradas positivamente durante la validación.
+
 
 ---
 
