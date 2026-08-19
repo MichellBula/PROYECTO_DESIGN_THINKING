@@ -210,22 +210,22 @@ Se quiere lograr que al momento de que los estudiantes deseen formar parte de un
 
 ### Versión B: paso a paso
 
-1. El usuario se encuentra en el menu de inicio donde se encuentran los diferentes proyectos que los cuales están pendientes por realizar la entrevista.
-2. Luego, el estudiante procede a responder diferentes preguntas abiertas y de opción multiplies, las cuales contienen los requerimientos para ser actos para el proyecto en cuestión. 
-3. Después se mostrará la finalización de la entrevista y usuario deberá esperar a que se notifique si está aprobado o no el ingreso al proyecto.
-4. Los lideres de grupos y/o proyectos tendrán la opción de revisar todas las entrevista hechas por los estudiantes que quieren ingresar al proyecto.
+1. El usuario tendrá el menu de proyectos inscritos, donde podrá ver los diferentes proyectos a los que hace parte y sus temáticas.
+2. Luego, Al oprimir alguno de los proyectos mostrará diferentes de opciones donde se podrá evidenciar diferentes aspectos de avances en el proyecto.
+3. Después, el usuario puede seleccionar la opción del avance de su interés, ya sea ver progreso del el quipo, detalles del progreso, los participantes que se encuentran inscritos o los eventos Próximos a exponer 
+4. Finalmente, después de revisar los diferentes avances, el usuario puede regresar al menu de opciones y al menu de proyecto, en ese orden.
+
 ### Versión B: pantallas o momentos clave
 
-1. Revision de entrevistas.
-2. Menu de proyectos por entrevistarse.
-3. Entrevista.
-4. Pantalla de finalización de entrevista.
+1. Detalles sobre avances del proyecto. 
+2. Menu de opciones de avances.
+3. Menu de proyectos inscritos.
 
 ### Evidencia en Figma
 
-**Enlace versión A:** https://www.figma.com/proto/fQhIhEwcHTwVCtM9jBqaC5/Flujo_Revisarsolicitudes?node-id=4-264&p=f&t=YOGyUmDnK5TIJfpR-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A2
+**Enlace versión A:** https://www.figma.com/proto/3QoiBNJgTdtTVIuPn09YmE/AVANCES?node-id=1-3&p=f&viewport=-375%2C433%2C0.72&t=BGyaQPhsZi2zhqZ2-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A3&page-id=0%3A1
 
-**Enlace versión B:** https://www.figma.com/proto/HNmlG4Mq04lyV8MhOj1DAf/Flujo_RevisarPostulaciones?node-id=0-1&t=fa1CtHoiOKCVVZQX-1
+**Enlace versión B:** https://www.figma.com/proto/LgxdQOu4sMSVhTBWW9Z6TC/Consultar-Informacion?node-id=0-1&t=csFh2nwEHD4mPcWR-1
 
 ### Resultado de la validación exploratoria
 
@@ -233,25 +233,24 @@ Se quiere lograr que al momento de que los estudiantes deseen formar parte de un
 
 **¿Qué reacción generó la versión A?**
 
-- 
-- 
-- 
+- El uso de un chat directo con el usuario, un agregado muy acertado. 
+- Una sola pregunta no es suficiente para la solicitud.
+- Interfaz más atractivo.
 
 **¿Qué reacción generó la versión B?**
 
-- 
-- 
-- 
+- La solicitud tenía el parecido a una encuesta.
+- Preguntas de opción, puede ser un apartado interesante.
+- Espacio de observaciones y comentarios es algo innovador.
 
 ### Versión seleccionada para la semana 4
 
-**Versión elegida:**
+**Versión elegida:** Versión A.
 
 **¿Por qué?**
 
-- 
-- 
-- 
+- La versión A pose una interfaz más intuitiva y practica para las personas que fueron entrevistadas. 
+- Se pueden agregar pequeños aspectos que tuvo la versión B para aumentar la cantidad de información que se le suministraría al líder que revisa las solicitudes.
 
 ---
 
