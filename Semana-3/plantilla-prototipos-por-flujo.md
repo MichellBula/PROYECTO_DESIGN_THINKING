@@ -303,24 +303,31 @@ El usuario quiere consultar y registrar los avances realizados dentro de un proy
 
 **¿Con quién se probó este flujo?**
 
+La validación de este flujo, al igual que la de los demás, se realizó con tres estudiantes considerados usuarios potenciales de la aplicación: un estudiante de Ingeniería de Sistemas de segundo semestre, una estudiante de Ingeniería Eléctrica de cuarto semestre y una estudiante de Geología de cuarto semestre.
+
 **¿Qué reacción generó la versión A?**
 
-- 
-- 
-- 
+- Se percibió como una versión más sencilla e intuitiva para registrar y publicar avances.
+
+- Se consideró útil que la fecha se registre directamente, evitando que el usuario tenga que ingresarla manualmente.
+
+- Se sugirió utilizar una categoría en lugar de un título para clasificar mejor los avances publicados.
 
 **¿Qué reacción generó la versión B?**
 
-- 
-- 
-- 
+- Se percibió como una propuesta más completa debido a la cantidad y organización de los campos disponibles.
+
+- Su estructura permite registrar información más detallada sobre los avances del proyecto.
+
+- Aunque requiere más información que la versión A, fue la opción preferida por ofrecer un registro más completo.
 
 ### Versión seleccionada para la semana 4
-
-**Versión elegida:**
+ 
+**Versión elegida:** Versión B, integrando elementos de la Versión A.
 
 **¿Por qué?**
 
-- 
-- 
-- 
+- La versión B ofrece una estructura más completa para registrar y consultar los avances del proyecto.
+
+- Se incorporarán elementos de la versión A que facilitan la experiencia, como el registro automático de la fecha, el uso de categorías y una forma más sencilla e intuitiva de publicar los avances.
+ 
