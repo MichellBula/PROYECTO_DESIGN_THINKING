@@ -63,19 +63,20 @@ Si este flujo no funciona de manera correcta, los integrantes podrian tener difi
 
 ¿Qué criterios usó el equipo para decidir estos flujos?
 
-- Impacto para el usuario
-- Frecuencia de uso
-- Valor para el sistema
-- Riesgo o incertidumbre
-- Otro:
+- Paso inicial para colaborar
+- Inclusividad y Multidisciplinariedad
+- Confianza al armar equipos
+- Acompañamiento a largo plazo
 
 Expliquen brevemente:
 
-- 
+- **Paso inicial para colaborar:** Sin opciones para publicar una idea o postularse (Flujos 1 y 2), los estudiantes no tienen cómo dar el primer paso para trabajar juntos.
 
-- 
+- **Inclusividad y Multidisciplinariedad:** Permite que cualquier persona, sin importar su carrera o área de estudio, encuentre un espacio donde sus habilidades sumen.
 
-- 
+- **Confianza al armar equipos:** Revisar las postulaciones (Flujo 3) ayuda a que los líderes elijan integrantes comprometidos y con las capacidades necesarias para el proyecto.
+
+- **Acompañamiento a largo plazo:** Ver el avance y las tareas (Flujo 4) mantiene al grupo unido y organizado durante todo el desarrollo del proyecto.
 
 ---
 
