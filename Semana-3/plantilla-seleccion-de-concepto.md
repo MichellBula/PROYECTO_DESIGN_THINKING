@@ -39,11 +39,15 @@ Si este flujo no funciona bien, los usuarios no podrían crear y poner en marcha
 
 ### Flujo 3
 
-**Nombre del flujo:** 
+**Nombre del flujo:** Revision de solicitudes de miembros
 
 **¿Por qué merece prioridad?** 
 
+Este flujo merece prioridad debido a que hace parte de uno de los requerimientos que más se pedía durante las entrevistas sobre la idea del proyecto, el cual permite al líder del proyecto revisar, analizar y gestionar las solicitudes de los estudiantes interesados en formar parte del equipo.
+
 **¿Qué pasaría si este flujo no funciona bien?**
+
+Si este flujo no funciona correctamente, los líderes podrían tener dificultades para revisar y comparar las solicitudes de los estudiantes, lo que podría llevar a seleccionar integrantes que no se ajusten a las necesidades del proyecto. Esto afectaría directamente la conformación de los equipos y, posteriormente, el desarrollo y cumplimiento de los objetivos de los proyectos.
 
 ### Flujo 4
 
@@ -123,16 +127,13 @@ Expliquen brevemente:
 
 **¿Qué aprendieron al comparar las dos versiones de este flujo?**
 
-- 
+- resultó más intuitiva y atractiva para los usuarios, ya que permite al líder revisar la información de cada postulante de manera clara y tomar decisiones como aceptar, rechazar o solicitar una entrevista.
 
-- 
-
-- 
+- aportó elementos interesantes para recopilar información adicional de los postulantes, especialmente mediante preguntas de opción y espacios para observaciones o comentarios, aunque su estructura no resultó tan clara para gestionar las solicitudes.
 
 **¿Qué versión pasa a la semana 4?**
 
 - Versión A
-- Versión B
 
 ### Flujo 4
 
@@ -148,12 +149,21 @@ Expliquen brevemente:
 
 - Se avanzará con la versión B incorporando las características de la versión A que fueron valoradas positivamente durante la validación.
 
-
 ---
 
 ## Conclusión de la semana
 
 ¿Qué flujos y qué versiones pasan a la semana 4?
+
+Los cuatro flujos priorizados pasan a la semana 4, tomando como base las versiones que tuvieron mejor resultado durante la validación exploratoria:
+
+Flujo 1 – Postulación a un proyecto: Versión A, incorporando la función de consultar posteriormente el estado de la postulación de la Versión B.
+
+Flujo 2 – Creación de proyecto: Versión A.
+
+Flujo 3 – Revisión de solicitudes de miembros: Versión A, incorporando algunos elementos de la Versión B para recopilar mayor información de los postulantes.
+
+Flujo 4 – Registro de avances dentro del proyecto: Versión B, integrando elementos de la Versión A para hacer el proceso más sencillo e intuitivo.
 
 ---
 
@@ -161,23 +171,18 @@ Expliquen brevemente:
 
 ¿Por qué estas decisiones parecen las mejores para avanzar después de la validación exploratoria?
 
-- 
-
-- 
-
-- 
-
+- Las versiones seleccionadas fueron las que los usuarios pudieron comprender y recorrer con mayor facilidad, mostrando una mejor respuesta durante las pruebas.+
+- Se conservaron las funciones que los participantes consideraron más útiles, como los filtros, la información detallada de los proyectos, las entrevistas a postulantes y el registro de avances.
+- La comparación permitió identificar elementos valiosos de las versiones descartadas, por lo que se decidió integrarlos en las versiones seleccionadas en lugar de eliminarlos completamente.
 ---
 
 ## Riesgos que siguen abiertos
 
 ¿Qué cosas siguen sin estar claras y deben validarse mejor en la semana 4?
 
-- 
-
-- 
-
-- 
+- Se debe validar si la cantidad de información solicitada en los formularios es adecuada o si puede resultar excesiva para los usuarios, especialmente en la creación de proyectos y la revisión de postulantes.
+  
+- Se debe comprobar si las nuevas funciones integradas de ambas versiones mantienen la navegación clara y no hacen que los flujos sean más complejos para los usuarios.
 
 ---
 
