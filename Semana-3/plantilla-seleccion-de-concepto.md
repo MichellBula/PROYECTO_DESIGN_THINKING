@@ -26,12 +26,15 @@ Los estudiantes podrían tener dificultades para enviar sus postulaciones o no r
 
 ### Flujo 2
 
-**Nombre del flujo:** Postulación a un grupo
+**Nombre del flujo:** Creación de proyecto
 
-**¿Por qué merece prioridad?**
+**¿Por qué merece prioridad?** 
 
+Este flujo merece prioridad porque es la base y razón de ser de la aplicación. A partir de la creación de un proyecto se desencadenan y articulan los demás flujos, como la búsqueda de integrantes, la postulación a grupos y la gestión del equipo. Por esta razón, su correcto funcionamiento es fundamental para que los usuarios puedan iniciar y desarrollar sus proyectos de manera organizada y efectiva.
 
 **¿Qué pasaría si este flujo no funciona bien?**
+
+Si este flujo no funciona bien, los usuarios no podrían crear y poner en marcha nuevos proyectos, lo que afectaría directamente el funcionamiento de la aplicación, siendo ineficaz debido a que no cumple con el objetivo principal del proyecto: Crear grupos multidisciplinarios. Además, los demás flujos relacionados, como la búsqueda de integrantes, las postulaciones y la formación de equipos, no podrían desarrollarse adecuadamente.
 
 
 ### Flujo 3
@@ -49,8 +52,6 @@ Los estudiantes podrían tener dificultades para enviar sus postulaciones o no r
 **¿Por qué merece prioridad?**
 
 Este flujo merece prioridad debido a que permite centralizar la información y el seguimiento del grupo durante el desarrollo de sus proyectos. Los estudiantes pueden conocer el estado del proyecto, consultar las tareas pendientes, revisar avances y logros de sus compañeros y tambien mantenerse informados de los cambios realizados. Incluso permite que el administrador o lider mantenga actualizada la información del grupo cuando sea necesario.
-
-
 
 **¿Qué pasaría si este flujo no funciona bien?**
 
@@ -82,13 +83,11 @@ Expliquen brevemente:
 
 ¿Con quién validaron los prototipos de baja resolución?
 
-- Usuario potencial
-- Compañero
-- Otro:
+- Usuarios potenciales (Estudiante de ingeniería de sistemas, geología y ingeniería eléctrica)
 
 ¿Cuántas personas participaron en total?
 
-**Cantidad:**
+**Cantidad:** 3
 
 ### Flujo 1
 
@@ -109,16 +108,15 @@ Expliquen brevemente:
 
 **¿Qué aprendieron al comparar las dos versiones de este flujo?**
 
-- 
+- Aprendimos que los usuarios priorizan la sencillez, claridad y utilidad al momento de crear un proyecto.
 
-- 
+- Identificamos qué información es realmente necesaria solicitar al usuario líder para la creación del proyecto, de manera que los posibles postulantes puedan conocer claramente los objetivos, requisitos y características del proyecto antes de decidir si desean participar.
 
-- 
+- También comprendimos que solicitar únicamente la información relevante facilita el proceso y evita que la creación del proyecto se vuelva complicada o extensa.
 
 **¿Qué versión pasa a la semana 4?**
 
 - Versión A
-- Versión B
 
 ### Flujo 3
 
