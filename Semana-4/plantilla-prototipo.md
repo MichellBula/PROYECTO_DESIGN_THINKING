@@ -5,9 +5,9 @@
 
 ## Información del equipo
 
-**Nombre del equipo:**
+**Nombre del equipo:** UNCampus Connect
 
-**Integrantes:**
+**Integrantes:** Michell Bula, Sebastián Cotes, Emanuel Siachoque, Paula Suárez
 
 ---
 
@@ -15,13 +15,13 @@
 
 Escriban los flujos aprobados en la semana 3 que harán parte de este prototipo.
 
-1.
+1. Creación de proyecto.
 
-2.
+2. Postulación a un grupo.
 
-3.
+3. Revisión de solicitudes de miembros.
 
-4.
+4. Registro de avances dentro del proyecto.
 
 ---
 
@@ -29,8 +29,9 @@ Escriban los flujos aprobados en la semana 3 que harán parte de este prototipo.
 
 ¿Qué quieren mostrar o comprobar al integrar estos flujos en un solo prototipo?
 
----
+Queremos mostrar cómo un estudiante puede crear o encontrar un proyecto, formar un equipo multidisciplinario mediante las postulaciones y realizar el seguimiento del proyecto una vez conformado el grupo. También buscamos comprobar que los flujos se conecten de manera clara y sencilla y que la aplicación facilite la creación y organización de equipos de trabajo.
 
+---
 ## Alcance
 
 ¿Qué sí incluirá el prototipo?
@@ -73,11 +74,11 @@ Enumeren los elementos que van a construir y cómo se conectan entre sí.
 
 ¿Cómo se conectan entre sí los flujos aprobados?
 
-- 
+- El líder inicia el proceso creando un proyecto y definiendo sus características, objetivos, requisitos y las áreas en las que necesita integrantes.
 
-- 
+- Los estudiantes pueden explorar los proyectos disponibles, conocer sus características y postularse a aquellos que sean de su interés. El líder puede revisar y gestionar las solicitudes recibidas para conformar el equipo.
 
-- 
+- Una vez conformado el grupo, los integrantes pueden consultar las tareas, avances y logros del proyecto, permitiendo realizar un seguimiento del trabajo y mantener actualizada la información del equipo.
 
 ---
 
