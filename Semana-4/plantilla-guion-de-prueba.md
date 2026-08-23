@@ -78,11 +78,11 @@ Se le pedirá imaginar que desea participar en un proyecto universitario y que u
 
 ¿Qué tendría que pasar para considerar que el prototipo va por buen camino?
 
-- 
+- Que todos o la mayoría de los participantes pueda completar los cuatro flujos principales sin necesitar explicaciones constantes por parte del equipo.
 
-- 
+- Que los usuarios comprendan la función de los botones, formularios y opciones disponibles y consideren adecuada la cantidad de información solicitada.
 
-- 
+- Que los participantes identifiquen utilidad en la propuesta para encontrar estudiantes de otras carreras, formar equipos y posteriormente organizar y hacer seguimiento a sus proyectos.
 
 ---
 
@@ -90,7 +90,7 @@ Se le pedirá imaginar que desea participar en un proyecto universitario y que u
 
 ¿Con cuántas personas aplicaron esta validación?
 
-**Cantidad:**
+**Cantidad:** 5
 
 ¿Qué ocurrió de manera general durante la prueba?
 
