@@ -94,8 +94,18 @@ Se le pedirá imaginar que desea participar en un proyecto universitario y que u
 
 ¿Qué ocurrió de manera general durante la prueba?
 
-- 
+- Durante las pruebas los cinco estudiantes entrevistados expresaron que, a manera general, el prototipo les parecía muy intuitivo y sencillo de entender. Uno de ellos mencionó que “Sin un contexto o ayuda, cualquiera puede utilizar la aplicación”, evidenciando que las tareas de navegación planteadas fueron fáciles de realizar.
 
-- 
+- Para la mayoría de los estudiantes, los botones inferiores les parecieron primordiales, sobre todo el botón de inicio y el de buscar proyectos, este último facilitó la realización de la tarea de “Busca un grupo o proyecto que te interese y realiza el proceso para postularte”, debido a que los íconos son pertinentes con su significado.
 
-- 
+- Tres de los estudiantes durante la prueba hicieron comentarios sobre el menú desplegable tales como: “Está un poco escondido” y “No destaca, podría hacer que los usuarios no le den suficiente importancia”.
+
+- Dos de los estudiantes dieron recomendaciones acerca de la información que se puede mostrar en la pantalla de inicio, temporalmente como grupo se mantuvo en esta pantalla el perfil del usuario, mientras se desarrollan nuevas funcionalidades. Entre las ideas de los entrevistados está mostrar en el inicio propuestas y avances de otros grupos, anuncios de la universidad y resumen de notificaciones.
+
+- Entre los aspectos que más les gustaron a los estudiantes podemos encontrar el botón de inicio y el chat con un postulante.
+
+- Entre los aspectos que más les costó encontrar está el menú desplegable y el apartado de solicitudes recibidas.
+
+- Se mencionó que, en el apartado de proyecto, la información de “Detalles del proyecto” puede aparecer sin necesidad de cambiar de pantalla, opinan que se puede eliminar ese botón y dejar los datos en la primera pantalla de “Mi Proyecto”.
+
+- Algunos estudiantes no comprendieron cómo se completaría la barra de progreso por etapas dentro de un proyecto. Debido a que esta funcionalidad aún no está implementada al 100 % en el prototipo, se les explicó su funcionamiento previsto a futuro. Una vez conformado el equipo, se asignará un administrador encargado de gestionar las etapas del proyecto y las tareas correspondientes a cada integrante. Los miembros deberán subir sus avances, los cuales serán sometidos a revisión y, una vez aprobados, actualizarán automáticamente el porcentaje de progreso del proyecto.
