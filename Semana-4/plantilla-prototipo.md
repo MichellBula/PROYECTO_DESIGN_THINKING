@@ -36,19 +36,19 @@ Queremos mostrar cómo un estudiante puede crear o encontrar un proyecto, formar
 
 ¿Qué sí incluirá el prototipo?
 
-1. La creación y publicación de proyectos, permitiendo definir su información principal, objetivos, características, requisitos y la cantidad de personas necesarias en cada área.
+1. La creación de proyectos, permitiendo definir la información necesaria sobre el proyecto, sus objetivos, características, requisitos y las áreas en las que se necesitan integrantes.
 
-2. La exploración de proyectos y el proceso de postulación, incluyendo filtros por categorías, disponibilidad del estudiante, información del proyecto y confirmación de la solicitud.
+2. La búsqueda y postulación a proyectos, incluyendo el filtro por categorías, la disponibilidad del estudiante, la información del proyecto y la posibilidad de consultar posteriormente el estado de la postulación.
 
-3. La gestión y seguimiento de los grupos, permitiendo al líder revisar las solicitudes de los postulantes y a los integrantes consultar las tareas, avances, logros e información actualizada del proyecto.
+3. La revisión de las solicitudes por parte del líder, permitiendo consultar la información de los postulantes y utilizar elementos adicionales para conocer mejor sus perfiles antes de tomar una decisión.
 
 ¿Qué no incluirá por ahora?
 
-- La implementación funcional de la aplicación, como la conexión con una base de datos, autenticación real de usuarios o almacenamiento permanente de la información.
+- La participación de profesores y egresados dentro del proceso de creación y conformación de los equipos.
 
-- La comunicación directa entre los integrantes mediante chat, videollamadas u otras herramientas de comunicación.
+- Un sistema de comunicación o chat entre los integrantes de los proyectos.
 
-- La implementación real del sistema de recomendaciones o de selección automática de integrantes; por ahora solo se mostrará cómo podría funcionar dentro del prototipo.
+- Funciones adicionales que no estén relacionadas con la creación de proyectos, la formación de equipos y el seguimiento de los mismos.
 
 ---
 
@@ -56,17 +56,19 @@ Queremos mostrar cómo un estudiante puede crear o encontrar un proyecto, formar
 
 Enumeren los elementos que van a construir y cómo se conectan entre sí.
 
-1. **Inicio y exploración de proyectos:** el usuario podrá visualizar los proyectos disponibles y utilizar filtros para encontrar aquellos que sean de su interés.
+1. **Creación del proyecto:** el líder registra la información principal, objetivos, características, requisitos y las áreas en las que necesita integrantes.
 
-2. **Creación de proyecto:** el líder podrá registrar una nueva idea, definir la información principal, objetivos, requisitos, categorías y cantidad de integrantes necesarios por área.
+2. **Proyectos disponibles:** los estudiantes pueden explorar los proyectos publicados y utilizar categorías para encontrar aquellos que sean de su interés.
 
-3. **Información del proyecto y postulación:** el usuario podrá consultar los detalles y requisitos del proyecto, indicar su disponibilidad y responder la información necesaria para enviar una postulación.
+3. **Información y postulación:** el estudiante consulta los detalles y requisitos del proyecto, indica su disponibilidad y completa la información necesaria para enviar su postulación.
 
-4. **Revisión de solicitudes:** el líder podrá consultar las postulaciones recibidas, revisar la información de los estudiantes y aceptar, rechazar o gestionar las solicitudes.
+4. **Revisión de postulaciones:** el líder consulta las solicitudes recibidas, revisa la información de cada estudiante y utiliza las preguntas o información adicional para conocer mejor a los postulantes y tomar una decisión.
 
-5. **Información y progreso del grupo:** los integrantes podrán consultar la información del proyecto, los miembros del equipo, las tareas pendientes, los avances y los logros alcanzados por cada integrante.
+5. **Grupo de trabajo:** después de conformar el equipo, los integrantes pueden consultar la información del proyecto y de los demás miembros.
 
-6. **Actualización del proyecto:** el administrador o líder podrá editar la información del grupo y registrar o actualizar los avances del proyecto cuando sea necesario.
+6. **Seguimiento del proyecto:** los integrantes pueden consultar y registrar avances, tareas y logros. Esta parte tomará la estructura más completa de la versión B e incorporará elementos de la versión A, como el registro de fecha, categorías y una publicación de avances más sencilla e intuitiva.
+
+---
 ## Integración entre flujos
 
 ¿Cómo se conectan entre sí los flujos aprobados?
