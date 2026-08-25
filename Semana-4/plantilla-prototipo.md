@@ -36,19 +36,19 @@ Queremos mostrar cómo un estudiante puede crear o encontrar un proyecto, formar
 
 ¿Qué sí incluirá el prototipo?
 
-1.
+1. La creación y publicación de proyectos, permitiendo definir su información principal, objetivos, características, requisitos y la cantidad de personas necesarias en cada área.
 
-2.
+2. La exploración de proyectos y el proceso de postulación, incluyendo filtros por categorías, disponibilidad del estudiante, información del proyecto y confirmación de la solicitud.
 
-3.
+3. La gestión y seguimiento de los grupos, permitiendo al líder revisar las solicitudes de los postulantes y a los integrantes consultar las tareas, avances, logros e información actualizada del proyecto.
 
 ¿Qué no incluirá por ahora?
 
-- 
+- La implementación funcional de la aplicación, como la conexión con una base de datos, autenticación real de usuarios o almacenamiento permanente de la información.
 
-- 
+- La comunicación directa entre los integrantes mediante chat, videollamadas u otras herramientas de comunicación.
 
-- 
+- La implementación real del sistema de recomendaciones o de selección automática de integrantes; por ahora solo se mostrará cómo podría funcionar dentro del prototipo.
 
 ---
 
@@ -56,20 +56,17 @@ Queremos mostrar cómo un estudiante puede crear o encontrar un proyecto, formar
 
 Enumeren los elementos que van a construir y cómo se conectan entre sí.
 
-1.
+1. **Inicio y exploración de proyectos:** el usuario podrá visualizar los proyectos disponibles y utilizar filtros para encontrar aquellos que sean de su interés.
 
-2.
+2. **Creación de proyecto:** el líder podrá registrar una nueva idea, definir la información principal, objetivos, requisitos, categorías y cantidad de integrantes necesarios por área.
 
-3.
+3. **Información del proyecto y postulación:** el usuario podrá consultar los detalles y requisitos del proyecto, indicar su disponibilidad y responder la información necesaria para enviar una postulación.
 
-4.
+4. **Revisión de solicitudes:** el líder podrá consultar las postulaciones recibidas, revisar la información de los estudiantes y aceptar, rechazar o gestionar las solicitudes.
 
-5.
+5. **Información y progreso del grupo:** los integrantes podrán consultar la información del proyecto, los miembros del equipo, las tareas pendientes, los avances y los logros alcanzados por cada integrante.
 
-6.
-
----
-
+6. **Actualización del proyecto:** el administrador o líder podrá editar la información del grupo y registrar o actualizar los avances del proyecto cuando sea necesario.
 ## Integración entre flujos
 
 ¿Cómo se conectan entre sí los flujos aprobados?
