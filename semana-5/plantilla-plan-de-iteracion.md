@@ -79,6 +79,8 @@ Por esta razón, no es necesario cambiar el enfoque de la solución, sino mejora
 
 Después de esta etapa, ¿cómo se encuentra el equipo?
 
-- El equipo ya cuenta con una propuesta definida y con los principales flujos integrados dentro del prototipo. Las validaciones han permitido identificar problemas específicos de interacción y realizar mejoras sobre ellos. Sin embargo, consideramos como mejor opción realizar una iteración adicional para validar especialmente los cambios realizados en la barra de búsqueda y en el menú de navegación. De esta manera podremos comprobar que los usuarios identifican y utilizan estas funciones con mayor facilidad antes de avanzar hacia una implementación inicial.
+- Después de las validaciones realizadas y de los cambios aplicados al prototipo, el equipo considera que UNCampus Connect está listo para comenzar una implementación inicial. Las pruebas con usuarios permitieron identificar oportunidades de mejora en elementos como la barra de búsqueda y el menú de navegación, los cuales fueron ajustados para facilitar la interacción con la aplicación.
+
+Aunque existen funcionalidades que podrían incorporarse más adelante, como más etiquetas en los perfiles, el historial de proyectos y un sistema de calificaciones, estas no impiden desarrollar una primera versión funcional de la aplicación. Por esta razón, el siguiente paso puede ser comenzar con la implementación de las funcionalidades principales que ya fueron diseñadas y validadas.
 
 
