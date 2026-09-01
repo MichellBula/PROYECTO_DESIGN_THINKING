@@ -140,16 +140,16 @@ Registren frases importantes de los usuarios.
 
 ¿Qué mejoró frente a la validación anterior?
 
-- 
+- Se mejoró la navegación de las funciones principales, debido a que los entrevistados de la semana 4, expresaban que sentían que algunas opciones como el perfil, proyectos y solicitudes estaban ocultas dentro de un menú desplegable. En esta nueva versión se incorporaron directamente en la barra de navegación inferior, lo que permitió que los usuarios encontraran las funcionalidades con mayor facilidad. 
 
-- 
+- El prototipo pasó de ser principalmente funcional y de bajo nivel, a tener una experiencia visual más completa y atractiva, para esto se incorporó una identidad visual definida, imágenes, widgets, scroll y una mejor distribución de los contenidos. Esto generó reacciones más positivas por parte de los entrevistados y permitió que el prototipo se percibiera más cercano a una aplicación funcional. 
 
-- 
+- Se fortaleció la información disponible para conectar colaboradores, añadiendo la pantalla de perfil, la cual permite visualizar habilidades, proyectos realizados, calificación e insignias, mientras que el formulario de creación de proyectos permite indicar cuántos integrantes se necesitan para cada rol. Estos cambios facilitan que los líderes identifiquen posibles colaboradores y conformen equipos multidisciplinarios.
 
 ¿Qué problemas siguen presentes?
 
-- 
+- No todas las redirecciones dentro del prototipo funcionan completamente. Al finalizar acciones como una postulación o el registro de un avance, el usuario es enviado a “Mis proyectos” en lugar de permanecer dentro del proyecto donde estaba realizando la acción. 
 
-- 
+- Algunas funcionalidades todavía no están implementadas completamente en el prototipo. El botón de filtros en la búsqueda de proyectos y el botón de notificaciones no tienen interacción, lo que generó dudas en algunos entrevistados.
 
-- 
+- Se recomendó añadir la opción de guardar borrador cuando se está creando un nuevo proyecto o cuando se está llenando una nueva solicitud.
