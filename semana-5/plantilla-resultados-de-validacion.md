@@ -57,19 +57,31 @@ Resuman los 3 aprendizajes más importantes de esta nueva ronda de validación.
 
 **¿Qué ocurrió?**
 
+Los entrevistados lograron recorrer y revisar los diferentes flujos implementados en el prototipo sin requerir explicaciones previas sobre la ubicación o funcionamiento de cada sección.
+
 **¿Qué significa?**
+
+Esto indica que la interfaz presenta un nivel adecuado de intuitividad y facilidad de comprensión, ya que los usuarios pudieron identificar por sí mismos las principales funcionalidades y navegar por los diferentes apartados del prototipo.
 
 ### Hallazgo 2
 
 **¿Qué ocurrió?**
 
+Los entrevistados mostraron una reacción positiva y de sorpresa frente al diseño de la interfaz del prototipo final.
+
 **¿Qué significa?**
+
+La interfaz presentó una mejora significativa con respecto a la versión mostrada durante la semana 4. La incorporación de elementos visuales como imágenes, widgets, desplazamiento mediante scroll y una mejor distribución de los contenidos permitió construir una experiencia más completa, atractiva y cercana a una aplicación funcional.
 
 ### Hallazgo 3
 
 **¿Qué ocurrió?**
 
+La incorporación de una interfaz más detallada permitió destacar y hacer más visibles algunas de las funcionalidades principales del prototipo.
+
 **¿Qué significa?**
+
+El apartado de solicitudes y entrevistas resultó más llamativo e interactivo para los entrevistados. Además, el chat destinado a las entrevistas adquirió mayor visibilidad dentro del flujo, lo que permitió que los usuarios comprendieran mejor su importancia como herramienta de comunicación entre los líderes de proyecto y los postulantes.
 
 ---
 
@@ -77,11 +89,11 @@ Resuman los 3 aprendizajes más importantes de esta nueva ronda de validación.
 
 ¿En qué partes hubo dudas, errores o confusión?
 
-- 
+- Debido a las limitaciones de interacción propias del prototipo realizado en Figma, algunos flujos presentaron redirecciones inesperadas. Por ejemplo, al finalizar una postulación o registrar un avance, el usuario era dirigido automáticamente a la pantalla de “Mis proyectos”, en lugar de permanecer dentro del proyecto en el que estaba realizando la acción.
+  
+- En la sección de búsqueda de proyectos existe un botón destinado a funcionar como filtro que aún no cuenta con una interacción implementada. Esto generó cierta confusión entre los entrevistados, aunque no representó una dificultad significativa para completar el flujo.
 
-- 
-
-- 
+- Se identificó un botón de notificaciones que no presenta ninguna interacción dentro del prototipo. Esto generó dudas en algunos usuarios, quienes esperaban poder consultar las notificaciones al identificar el botón.
 
 ---
 
@@ -89,11 +101,11 @@ Resuman los 3 aprendizajes más importantes de esta nueva ronda de validación.
 
 ¿Qué elementos parecieron útiles, claros o valiosos para los usuarios?
 
-- 
-
-- 
-
-- 
+- La barra de navegación inferior fue percibida como un elemento útil, ya que permite acceder rápidamente a las diferentes secciones de la aplicación y facilita la navegación entre los apartados principales.
+  
+- La personalización del perfil generó una reacción positiva debido a elementos como las insignias, los proyectos realizados y la puntuación de reputación. Estos elementos permiten mostrar información relevante sobre la experiencia y participación del usuario, lo que puede generar mayor confianza al momento de postularse a otros proyectos.
+  
+- La interfaz gráfica fue valorada positivamente por los entrevistados debido a su apariencia limpia, organizada y agradable. La distribución de los elementos y el tamaño de los textos facilitan la lectura, mientras que el uso moderado de colores evita una sobrecarga visual.
 
 ---
 
@@ -101,31 +113,26 @@ Resuman los 3 aprendizajes más importantes de esta nueva ronda de validación.
 
 Registren frases importantes de los usuarios.
 
->
+> “Deberían hacer que se puedan ver las notificaciones.”
 
->
+> “Me gusta mucho la personalización del usuario y el diseño del logo.”
 
->
-
+> “Deberían agregar un modo oscuro.”
 ---
 
 ## Hipótesis confirmadas y no confirmadas
 
 ### Confirmadas
 
-- 
-
-- 
-
-- 
+- Los usuarios comprenden con facilidad cómo crear, buscar y postularse a proyectos.
+  
+- La información sobre perfiles, habilidades y cantidad de integrantes facilita a los líderes la selección de posibles miembros.
+  
+- La organización de los proyectos y sus avances permite a los usuarios realizar un seguimiento más estructurado.
 
 ### No confirmadas
 
-- 
-
-- 
-
-- 
+- No se identificaron hipótesis completamente no confirmadas durante esta ronda de validación. Sin embargo, algunos aspectos relacionados con la navegación y las funcionalidades de seguimiento requieren nuevas pruebas para comprobar su efectividad en una versión más funcional del prototipo.
 
 ---
 
