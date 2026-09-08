@@ -20,13 +20,13 @@ class QuickAccessButtons extends StatelessWidget {
               icon: Icons.home_outlined,
               label: 'Inicio',
               onTap: () {},
-              color: Color.fromARGB(255, 147, 18, 18), // Set the color to blue
+              color:  const Color(0xFF9b0202), // Set the color to blue
             ),
           ),
           Expanded(
             child: _QuickAccessButton(
               icon: Icons.search,
-              label: 'buscar',
+              label: 'Buscar',
               onTap: () {},
               color: Colors.black, // Set the color to blue
             ),
@@ -36,7 +36,7 @@ class QuickAccessButtons extends StatelessWidget {
               icon: Icons.add_circle_outline,
               label: 'Crear',
               onTap: () {},
-              color: Color.fromARGB(255, 147, 18, 18), // Set the color to blue
+              color: Color.fromARGB(255, 2, 2, 2), // Set the color to blue
             ),
           ),
           Expanded(

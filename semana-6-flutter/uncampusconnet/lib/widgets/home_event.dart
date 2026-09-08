@@ -36,9 +36,9 @@ class _HomeEventsState extends State<HomeEvents> {
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(
-            20,
+            30,
             15,
-            20,
+            30,
             20,
           ),
           child: Column(
