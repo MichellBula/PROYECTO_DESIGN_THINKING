@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'event_data.dart';
 
-const Color cardBgColor = Color(0xFFE2DFDF);
-
-// Colores para REUNIONES (Rojo/Granate oscuro)
+// Colores para REUNIONES
 const Color meetingIconBg = Color(0xFF6B0F0F);
 const Color meetingTagBg = Color(0xFFD6BFC0);
 const Color meetingTextColor = Color(0xFF6B0F0F);
 
-// Colores para OTROS EVENTOS (Rojo más claro)
+// Colores para OTROS EVENTOS
 const Color otherIconBg = Color(0xFF931212);
 const Color otherTagBg = Color(0xFFE8C8C8);
 const Color otherTextColor = Color(0xFF931212);
@@ -25,37 +23,79 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isMeeting = event.type == EventType.meeting;
+    final bool isDarkMode =
+        Theme.of(context).brightness == Brightness.dark;
 
-    final Color iconBg = isMeeting ? meetingIconBg : otherIconBg;
-    final Color tagBg = isMeeting ? meetingTagBg : otherTagBg;
-    final Color primaryColor = isMeeting ? meetingTextColor : otherTextColor;
+    final bool isMeeting =
+        event.type == EventType.meeting;
+
+    final Color iconBg =
+        isMeeting ? meetingIconBg : otherIconBg;
+
+    final Color primaryColor =
+        isMeeting ? meetingTextColor : otherTextColor;
+
+    final Color cardBgColor = isDarkMode
+        ? const Color(0xFF242424)
+        : const Color(0xFFE2DFDF);
+
+    final Color titleColor = isDarkMode
+        ? Colors.white
+        : Colors.black87;
+
+    final Color subtitleColor = isDarkMode
+        ? Colors.white60
+        : Colors.black45;
+
+    final Color menuColor = isDarkMode
+        ? Colors.white70
+        : Colors.black54;
+
+    final Color tagBg = isDarkMode
+        ? (isMeeting
+            ? const Color(0xFF4A2424)
+            : const Color(0xFF522525))
+        : (isMeeting ? meetingTagBg : otherTagBg);
+
+    final Color dateColor = isDarkMode
+        ? const Color(0xFFFFA0A0)
+        : primaryColor;
+
+    final Color tagTextColor = isDarkMode
+        ? const Color(0xFFFFC2C2)
+        : primaryColor;
 
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(14),
+
         child: Container(
           width: 130,
-          padding: const EdgeInsets.all(8), // Reducido para evitar desbordamiento
+          padding: const EdgeInsets.all(8),
+
           decoration: BoxDecoration(
             color: cardBgColor,
             borderRadius: BorderRadius.circular(14),
           ),
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               // ICONO Y MENÚ
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     width: 24,
                     height: 24,
                     decoration: BoxDecoration(
                       color: iconBg,
-                      borderRadius: BorderRadius.circular(6),
+                      borderRadius:
+                          BorderRadius.circular(6),
                     ),
                     child: Icon(
                       event.icon,
@@ -63,12 +103,13 @@ class EventCard extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
+
                   GestureDetector(
                     onTap: onTap,
-                    child: const Icon(
+                    child: Icon(
                       Icons.more_horiz,
                       size: 16,
-                      color: Colors.black54,
+                      color: menuColor,
                     ),
                   ),
                 ],
@@ -82,7 +123,7 @@ class EventCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 9,
                   fontWeight: FontWeight.w600,
-                  color: primaryColor,
+                  color: dateColor,
                 ),
               ),
 
@@ -91,10 +132,10 @@ class EventCard extends StatelessWidget {
                 event.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: titleColor,
                 ),
               ),
 
@@ -103,13 +144,13 @@ class EventCard extends StatelessWidget {
                 event.project,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 9,
-                  color: Colors.black45,
+                  color: subtitleColor,
                 ),
               ),
 
-              const Spacer(), // Empuja el tag al final aprovechando el espacio restante
+              const Spacer(),
 
               // ETIQUETA / TAG
               Container(
@@ -119,14 +160,15 @@ class EventCard extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: tagBg,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius:
+                      BorderRadius.circular(8),
                 ),
                 child: Text(
                   event.tag,
                   style: TextStyle(
                     fontSize: 8,
                     fontWeight: FontWeight.bold,
-                    color: primaryColor,
+                    color: tagTextColor,
                   ),
                 ),
               ),

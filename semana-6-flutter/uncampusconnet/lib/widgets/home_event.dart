@@ -16,8 +16,7 @@ class HomeEvents extends StatefulWidget {
 }
 
 class _HomeEventsState extends State<HomeEvents> {
-  final ScrollController _scrollController =
-      ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void dispose() {
@@ -31,8 +30,15 @@ class _HomeEventsState extends State<HomeEvents> {
 
   @override
   Widget build(BuildContext context) {
+    // Detecta automáticamente si está activo el modo oscuro
+    final isDarkMode =
+        Theme.of(context).brightness == Brightness.dark;
+
     return Container(
-      color: const Color(0xFFF5F5F5),
+      color: isDarkMode
+          ? const Color(0xFF121212)
+          : const Color(0xFFF5F5F5),
+
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(
@@ -41,29 +47,35 @@ class _HomeEventsState extends State<HomeEvents> {
             30,
             20,
           ),
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               // ==========================================
               // SALUDO
               // ==========================================
 
-              const Text(
+              Text(
                 'Hola, Juan!',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: isDarkMode
+                      ? Colors.white
+                      : Colors.black,
                 ),
               ),
 
               const SizedBox(height: 2),
 
-              const Text(
+              Text(
                 '¿Qué deseas hacer hoy?',
                 style: TextStyle(
                   fontSize: 13,
-                  color: Colors.black54,
+                  color: isDarkMode
+                      ? Colors.white70
+                      : Colors.black54,
                 ),
               ),
 
@@ -77,11 +89,15 @@ class _HomeEventsState extends State<HomeEvents> {
                 mainAxisAlignment:
                     MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+
+                  Text(
                     'Eventos próximos:',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
+                      color: isDarkMode
+                          ? Colors.white
+                          : Colors.black,
                     ),
                   ),
 
@@ -116,17 +132,20 @@ class _HomeEventsState extends State<HomeEvents> {
                   interactive: true,
                   thickness: 5,
                   radius: const Radius.circular(10),
+
                   child: ListView.separated(
                     controller: _scrollController,
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
                     itemCount: events.length,
+
                     separatorBuilder: (
                       BuildContext context,
                       int index,
                     ) {
                       return const SizedBox(width: 12);
                     },
+
                     itemBuilder: (
                       BuildContext context,
                       int index,

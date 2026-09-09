@@ -1,140 +1,71 @@
 import 'package:flutter/material.dart';
 
-// ======================================================
-// COLORES
-// ======================================================
-
-const Color primaryRed = Color(0xFF931212);
-
-// ======================================================
-// ELEMENTO SELECCIONADO
-// ======================================================
-
-enum QuickAccessItem {
-  inicio,
-  buscar,
-  crear,
-  misProyectos,
-  solicitudes,
-}
-
-// ======================================================
-// BARRA DE ACCESO RÁPIDO
-// ======================================================
-
 class QuickAccessButtons extends StatelessWidget {
-  final QuickAccessItem selectedItem;
-
-  final VoidCallback? onInicioTap;
-  final VoidCallback? onBuscarTap;
-  final VoidCallback? onCrearTap;
-  final VoidCallback? onMisProyectosTap;
-  final VoidCallback? onSolicitudesTap;
-
-  const QuickAccessButtons({
-    super.key,
-    required this.selectedItem,
-    this.onInicioTap,
-    this.onBuscarTap,
-    this.onCrearTap,
-    this.onMisProyectosTap,
-    this.onSolicitudesTap,
-  });
+  const QuickAccessButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    final defaultColor = isDarkMode ? Colors.white : Colors.black;
+
     return Container(
       width: double.infinity,
-
-      padding: const EdgeInsets.only(
-        left: 10,
-        right: 10,
-        top: 10,
-        bottom: 8,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 15,
+        vertical: 15,
       ),
 
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x18000000),
-            blurRadius: 8,
-            offset: Offset(0, -2),
-          ),
-        ],
+      decoration: BoxDecoration(
+        color: isDarkMode
+            ? const Color(0xFF1E1E1E)
+            : const Color.fromRGBO(250, 250, 250, 0.993),
       ),
 
       child: Row(
         children: [
-          // ==================================================
-          // INICIO
-          // ==================================================
-
           Expanded(
             child: _QuickAccessButton(
               icon: Icons.home_outlined,
               label: 'Inicio',
-              color: selectedItem == QuickAccessItem.inicio
-                  ? primaryRed
-                  : Colors.black,
-              onTap: onInicioTap ?? () {},
+              onTap: () {},
+              color: const Color(0xFF9B0202),
             ),
           ),
-
-          // ==================================================
-          // BUSCAR
-          // ==================================================
 
           Expanded(
             child: _QuickAccessButton(
               icon: Icons.search,
               label: 'Buscar',
-              color: selectedItem == QuickAccessItem.buscar
-                  ? primaryRed
-                  : Colors.black,
-              onTap: onBuscarTap ?? () {},
+              onTap: () {},
+              color: defaultColor,
             ),
           ),
-
-          // ==================================================
-          // CREAR
-          // ==================================================
-
-          Expanded(
-            child: _CreateButton(
-              onTap: onCrearTap ?? () {},
-            ),
-          ),
-
-          // ==================================================
-          // MIS PROYECTOS
-          // ==================================================
 
           Expanded(
             child: _QuickAccessButton(
-              icon: Icons.groups_outlined,
-              label: 'Mis proyectos',
-              color:
-                  selectedItem == QuickAccessItem.misProyectos
-                      ? primaryRed
-                      : Colors.black,
-              onTap: onMisProyectosTap ?? () {},
+              icon: Icons.add_circle_outline,
+              label: 'Crear',
+              onTap: () {},
+              color: defaultColor,
             ),
           ),
 
-          // ==================================================
-          // SOLICITUDES
-          // ==================================================
+          Expanded(
+            child: _QuickAccessButton(
+              icon: Icons.folder_open_outlined,
+              label: 'Mis proyectos',
+              onTap: () {},
+              color: defaultColor,
+            ),
+          ),
 
           Expanded(
             child: _QuickAccessButton(
               icon: Icons.chat_bubble_outline,
               label: 'Solicitudes',
-              color:
-                  selectedItem == QuickAccessItem.solicitudes
-                      ? primaryRed
-                      : Colors.black,
-              onTap: onSolicitudesTap ?? () {},
+              onTap: () {},
+              color: defaultColor,
             ),
           ),
         ],
@@ -143,29 +74,23 @@ class QuickAccessButtons extends StatelessWidget {
   }
 }
 
-// ======================================================
-// BOTÓN NORMAL
-// ======================================================
-
 class _QuickAccessButton extends StatelessWidget {
   final IconData icon;
   final String label;
-  final Color color;
   final VoidCallback onTap;
+  final Color color;
 
   const _QuickAccessButton({
     required this.icon,
     required this.label,
-    required this.color,
     required this.onTap,
+    required this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-
-      behavior: HitTestBehavior.opaque,
 
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -176,68 +101,13 @@ class _QuickAccessButton extends StatelessWidget {
             color: color,
           ),
 
-          const SizedBox(height: 3),
+          const SizedBox(height: 5),
 
           Text(
             label,
             style: TextStyle(
-              fontSize: 11,
+              fontSize: 12,
               color: color,
-              fontWeight: FontWeight.w400,
-            ),
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ======================================================
-// BOTÓN CREAR
-// ======================================================
-
-class _CreateButton extends StatelessWidget {
-  final VoidCallback onTap;
-
-  const _CreateButton({
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-
-      behavior: HitTestBehavior.opaque,
-
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 32,
-            height: 32,
-            decoration: const BoxDecoration(
-              color: primaryRed,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.add,
-              size: 25,
-              color: Colors.white,
-            ),
-          ),
-
-          const SizedBox(height: 3),
-
-          const Text(
-            'Crear',
-            style: TextStyle(
-              fontSize: 11,
-              color: primaryRed,
-              fontWeight: FontWeight.w400,
             ),
             textAlign: TextAlign.center,
           ),

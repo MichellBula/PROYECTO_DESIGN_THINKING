@@ -5,23 +5,43 @@ class HeaderBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 15,
+      ),
 
       decoration: BoxDecoration(
-        color: Color.fromRGBO(226, 226, 226, 1),
-        // borderRadius: BorderRadius.circular(20),
+        color: isDarkMode
+            ? const Color(0xFF1E1E1E)
+            : const Color.fromRGBO(226, 226, 226, 1),
       ),
+
       child: Row(
         children: [
-          Image.asset('assets/images/logo_encabezado.png', height: 50),
+          Image.asset(
+            'assets/images/logo_encabezado.png',
+            height: 50,
+          ),
 
           const Spacer(),
-          const Icon(Icons.notifications_none, size: 28),
+
+          Icon(
+            Icons.notifications_none,
+            size: 28,
+            color: isDarkMode ? Colors.white : Colors.black87,
+          ),
+
           const SizedBox(width: 15),
 
-          const Icon(Icons.person_outline, size: 28),
+          Icon(
+            Icons.person_outline,
+            size: 28,
+            color: isDarkMode ? Colors.white : Colors.black87,
+          ),
         ],
       ),
     );
