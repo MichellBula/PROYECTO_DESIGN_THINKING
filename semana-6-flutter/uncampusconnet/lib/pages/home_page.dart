@@ -5,6 +5,7 @@ import 'package:uncampusconnet/widgets/quick_access_buttons.dart';
 import 'package:uncampusconnet/widgets/home_event.dart';
 import 'package:uncampusconnet/widgets/post_list.dart';
 import 'package:uncampusconnet/widgets/posts_data.dart';
+import 'package:uncampusconnet/pages/mis_proyectos_page.dart';
 
 // Pantalla principal de la aplicacion
 class HomePage extends StatelessWidget {
@@ -38,8 +39,9 @@ class HomePage extends StatelessWidget {
                 isDarkMode ? Icons.light_mode : Icons.dark_mode,
                 color: isDarkMode ? Colors.amber : Colors.black87,
               ),
-              tooltip:
-                  isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro',
+              tooltip: isDarkMode
+                  ? 'Cambiar a modo claro'
+                  : 'Cambiar a modo oscuro',
             ),
           ),
 
@@ -53,21 +55,28 @@ class HomePage extends StatelessWidget {
               children: [
                 const HomeEvents(),
 
-                Expanded(
-                  child: PostList(
-                    posts: Post.posts,
-                  ),
-                ),
+                Expanded(child: PostList(posts: Post.posts)),
               ],
             ),
           ),
 
           // Botones inferiores
-          const Positioned(
+          Positioned(
             left: 0,
             right: 0,
             bottom: 0,
-            child: QuickAccessButtons(),
+            child: QuickAccessButtons(
+              selectedItem: QuickAccessItem.inicio,
+
+              onMisProyectosTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MisProyectosPage(),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
