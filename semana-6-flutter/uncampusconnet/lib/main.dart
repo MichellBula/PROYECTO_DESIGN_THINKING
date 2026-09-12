@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:uncampusconnet/pages/home_page.dart';
+import 'package:uncampusconnet/ui/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());

@@ -34,24 +34,17 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode =
-        Theme.of(context).brightness == Brightness.dark;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    final cardColor = isDarkMode
-        ? const Color(0xFF242424)
-        : Colors.white;
+    final cardColor = isDarkMode ? const Color(0xFF242424) : Colors.white;
 
-    final primaryTextColor =
-        isDarkMode ? Colors.white : Colors.black;
+    final primaryTextColor = isDarkMode ? Colors.white : Colors.black;
 
-    final secondaryTextColor =
-        isDarkMode ? Colors.white70 : Colors.grey[700];
+    final secondaryTextColor = isDarkMode ? Colors.white70 : Colors.grey[700];
 
-    final mutedTextColor =
-        isDarkMode ? Colors.white54 : Colors.grey[600];
+    final mutedTextColor = isDarkMode ? Colors.white54 : Colors.grey[600];
 
-    final iconColor =
-        isDarkMode ? Colors.white60 : Colors.grey[600];
+    final iconColor = isDarkMode ? Colors.white60 : Colors.grey[600];
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -64,7 +57,9 @@ class _PostCardState extends State<PostCard> {
         boxShadow: [
           BoxShadow(
             color: isDarkMode
+                // ignore: deprecated_member_use
                 ? Colors.black.withOpacity(0.25)
+                // ignore: deprecated_member_use
                 : Colors.grey.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 8,
@@ -72,7 +67,9 @@ class _PostCardState extends State<PostCard> {
           ),
           BoxShadow(
             color: isDarkMode
+                // ignore: deprecated_member_use
                 ? Colors.black.withOpacity(0.10)
+                // ignore: deprecated_member_use
                 : Colors.grey.withOpacity(0.08),
             spreadRadius: 4,
             blurRadius: 20,
@@ -84,7 +81,6 @@ class _PostCardState extends State<PostCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           // ENCABEZADO
           Row(
             children: [
@@ -96,9 +92,7 @@ class _PostCardState extends State<PostCard> {
                 child: Icon(
                   Icons.person,
                   size: 18,
-                  color: isDarkMode
-                      ? Colors.white70
-                      : Colors.grey,
+                  color: isDarkMode ? Colors.white70 : Colors.grey,
                 ),
               ),
 
@@ -118,10 +112,7 @@ class _PostCardState extends State<PostCard> {
 
                   Text(
                     widget.post['usuario'] ?? '@usuario',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: mutedTextColor,
-                    ),
+                    style: TextStyle(fontSize: 12, color: mutedTextColor),
                   ),
                 ],
               ),
@@ -132,9 +123,7 @@ class _PostCardState extends State<PostCard> {
                 widget.post['tiempo'] ?? 'Hace 2h',
                 style: TextStyle(
                   fontSize: 12,
-                  color: isDarkMode
-                      ? Colors.white38
-                      : Colors.grey[400],
+                  color: isDarkMode ? Colors.white38 : Colors.grey[400],
                 ),
               ),
 
@@ -143,9 +132,7 @@ class _PostCardState extends State<PostCard> {
               Icon(
                 Icons.more_horiz,
                 size: 20,
-                color: isDarkMode
-                    ? Colors.white54
-                    : Colors.grey[400],
+                color: isDarkMode ? Colors.white54 : Colors.grey[400],
               ),
             ],
           ),
@@ -156,16 +143,13 @@ class _PostCardState extends State<PostCard> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Expanded(
                 flex: 1,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Text(
-                      widget.post['titulo'] ??
-                          'Título de la publicación',
+                      widget.post['titulo'] ?? 'Título de la publicación',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
@@ -178,10 +162,7 @@ class _PostCardState extends State<PostCard> {
                     Text(
                       widget.post['contenido'] ??
                           'Contenido de la publicación...',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: secondaryTextColor,
-                      ),
+                      style: TextStyle(fontSize: 14, color: secondaryTextColor),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -209,16 +190,13 @@ class _PostCardState extends State<PostCard> {
                           color: isDarkMode
                               ? const Color(0xFF333333)
                               : Colors.grey[200],
-                          borderRadius:
-                              BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8),
                         ),
 
                         child: Icon(
                           Icons.image_not_supported,
                           size: 30,
-                          color: isDarkMode
-                              ? Colors.white54
-                              : Colors.grey,
+                          color: isDarkMode ? Colors.white54 : Colors.grey,
                         ),
                       );
                     },
@@ -232,20 +210,15 @@ class _PostCardState extends State<PostCard> {
           // ACCIONES
           Row(
             children: [
-
               GestureDetector(
                 onTap: _toggleLike,
 
                 child: Row(
                   children: [
                     Icon(
-                      isLiked
-                          ? Icons.favorite
-                          : Icons.favorite_border,
+                      isLiked ? Icons.favorite : Icons.favorite_border,
                       size: 20,
-                      color: isLiked
-                          ? const Color(0xFF931212)
-                          : iconColor,
+                      color: isLiked ? const Color(0xFF931212) : iconColor,
                     ),
 
                     const SizedBox(width: 4),
@@ -270,20 +243,13 @@ class _PostCardState extends State<PostCard> {
 
               Row(
                 children: [
-                  Icon(
-                    Icons.chat_bubble_outline,
-                    size: 20,
-                    color: iconColor,
-                  ),
+                  Icon(Icons.chat_bubble_outline, size: 20, color: iconColor),
 
                   const SizedBox(width: 4),
 
                   Text(
                     '${widget.post['comentarios'] ?? 0}',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: primaryTextColor,
-                    ),
+                    style: TextStyle(fontSize: 14, color: primaryTextColor),
                   ),
                 ],
               ),

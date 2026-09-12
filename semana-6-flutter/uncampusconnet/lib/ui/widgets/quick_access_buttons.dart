@@ -51,6 +51,7 @@ class QuickAccessButtons extends StatelessWidget {
 
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.08),
             blurRadius: 8,
             offset: const Offset(0, -2),

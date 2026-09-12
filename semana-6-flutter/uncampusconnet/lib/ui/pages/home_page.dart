@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:uncampusconnet/widgets/home_background.dart';
-import 'package:uncampusconnet/widgets/header_banner.dart';
-import 'package:uncampusconnet/widgets/quick_access_buttons.dart';
-import 'package:uncampusconnet/widgets/home_event.dart';
-import 'package:uncampusconnet/widgets/post_list.dart';
-import 'package:uncampusconnet/widgets/posts_data.dart';
-import 'package:uncampusconnet/pages/mis_proyectos_page.dart';
+import 'package:uncampusconnet/ui/widgets/home_background.dart';
+import 'package:uncampusconnet/ui/widgets/header_banner.dart';
+import 'package:uncampusconnet/ui/widgets/quick_access_buttons.dart';
+import 'package:uncampusconnet/ui/widgets/home_event.dart';
+import 'package:uncampusconnet/ui/widgets/post_list.dart';
+import 'package:uncampusconnet/ui/pages/mis_proyectos_page.dart';
+import 'package:uncampusconnet/ui/pages/solicitudes_page.dart';
+import 'package:uncampusconnet/ui/pages/buscar_page.dart';
 
 // Pantalla principal de la aplicacion
 class HomePage extends StatelessWidget {
@@ -32,7 +33,7 @@ class HomePage extends StatelessWidget {
           // Botón para cambiar modo claro / oscuro
           Positioned(
             top: 20,
-            right: 20,
+            right: 100,
             child: IconButton(
               onPressed: onThemeChanged,
               icon: Icon(
@@ -68,11 +69,27 @@ class HomePage extends StatelessWidget {
             child: QuickAccessButtons(
               selectedItem: QuickAccessItem.inicio,
 
+              onBuscarTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BuscarPage()),
+                );
+              },
+
               onMisProyectosTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const MisProyectosPage(),
+                  ),
+                );
+              },
+
+              onSolicitudesTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SolicitudesPage(),
                   ),
                 );
               },

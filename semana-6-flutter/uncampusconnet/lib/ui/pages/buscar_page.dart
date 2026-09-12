@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:uncampusconnet/widgets/header_banner.dart';
-import 'package:uncampusconnet/widgets/quick_access_buttons.dart';
-import 'package:uncampusconnet/widgets/development_dialog.dart';
-import 'package:uncampusconnet/widgets/project_card.dart';
-import 'package:uncampusconnet/widgets/project_data.dart';
+import 'package:uncampusconnet/ui/widgets/header_banner.dart';
+import 'package:uncampusconnet/ui/widgets/quick_access_buttons.dart';
 
 // ======================================================
 // COLORES
@@ -14,11 +11,11 @@ const Color primaryRed = Color(0xFF931212);
 const Color darkRed = Color(0xFF941818);
 
 // ======================================================
-// PÁGINA MIS PROYECTOS
+// PÁGINA BUSCAR
 // ======================================================
 
-class MisProyectosPage extends StatelessWidget {
-  const MisProyectosPage({super.key});
+class BuscarPage extends StatelessWidget {
+  const BuscarPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +36,15 @@ class MisProyectosPage extends StatelessWidget {
         : const Color(0xFFC9C9C9);
 
     final Color hintColor = isDarkMode ? Colors.white60 : Colors.white;
+
+    // Datos de prueba
+    final List<String> resultados = [
+      'Diseño de aplicaciones móviles',
+      'Inteligencia Artificial',
+      'Desarrollo Web',
+      'Bases de Datos',
+      'Redes de Computadores',
+    ];
 
     return Scaffold(
       backgroundColor: pageBackground,
@@ -82,7 +88,7 @@ class MisProyectosPage extends StatelessWidget {
                           Expanded(
                             child: Center(
                               child: Text(
-                                'Mis proyectos',
+                                'Buscar',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -92,8 +98,7 @@ class MisProyectosPage extends StatelessWidget {
                             ),
                           ),
 
-                          // Espacio para mantener
-                          // el título centrado
+                          // Espacio para mantener centrado
                           const SizedBox(width: 28),
                         ],
                       ),
@@ -104,7 +109,7 @@ class MisProyectosPage extends StatelessWidget {
                     const SizedBox(height: 22),
 
                     // ======================================
-                    // BUSCADOR
+                    // BARRA DE BÚSQUEDA
                     // ======================================
                     Container(
                       height: 38,
@@ -116,7 +121,7 @@ class MisProyectosPage extends StatelessWidget {
                       child: TextField(
                         style: TextStyle(fontSize: 12, color: primaryTextColor),
                         decoration: InputDecoration(
-                          hintText: 'Buscar por categoría',
+                          hintText: 'Buscar',
                           hintStyle: TextStyle(fontSize: 12, color: hintColor),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(
@@ -132,37 +137,49 @@ class MisProyectosPage extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 35),
+                    const SizedBox(height: 30),
 
                     // ======================================
-                    // LISTA DE PROYECTOS
+                    // RESULTADOS
                     // ======================================
                     Expanded(
                       child: ListView.separated(
-                        itemCount: projects.length,
+                        itemCount: resultados.length,
 
                         separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox(height: 28);
+                          return Divider(color: dividerColor, height: 1);
                         },
 
                         itemBuilder: (BuildContext context, int index) {
-                          final ProjectData project = projects[index];
+                          return ListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 5,
+                            ),
 
-                          return ProjectCard(
-                            title: project.title,
-                            members: project.members,
-                            role: project.role,
-                            progress: project.progress,
+                            leading: CircleAvatar(
+                              backgroundColor:
+                                  // ignore: deprecated_member_use
+                                  primaryRed.withOpacity(0.1),
+                              child: const Icon(
+                                Icons.search,
+                                color: primaryRed,
+                                size: 20,
+                              ),
+                            ),
 
-                            // Pulsar la tarjeta completa
-                            onTap: () {
-                              showDevelopmentDialog(context);
-                            },
+                            title: Text(
+                              resultados[index],
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: primaryTextColor,
+                              ),
+                            ),
 
-                            // Pulsar los tres puntos
-                            onMenuTap: () {
-                              showDevelopmentDialog(context);
-                            },
+                            trailing: Icon(
+                              Icons.chevron_right,
+                              color: primaryTextColor,
+                            ),
                           );
                         },
                       ),
@@ -176,15 +193,28 @@ class MisProyectosPage extends StatelessWidget {
             // BARRA INFERIOR
             // ==========================================
             QuickAccessButtons(
-              selectedItem: QuickAccessItem.misProyectos,
+              selectedItem: QuickAccessItem.buscar,
 
               // Volver a Home
               onInicioTap: () {
                 Navigator.pop(context);
               },
 
-              // Ya estamos en esta pantalla
-              onMisProyectosTap: () {},
+              // Ya estamos en Buscar
+              onBuscarTap: () {},
+
+              // Crear
+              onCrearTap: () {},
+
+              // Mis proyectos
+              onMisProyectosTap: () {
+                Navigator.pop(context);
+              },
+
+              // Solicitudes
+              onSolicitudesTap: () {
+                Navigator.pop(context);
+              },
             ),
           ],
         ),

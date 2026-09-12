@@ -8,16 +8,9 @@ void showDevelopmentDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(22),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(
-            25,
-            28,
-            25,
-            20,
-          ),
+          padding: const EdgeInsets.fromLTRB(25, 28, 25, 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -29,6 +22,7 @@ void showDevelopmentDialog(BuildContext context) {
                 width: 65,
                 height: 65,
                 decoration: BoxDecoration(
+                  // ignore: deprecated_member_use
                   color: secondaryPink.withOpacity(0.35),
                   shape: BoxShape.circle,
                 ),
@@ -44,7 +38,6 @@ void showDevelopmentDialog(BuildContext context) {
               // ==========================================
               // TÍTULO
               // ==========================================
-
               const Text(
                 'En desarrollo',
                 textAlign: TextAlign.center,
@@ -60,14 +53,10 @@ void showDevelopmentDialog(BuildContext context) {
               // ==========================================
               // DESCRIPCIÓN
               // ==========================================
-
               const Text(
                 'Esta función estará disponible próximamente.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.black54,
-                ),
+                style: TextStyle(fontSize: 13, color: Colors.black54),
               ),
 
               const SizedBox(height: 22),
@@ -75,7 +64,6 @@ void showDevelopmentDialog(BuildContext context) {
               // ==========================================
               // BOTÓN
               // ==========================================
-
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -86,18 +74,14 @@ void showDevelopmentDialog(BuildContext context) {
                     backgroundColor: primaryRed,
                     foregroundColor: Colors.white,
                     elevation: 0,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 12,
-                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                   child: const Text(
                     'Entendido',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

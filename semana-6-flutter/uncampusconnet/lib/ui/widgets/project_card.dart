@@ -31,15 +31,13 @@ class ProjectCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         child: Container(
           height: 94,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14,
-            vertical: 12,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
+                // ignore: deprecated_member_use
                 color: Colors.black.withOpacity(0.15),
                 blurRadius: 5,
                 offset: const Offset(0, 3),
@@ -66,7 +64,6 @@ class ProjectCard extends StatelessWidget {
               // ==========================================
               // INFORMACIÓN
               // ==========================================
-
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,31 +98,23 @@ class ProjectCard extends StatelessWidget {
                     // ======================================
                     // PROGRESO
                     // ======================================
-
                     Row(
                       children: [
                         const Text(
                           'Progreso:',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: Colors.black54,
-                          ),
+                          style: TextStyle(fontSize: 11, color: Colors.black54),
                         ),
 
                         const SizedBox(width: 5),
 
                         Expanded(
                           child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(10),
                             child: LinearProgressIndicator(
                               value: progress,
                               minHeight: 5,
-                              backgroundColor:
-                                  const Color(0xFFD4D4D4),
-                              valueColor:
-                                  const AlwaysStoppedAnimation<
-                                      Color>(
+                              backgroundColor: const Color(0xFFD4D4D4),
+                              valueColor: const AlwaysStoppedAnimation<Color>(
                                 primaryRed,
                               ),
                             ),
@@ -136,9 +125,7 @@ class ProjectCard extends StatelessWidget {
 
                         Text(
                           '$percentage%',
-                          style: const TextStyle(
-                            fontSize: 10,
-                          ),
+                          style: const TextStyle(fontSize: 10),
                         ),
                       ],
                     ),
@@ -149,7 +136,6 @@ class ProjectCard extends StatelessWidget {
               // ==========================================
               // MENÚ DE TRES PUNTOS
               // ==========================================
-
               GestureDetector(
                 onTap: onMenuTap,
                 behavior: HitTestBehavior.opaque,
@@ -172,3 +158,32 @@ class ProjectCard extends StatelessWidget {
     );
   }
 }
+
+class ProjectData {
+  final String title;
+  final String members;
+  final String role;
+  final double progress;
+
+  const ProjectData({
+    required this.title,
+    required this.members,
+    required this.role,
+    required this.progress,
+  });
+}
+
+const List<ProjectData> projects = [
+  ProjectData(
+    title: 'Processing Music',
+    members: '5',
+    role: 'Líder',
+    progress: 0.10,
+  ),
+  ProjectData(
+    title: 'MyDailyPet',
+    members: '3',
+    role: 'Diseñador de UI',
+    progress: 0.90,
+  ),
+];
