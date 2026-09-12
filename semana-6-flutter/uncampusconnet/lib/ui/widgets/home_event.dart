@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'event_data.dart';
-import 'event_card.dart';
-import 'development_dialog.dart';
+import 'package:uncampusconnet/ui/widgets/event_card.dart';
+import 'package:uncampusconnet/ui/widgets/development_dialog.dart';
+import 'package:uncampusconnet/ui/widgets/home_data.dart';
+import 'package:uncampusconnet/ui/widgets/event_data.dart';
 
 // ======================================================
 // SECCIÓN DE EVENTOS
@@ -16,7 +17,8 @@ class HomeEvents extends StatefulWidget {
 }
 
 class _HomeEventsState extends State<HomeEvents> {
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController =
+      ScrollController();
 
   @override
   void dispose() {
@@ -24,202 +26,146 @@ class _HomeEventsState extends State<HomeEvents> {
     super.dispose();
   }
 
-  // ====================================================
-  // BUILD
-  // ====================================================
-
   @override
   Widget build(BuildContext context) {
-    // Detecta automáticamente si está activo el modo oscuro
-    final isDarkMode =
+    // Detectar modo oscuro
+    final bool isDarkMode =
         Theme.of(context).brightness == Brightness.dark;
 
     return Container(
       color: isDarkMode
           ? const Color(0xFF121212)
           : const Color(0xFFF5F5F5),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          30,
+          15,
+          30,
+          20,
+        ),
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.start,
+          children: [
+            // ==========================================
+            // SALUDO
+            // ==========================================
 
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(
-            30,
-            15,
-            30,
-            20,
-          ),
-
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-
-              // ==========================================
-              // SALUDO
-              // ==========================================
-
-              Text(
-                'Hola, Juan!',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: isDarkMode
-                      ? Colors.white
-                      : Colors.black,
-                ),
+            Text(
+              'Hola, Juan!',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: isDarkMode
+                    ? Colors.white
+                    : Colors.black,
               ),
+            ),
 
-              const SizedBox(height: 2),
+            const SizedBox(height: 2),
 
-              Text(
-                '¿Qué deseas hacer hoy?',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: isDarkMode
-                      ? Colors.white70
-                      : Colors.black54,
-                ),
+            Text(
+              '¿Qué deseas hacer hoy?',
+              style: TextStyle(
+                fontSize: 13,
+                color: isDarkMode
+                    ? Colors.white70
+                    : Colors.black54,
               ),
+            ),
 
-              const SizedBox(height: 18),
+            const SizedBox(height: 18),
 
-              // ==========================================
-              // EVENTOS + VER TODOS
-              // ==========================================
+            // ==========================================
+            // TITULO + VER TODOS
+            // ==========================================
 
-              Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                children: [
+            Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Eventos próximos:',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: isDarkMode
+                        ? Colors.white
+                        : Colors.black,
+                  ),
+                ),
 
-                  Text(
-                    'Eventos próximos:',
+                GestureDetector(
+                  onTap: () {
+                    showDevelopmentDialog(context);
+                  },
+                  child: const Text(
+                    'Ver todos',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
-                      color: isDarkMode
-                          ? Colors.white
-                          : Colors.black,
+                      color: Color(0xFF931212),
                     ),
-                  ),
-
-                  GestureDetector(
-                    onTap: () {
-                      showDevelopmentDialog(context);
-                    },
-                    child: const Text(
-                      'Ver todos',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF931212),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 12),
-
-              // ==========================================
-              // CARRUSEL
-              // ==========================================
-
-              SizedBox(
-                height: 125,
-                child: Scrollbar(
-                  controller: _scrollController,
-                  thumbVisibility: true,
-                  trackVisibility: true,
-                  interactive: true,
-                  thickness: 5,
-                  radius: const Radius.circular(10),
-
-                  child: ListView.separated(
-                    controller: _scrollController,
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: events.length,
-
-                    separatorBuilder: (
-                      BuildContext context,
-                      int index,
-                    ) {
-                      return const SizedBox(width: 12);
-                    },
-
-                    itemBuilder: (
-                      BuildContext context,
-                      int index,
-                    ) {
-                      return EventCard(
-                        event: events[index],
-                        onTap: () {
-                          showDevelopmentDialog(context);
-                        },
-                      );
-                    },
                   ),
                 ),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+
+            // ==========================================
+            // CARRUSEL DINÁMICO
+            // ==========================================
+
+            SizedBox(
+              height: 125,
+              child: Scrollbar(
+                controller: _scrollController,
+                thumbVisibility: true,
+                trackVisibility: true,
+                interactive: true,
+                thickness: 5,
+                radius: const Radius.circular(10),
+
+                child: ListView.separated(
+                  controller: _scrollController,
+
+                  // Movimiento horizontal
+                  scrollDirection: Axis.horizontal,
+
+                  // La cantidad de tarjetas depende
+                  // del tamaño de la lista "events".
+                  itemCount: events.length,
+
+                  separatorBuilder: (
+                    BuildContext context,
+                    int index,
+                  ) {
+                    return const SizedBox(width: 12);
+                  },
+
+                  itemBuilder: (
+                    BuildContext context,
+                    int index,
+                  ) {
+                    // Obtener el evento actual
+                    final EventData event =
+                        events[index];
+
+                    // Crear una tarjeta con ese evento
+                    return EventCard(
+                      event: event,
+                      onTap: () {
+                        showDevelopmentDialog(context);
+                      },
+                    );
+                  },
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
-
-// ======================================================
-// DATOS DE LOS EVENTOS
-// ======================================================
-
-const List<EventData> events = [
-  EventData(
-    day: 'Mañana',
-    time: '10:00 am',
-    title: 'Entrega avance',
-    project: 'ElectroPesca',
-    tag: 'Avance',
-    icon: Icons.calendar_today_outlined,
-    type: EventType.task,
-  ),
-
-  EventData(
-    day: 'Jueves',
-    time: '2:00 pm',
-    title: 'Reunión equipo',
-    project: 'ServiGo',
-    tag: 'Reunión',
-    icon: Icons.person_outline,
-    type: EventType.meeting,
-  ),
-
-  EventData(
-    day: 'Viernes',
-    time: '11:00 am',
-    title: 'Presentación',
-    project: 'InnovaTech',
-    tag: 'Presentación',
-    icon: Icons.slideshow_outlined,
-    type: EventType.task,
-  ),
-
-  EventData(
-    day: 'Sábado',
-    time: '3:00 pm',
-    title: 'Revisión proyecto',
-    project: 'Grupo Alfa',
-    tag: 'Revisión',
-    icon: Icons.folder_open_outlined,
-    type: EventType.task,
-  ),
-
-  EventData(
-    day: 'Lunes',
-    time: '9:00 am',
-    title: 'Reunión general',
-    project: 'InnovaTech',
-    tag: 'Reunión',
-    icon: Icons.groups_outlined,
-    type: EventType.meeting,
-  ),
-];
