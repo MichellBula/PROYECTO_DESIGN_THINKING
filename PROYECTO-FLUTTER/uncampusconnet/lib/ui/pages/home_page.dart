@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uncampusconnet/ui/pages/nuevo_proyecto.dart';
 
 import 'package:uncampusconnet/ui/widgets/home_background.dart';
 import 'package:uncampusconnet/ui/widgets/header_banner.dart';
@@ -38,13 +39,11 @@ class HomePage extends StatelessWidget {
           // ==========================================
           // HEADER
           // ==========================================
-
           const HeaderBanner(),
 
           // ==========================================
           // BOTÓN MODO OSCURO
           // ==========================================
-
           Positioned(
             top: 20,
             right: 100,
@@ -53,13 +52,9 @@ class HomePage extends StatelessWidget {
               onPressed: onThemeChanged,
 
               icon: Icon(
-                isDarkMode
-                    ? Icons.light_mode
-                    : Icons.dark_mode,
+                isDarkMode ? Icons.light_mode : Icons.dark_mode,
 
-                color: isDarkMode
-                    ? Colors.amber
-                    : Colors.black87,
+                color: isDarkMode ? Colors.amber : Colors.black87,
               ),
 
               tooltip: isDarkMode
@@ -71,7 +66,6 @@ class HomePage extends StatelessWidget {
           // ==========================================
           // CONTENIDO
           // ==========================================
-
           Positioned(
             top: 80,
             left: 0,
@@ -84,9 +78,7 @@ class HomePage extends StatelessWidget {
                 const HomeEvents(),
 
                 // Publicaciones
-                const Expanded(
-                  child: PostList(),
-                ),
+                const Expanded(child: PostList()),
               ],
             ),
           ),
@@ -94,42 +86,34 @@ class HomePage extends StatelessWidget {
           // ==========================================
           // BARRA INFERIOR
           // ==========================================
-
           Positioned(
             left: 0,
             right: 0,
             bottom: 0,
 
             child: QuickAccessButtons(
-              selectedItem:
-                  QuickAccessItem.inicio,
+              selectedItem: QuickAccessItem.inicio,
 
               // --------------------------------------
               // BUSCAR
               // --------------------------------------
-
               onBuscarTap: () {
                 Navigator.push(
                   context,
 
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        const BuscarPage(),
-                  ),
+                  MaterialPageRoute(builder: (context) => const BuscarPage()),
                 );
               },
 
               // --------------------------------------
               // MIS PROYECTOS
               // --------------------------------------
-
               onMisProyectosTap: () {
                 Navigator.push(
                   context,
 
                   MaterialPageRoute(
-                    builder: (context) =>
-                        const MisProyectosPage(),
+                    builder: (context) => const MisProyectosPage(),
                   ),
                 );
               },
@@ -137,14 +121,24 @@ class HomePage extends StatelessWidget {
               // --------------------------------------
               // SOLICITUDES
               // --------------------------------------
-
               onSolicitudesTap: () {
                 Navigator.push(
                   context,
 
                   MaterialPageRoute(
-                    builder: (context) =>
-                        const SolicitudesPage(),
+                    builder: (context) => const SolicitudesPage(),
+                  ),
+                );
+              },
+
+              // --------------------------------------
+              // CREAR PROYECTO
+              // --------------------------------------
+              onCrearTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const NuevoProyectoPage(),
                   ),
                 );
               },
