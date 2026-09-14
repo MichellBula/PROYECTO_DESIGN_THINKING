@@ -316,7 +316,7 @@ class _BuscarPageState extends State<BuscarPage> {
                   Text(
                     '¡Encuentra proyectos disponibles!',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: textColor,
                     ),
@@ -439,7 +439,7 @@ class _BuscarPageState extends State<BuscarPage> {
                       Text(
                         'Grupos disponibles:',
                         style: TextStyle(
-                          fontSize: 21,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: textColor,
                         ),
