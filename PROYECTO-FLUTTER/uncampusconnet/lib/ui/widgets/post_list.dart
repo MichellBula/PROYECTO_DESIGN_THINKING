@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:uncampusconnet/ui/widgets/home_data.dart';
+import 'package:uncampusconnet/ui/widgets/information_list.dart';
 import 'package:uncampusconnet/ui/widgets/post_card.dart';
 
 // ======================================================
@@ -12,11 +12,9 @@ class PostList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode =
-        Theme.of(context).brightness == Brightness.dark;
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    final Color titleColor =
-        isDarkMode ? Colors.white : Colors.black;
+    final Color titleColor = isDarkMode ? Colors.white : Colors.black;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,9 +26,7 @@ class PostList extends StatelessWidget {
         const SizedBox(height: 20),
 
         Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 30,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Text(
             'Publicaciones:',
             style: TextStyle(
@@ -46,35 +42,24 @@ class PostList extends StatelessWidget {
         // ==============================================
         // LISTA DINÁMICA
         // ==============================================
-
         Expanded(
           child: ListView.separated(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 30,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
 
             // La cantidad de tarjetas depende
             // de la cantidad de publicaciones.
             itemCount: posts.length,
 
-            separatorBuilder: (
-              BuildContext context,
-              int index,
-            ) {
+            separatorBuilder: (BuildContext context, int index) {
               return const SizedBox(height: 18);
             },
 
-            itemBuilder: (
-              BuildContext context,
-              int index,
-            ) {
+            itemBuilder: (BuildContext context, int index) {
               // Obtener la publicación actual.
               final Post post = posts[index];
 
               // Crear una tarjeta para esa publicación.
-              return PostCard(
-                post: post,
-              );
+              return PostCard(post: post);
             },
           ),
         ),

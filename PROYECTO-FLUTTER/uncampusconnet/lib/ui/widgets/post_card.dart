@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:uncampusconnet/ui/widgets/home_data.dart';
+import 'package:uncampusconnet/ui/widgets/information_list.dart';
 
 // ======================================================
 // TARJETA DE PUBLICACIÓN
@@ -9,10 +9,7 @@ import 'package:uncampusconnet/ui/widgets/home_data.dart';
 class PostCard extends StatefulWidget {
   final Post post;
 
-  const PostCard({
-    super.key,
-    required this.post,
-  });
+  const PostCard({super.key, required this.post});
 
   @override
   State<PostCard> createState() => _PostCardState();
@@ -52,46 +49,31 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode =
-        Theme.of(context).brightness == Brightness.dark;
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    final Color cardColor =
-        isDarkMode
-            ? const Color(0xFF242424)
-            : Colors.white;
+    final Color cardColor = isDarkMode ? const Color(0xFF242424) : Colors.white;
 
-    final Color primaryTextColor =
-        isDarkMode
-            ? Colors.white
-            : Colors.black;
+    final Color primaryTextColor = isDarkMode ? Colors.white : Colors.black;
 
-    final Color secondaryTextColor =
-        isDarkMode
-            ? Colors.white70
-            : Colors.grey[700]!;
+    final Color secondaryTextColor = isDarkMode
+        ? Colors.white70
+        : Colors.grey[700]!;
 
-    final Color mutedTextColor =
-        isDarkMode
-            ? Colors.white54
-            : Colors.grey[600]!;
+    final Color mutedTextColor = isDarkMode
+        ? Colors.white54
+        : Colors.grey[600]!;
 
-    final Color iconColor =
-        isDarkMode
-            ? Colors.white60
-            : Colors.grey[600]!;
+    final Color iconColor = isDarkMode ? Colors.white60 : Colors.grey[600]!;
 
     return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 8,
-      ),
+      margin: const EdgeInsets.symmetric(vertical: 8),
 
       padding: const EdgeInsets.all(16),
 
       decoration: BoxDecoration(
         color: cardColor,
 
-        borderRadius:
-            BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12),
 
         boxShadow: [
           BoxShadow(
@@ -102,8 +84,7 @@ class _PostCardState extends State<PostCard> {
             spreadRadius: 2,
             blurRadius: 8,
 
-            offset:
-                const Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
 
           BoxShadow(
@@ -114,15 +95,13 @@ class _PostCardState extends State<PostCard> {
             spreadRadius: 4,
             blurRadius: 20,
 
-            offset:
-                const Offset(0, 8),
+            offset: const Offset(0, 8),
           ),
         ],
       ),
 
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
           // ============================================
@@ -134,17 +113,14 @@ class _PostCardState extends State<PostCard> {
               CircleAvatar(
                 radius: 16,
 
-                backgroundColor:
-                    isDarkMode
-                        ? const Color(0xFF3A3A3A)
-                        : Colors.grey[300],
+                backgroundColor: isDarkMode
+                    ? const Color(0xFF3A3A3A)
+                    : Colors.grey[300],
 
                 child: Icon(
                   Icons.person,
                   size: 18,
-                  color: isDarkMode
-                      ? Colors.white70
-                      : Colors.grey,
+                  color: isDarkMode ? Colors.white70 : Colors.grey,
                 ),
               ),
 
@@ -152,33 +128,25 @@ class _PostCardState extends State<PostCard> {
 
               Expanded(
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
                     Text(
                       widget.post.autor,
 
                       style: TextStyle(
-                        fontWeight:
-                            FontWeight.w600,
+                        fontWeight: FontWeight.w600,
 
                         fontSize: 14,
 
-                        color:
-                            primaryTextColor,
+                        color: primaryTextColor,
                       ),
                     ),
 
                     Text(
                       widget.post.usuario,
 
-                      style: TextStyle(
-                        fontSize: 12,
-
-                        color:
-                            mutedTextColor,
-                      ),
+                      style: TextStyle(fontSize: 12, color: mutedTextColor),
                     ),
                   ],
                 ),
@@ -190,9 +158,7 @@ class _PostCardState extends State<PostCard> {
                 style: TextStyle(
                   fontSize: 12,
 
-                  color: isDarkMode
-                      ? Colors.white38
-                      : Colors.grey[400],
+                  color: isDarkMode ? Colors.white38 : Colors.grey[400],
                 ),
               ),
 
@@ -202,9 +168,7 @@ class _PostCardState extends State<PostCard> {
                 Icons.more_horiz,
                 size: 20,
 
-                color: isDarkMode
-                    ? Colors.white54
-                    : Colors.grey[400],
+                color: isDarkMode ? Colors.white54 : Colors.grey[400],
               ),
             ],
           ),
@@ -214,29 +178,24 @@ class _PostCardState extends State<PostCard> {
           // ============================================
           // CONTENIDO
           // ============================================
-
           Row(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
               Expanded(
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
                     Text(
                       widget.post.titulo,
 
                       style: TextStyle(
-                        fontWeight:
-                            FontWeight.w600,
+                        fontWeight: FontWeight.w600,
 
                         fontSize: 16,
 
-                        color:
-                            primaryTextColor,
+                        color: primaryTextColor,
                       ),
                     ),
 
@@ -245,17 +204,11 @@ class _PostCardState extends State<PostCard> {
                     Text(
                       widget.post.contenido,
 
-                      style: TextStyle(
-                        fontSize: 14,
-
-                        color:
-                            secondaryTextColor,
-                      ),
+                      style: TextStyle(fontSize: 14, color: secondaryTextColor),
 
                       maxLines: 3,
 
-                      overflow:
-                          TextOverflow.ellipsis,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -266,11 +219,9 @@ class _PostCardState extends State<PostCard> {
               // ========================================
               // IMAGEN
               // ========================================
-
               if (widget.post.imagen != null)
                 ClipRRect(
-                  borderRadius:
-                      BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8),
 
                   child: Image.asset(
                     widget.post.imagen!,
@@ -278,36 +229,25 @@ class _PostCardState extends State<PostCard> {
                     height: 80,
                     fit: BoxFit.cover,
 
-                    errorBuilder: (
-                      context,
-                      error,
-                      stackTrace,
-                    ) {
+                    errorBuilder: (context, error, stackTrace) {
                       return Container(
                         width: 120,
                         height: 80,
 
-                        decoration:
-                            BoxDecoration(
+                        decoration: BoxDecoration(
                           color: isDarkMode
                               ? const Color(0xFF333333)
                               : Colors.grey[200],
 
-                          borderRadius:
-                              BorderRadius.circular(
-                            8,
-                          ),
+                          borderRadius: BorderRadius.circular(8),
                         ),
 
                         child: Icon(
-                          Icons
-                              .image_not_supported,
+                          Icons.image_not_supported,
 
                           size: 30,
 
-                          color: isDarkMode
-                              ? Colors.white54
-                              : Colors.grey,
+                          color: isDarkMode ? Colors.white54 : Colors.grey,
                         ),
                       );
                     },
@@ -321,7 +261,6 @@ class _PostCardState extends State<PostCard> {
           // ============================================
           // ACCIONES
           // ============================================
-
           Row(
             children: [
               GestureDetector(
@@ -330,17 +269,11 @@ class _PostCardState extends State<PostCard> {
                 child: Row(
                   children: [
                     Icon(
-                      isLiked
-                          ? Icons.favorite
-                          : Icons.favorite_border,
+                      isLiked ? Icons.favorite : Icons.favorite_border,
 
                       size: 20,
 
-                      color: isLiked
-                          ? const Color(
-                              0xFF931212,
-                            )
-                          : iconColor,
+                      color: isLiked ? const Color(0xFF931212) : iconColor,
                     ),
 
                     const SizedBox(width: 4),
@@ -352,9 +285,7 @@ class _PostCardState extends State<PostCard> {
                         fontSize: 14,
 
                         color: isLiked
-                            ? const Color(
-                                0xFF931212,
-                              )
+                            ? const Color(0xFF931212)
                             : primaryTextColor,
 
                         fontWeight: isLiked
@@ -370,24 +301,14 @@ class _PostCardState extends State<PostCard> {
 
               Row(
                 children: [
-                  Icon(
-                    Icons.chat_bubble_outline,
-                    size: 20,
-
-                    color: iconColor,
-                  ),
+                  Icon(Icons.chat_bubble_outline, size: 20, color: iconColor),
 
                   const SizedBox(width: 4),
 
                   Text(
                     '${widget.post.comentarios}',
 
-                    style: TextStyle(
-                      fontSize: 14,
-
-                      color:
-                          primaryTextColor,
-                    ),
+                    style: TextStyle(fontSize: 14, color: primaryTextColor),
                   ),
                 ],
               ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:uncampusconnet/ui/widgets/event_card.dart';
 import 'package:uncampusconnet/ui/widgets/development_dialog.dart';
-import 'package:uncampusconnet/ui/widgets/home_data.dart';
+import 'package:uncampusconnet/ui/widgets/information_list.dart';
 import 'package:uncampusconnet/ui/widgets/event_data.dart';
 
 // ======================================================
@@ -17,8 +17,7 @@ class HomeEvents extends StatefulWidget {
 }
 
 class _HomeEventsState extends State<HomeEvents> {
-  final ScrollController _scrollController =
-      ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void dispose() {
@@ -29,23 +28,14 @@ class _HomeEventsState extends State<HomeEvents> {
   @override
   Widget build(BuildContext context) {
     // Detectar modo oscuro
-    final bool isDarkMode =
-        Theme.of(context).brightness == Brightness.dark;
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
-      color: isDarkMode
-          ? const Color(0xFF121212)
-          : const Color(0xFFF5F5F5),
+      color: isDarkMode ? const Color(0xFF121212) : const Color(0xFFF5F5F5),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-          30,
-          15,
-          30,
-          20,
-        ),
+        padding: const EdgeInsets.fromLTRB(30, 15, 30, 20),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ==========================================
             // SALUDO
@@ -56,9 +46,7 @@ class _HomeEventsState extends State<HomeEvents> {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: isDarkMode
-                    ? Colors.white
-                    : Colors.black,
+                color: isDarkMode ? Colors.white : Colors.black,
               ),
             ),
 
@@ -68,9 +56,7 @@ class _HomeEventsState extends State<HomeEvents> {
               '¿Qué deseas hacer hoy?',
               style: TextStyle(
                 fontSize: 13,
-                color: isDarkMode
-                    ? Colors.white70
-                    : Colors.black54,
+                color: isDarkMode ? Colors.white70 : Colors.black54,
               ),
             ),
 
@@ -79,19 +65,15 @@ class _HomeEventsState extends State<HomeEvents> {
             // ==========================================
             // TITULO + VER TODOS
             // ==========================================
-
             Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Eventos próximos:',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: isDarkMode
-                        ? Colors.white
-                        : Colors.black,
+                    color: isDarkMode ? Colors.white : Colors.black,
                   ),
                 ),
 
@@ -116,7 +98,6 @@ class _HomeEventsState extends State<HomeEvents> {
             // ==========================================
             // CARRUSEL DINÁMICO
             // ==========================================
-
             SizedBox(
               height: 125,
               child: Scrollbar(
@@ -137,20 +118,13 @@ class _HomeEventsState extends State<HomeEvents> {
                   // del tamaño de la lista "events".
                   itemCount: events.length,
 
-                  separatorBuilder: (
-                    BuildContext context,
-                    int index,
-                  ) {
+                  separatorBuilder: (BuildContext context, int index) {
                     return const SizedBox(width: 12);
                   },
 
-                  itemBuilder: (
-                    BuildContext context,
-                    int index,
-                  ) {
+                  itemBuilder: (BuildContext context, int index) {
                     // Obtener el evento actual
-                    final EventData event =
-                        events[index];
+                    final EventData event = events[index];
 
                     // Crear una tarjeta con ese evento
                     return EventCard(

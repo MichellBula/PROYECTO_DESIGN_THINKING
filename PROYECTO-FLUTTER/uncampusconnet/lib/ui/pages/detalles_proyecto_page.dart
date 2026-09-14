@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:uncampusconnet/ui/widgets/header_banner.dart';
+import 'package:uncampusconnet/ui/widgets/information_list.dart';
 import 'package:uncampusconnet/ui/widgets/quick_access_buttons.dart';
 import 'package:uncampusconnet/ui/widgets/select_downdrop.dart';
 
@@ -53,31 +54,6 @@ class _DetallesProyectoPageState extends State<DetallesProyectoPage> {
   // ======================================================
   // OPCIONES DISPONIBLES
   // ======================================================
-
-  final List<String> roles = [
-    'Programador',
-    'Diseñador',
-    'Administrador',
-    'Otros',
-  ];
-
-  final List<String> skills = [
-    'Flutter',
-    'Dart',
-    'Java',
-    'Python',
-    'Diseño UI/UX',
-    'Base de datos',
-    'Liderazgo',
-  ];
-
-  final List<String> projectTypes = [
-    'Aplicación móvil',
-    'Aplicación web',
-    'Software de escritorio',
-    'Investigación',
-    'Otro',
-  ];
 
   @override
   void dispose() {

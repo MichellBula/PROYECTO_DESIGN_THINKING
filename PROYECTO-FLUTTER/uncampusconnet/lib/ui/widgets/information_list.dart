@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:uncampusconnet/ui/widgets/event_data.dart';
 
 // ======================================================
@@ -12,7 +11,6 @@ import 'package:uncampusconnet/ui/widgets/event_data.dart';
 // Más adelante estas listas podrán ser reemplazadas
 // por información proveniente de una API o base de datos.
 // ======================================================
-
 
 // ======================================================
 // EVENTOS PRÓXIMOS
@@ -70,7 +68,6 @@ const List<EventData> events = [
   ),
 ];
 
-
 // ======================================================
 // MODELO DE PUBLICACIÓN
 // ======================================================
@@ -99,7 +96,6 @@ class Post {
   });
 }
 
-
 // ======================================================
 // PUBLICACIONES
 // ======================================================
@@ -110,8 +106,7 @@ const List<Post> posts = [
     usuario: '@InnovaTech_team - FeriaGamer',
     tiempo: 'Hace 2h',
     titulo: 'Nuevo diseño del juego!!',
-    contenido:
-        'Nos alegra compartir que ya nuestro juego tiene la interfaz gráfica preparada. Hemos trabajado en los detalles visuales y la experiencia de usuario.',
+    contenido: 'Nos alegra compartir que ya nuestro juego tiene la interfaz gráfica preparada. Hemos trabajado en los detalles visuales y la experiencia de usuario.',
     likes: 12,
     comentarios: 2,
     imagen: 'assets/images/post1.png',
@@ -122,8 +117,7 @@ const List<Post> posts = [
     usuario: '@ServiGo_Team - Feria Geoexpofisica',
     tiempo: 'Hace 5h',
     titulo: 'Funcionalidad nueva!!',
-    contenido:
-        'Nos alegra compartir que ya nuestro juego tiene funcionalidad nueva, junto con nuestro docente logramos terminarla.',
+    contenido: 'Nos alegra compartir que ya nuestro juego tiene funcionalidad nueva, junto con nuestro docente logramos terminarla.',
     likes: 12,
     comentarios: 2,
     imagen: 'assets/images/post2.png',
@@ -134,8 +128,7 @@ const List<Post> posts = [
     usuario: '@design_studio - Proyecto UX',
     tiempo: 'Hace 4h',
     titulo: 'Prototipo finalizado',
-    contenido:
-        'Hemos completado el prototipo de alta fidelidad para la nueva interfaz. Pronto comenzaremos las pruebas con usuarios.',
+    contenido: 'Hemos completado el prototipo de alta fidelidad para la nueva interfaz. Pronto comenzaremos las pruebas con usuarios.',
     likes: 8,
     comentarios: 5,
     imagen: 'assets/images/post3.png',
@@ -146,8 +139,7 @@ const List<Post> posts = [
     usuario: '@devops_team - Infraestructura',
     tiempo: 'Hace 6h',
     titulo: 'Nuevo despliegue en producción',
-    contenido:
-        'El nuevo sistema de autenticación ya está disponible en el entorno de producción. Todos los servicios están funcionando correctamente.',
+    contenido: 'El nuevo sistema de autenticación ya está disponible en el entorno de producción. Todos los servicios están funcionando correctamente.',
     likes: 5,
     comentarios: 1,
     imagen: 'assets/images/post4.png',
@@ -158,11 +150,108 @@ const List<Post> posts = [
     usuario: '@marketing_digital - Campaña',
     tiempo: 'Hace 8h',
     titulo: 'Lanzamiento de nueva campaña',
-    contenido:
-        'Estamos preparando el lanzamiento de la nueva campaña para el próximo mes. Pronto compartiremos más detalles con el equipo.',
+    contenido: 'Estamos preparando el lanzamiento de la nueva campaña para el próximo mes. Pronto compartiremos más detalles con el equipo.',
     likes: 7,
     comentarios: 3,
     imagen: 'assets/images/post5.png',
   ),
+];
 
+// ======================================================
+// LISTAS DE CREACIÓN DE PROYECTOS
+// ======================================================
+const List<String> categories = [
+  'Tecnología',
+  'Educación',
+  'Salud',
+  'Ciencia e investigación',
+  'Arte y diseño',
+  'Cultura',
+  'Medio ambiente',
+  'Sostenibilidad',
+  'Emprendimiento',
+  'Negocios',
+  'Marketing y publicidad',
+  'Comunicación',
+  'Ciencias sociales',
+  'Comunidad y proyectos sociales',
+  'Agricultura',
+  'Ingeniería',
+  'Finanzas',
+  'Innovación',
+  'Otro',
+];
+
+const List<String> roles = [
+  'Líder de proyecto',
+  'Coordinador',
+  'Investigador',
+  'Analista',
+  'Desarrollador',
+  'Diseñador',
+  'Diseñador gráfico',
+  'Diseñador UX/UI',
+  'Marketing',
+  'Comunicador',
+  'Redactor',
+  'Community Manager',
+  'Fotógrafo',
+  'Videógrafo',
+  'Administrador',
+  'Finanzas',
+  'Logística',
+  'Ventas',
+  'Recursos humanos',
+  'Consultor',
+  'Emprendedor',
+  'Técnico',
+  'Asistente',
+  'Otro',
+];
+
+const List<String> skills = [
+  'Liderazgo',
+  'Trabajo en equipo',
+  'Comunicación',
+  'Organización',
+  'Planificación',
+  'Investigación',
+  'Análisis de datos',
+  'Resolución de problemas',
+  'Creatividad',
+  'Pensamiento crítico',
+  'Innovación',
+  'Gestión de proyectos',
+  'Gestión del tiempo',
+  'Negociación',
+  'Atención al cliente',
+  'Ventas',
+  'Marketing',
+  'Redacción',
+  'Presentación',
+  'Diseño gráfico',
+  'Diseño UX/UI',
+  'Fotografía',
+  'Edición de video',
+  'Programación',
+  'Desarrollo web',
+  'Desarrollo móvil',
+  'Bases de datos',
+  'Inteligencia artificial',
+  'Contabilidad',
+  'Finanzas',
+  'Logística',
+  'Docencia',
+  'Idiomas',
+  'Otro',
+];
+
+const List<String> projectTypes = [
+  'Geoexpofísica',
+  'Servicios universitarios',
+  'Proyecto de grado',
+  'Investigación',
+  'Feria Gamer',
+  'Grupos estudiantiles',
+  'Otro',
 ];

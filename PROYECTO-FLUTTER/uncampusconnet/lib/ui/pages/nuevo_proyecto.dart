@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:uncampusconnet/ui/widgets/header_banner.dart';
+import 'package:uncampusconnet/ui/widgets/information_list.dart';
 import 'package:uncampusconnet/ui/widgets/quick_access_buttons.dart';
 import 'package:uncampusconnet/ui/pages/detalles_proyecto_page.dart';
 
@@ -38,16 +39,6 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
   // ======================================================
 
   String? selectedCategory;
-
-  final List<String> categories = [
-    'Tecnología',
-    'Educación',
-    'Salud',
-    'Arte y diseño',
-    'Negocios',
-    'Medio ambiente',
-    'Otro',
-  ];
 
   @override
   void dispose() {
