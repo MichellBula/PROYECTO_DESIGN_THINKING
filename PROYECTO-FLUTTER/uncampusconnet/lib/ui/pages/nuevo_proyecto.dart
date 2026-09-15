@@ -20,25 +20,34 @@ class NuevoProyectoPage extends StatefulWidget {
   const NuevoProyectoPage({super.key});
 
   @override
-  State<NuevoProyectoPage> createState() => _NuevoProyectoPageState();
+  State<NuevoProyectoPage> createState() =>
+      _NuevoProyectoPageState();
 }
 
-class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
+class _NuevoProyectoPageState
+    extends State<NuevoProyectoPage> {
   // ======================================================
   // CONTROLADORES
   // ======================================================
 
-  final TextEditingController nombreController = TextEditingController();
+  final TextEditingController nombreController =
+      TextEditingController();
 
-  final TextEditingController descripcionController = TextEditingController();
+  final TextEditingController descripcionController =
+      TextEditingController();
 
-  final TextEditingController liderController = TextEditingController();
+  final TextEditingController liderController =
+      TextEditingController();
 
   // ======================================================
   // CATEGORÍA
   // ======================================================
 
   String? selectedCategory;
+
+  // ======================================================
+  // DISPOSE
+  // ======================================================
 
   @override
   void dispose() {
@@ -54,51 +63,73 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
   // ======================================================
 
   void continuar() {
-    // Verificamos que los campos principales
-    // tengan información.
+    // Verificar campos principales
     if (nombreController.text.trim().isEmpty ||
         descripcionController.text.trim().isEmpty ||
         liderController.text.trim().isEmpty ||
         selectedCategory == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Completa todos los campos antes de continuar.'),
+          content: Text(
+            'Completa todos los campos antes de continuar.',
+          ),
         ),
       );
 
       return;
     }
 
-    // Abrimos la segunda pantalla y enviamos
-    // la información introducida.
+    // ==============================================
+    // IR A LA SEGUNDA PANTALLA
+    // ==============================================
+
     Navigator.push(
       context,
+
       MaterialPageRoute(
-        builder: (context) => DetallesProyectoPage(
-          nombreProyecto: nombreController.text.trim(),
-          descripcion: descripcionController.text.trim(),
-          liderProyecto: liderController.text.trim(),
-          categoria: selectedCategory!,
+        builder: (context) =>
+            DetallesProyectoPage(
+          nombreProyecto:
+              nombreController.text.trim(),
+
+          descripcion:
+              descripcionController.text.trim(),
+
+          liderProyecto:
+              liderController.text.trim(),
+
+          categoria:
+              selectedCategory!,
         ),
       ),
     );
   }
 
+  // ======================================================
+  // BUILD
+  // ======================================================
+
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final bool isDarkMode =
+        Theme.of(context).brightness ==
+            Brightness.dark;
 
     final Color pageBackground = isDarkMode
         ? const Color(0xFF121212)
         : const Color(0xFFF5F5F5);
 
-    final Color primaryTextColor = isDarkMode ? Colors.white : Colors.black87;
+    final Color primaryTextColor = isDarkMode
+        ? Colors.white
+        : Colors.black87;
 
     final Color fieldBackground = isDarkMode
         ? const Color(0xFF2A2A2A)
         : Colors.white;
 
-    final Color hintColor = isDarkMode ? Colors.white60 : Colors.grey;
+    final Color hintColor = isDarkMode
+        ? Colors.white60
+        : Colors.grey;
 
     final Color dividerColor = isDarkMode
         ? const Color(0xFF333333)
@@ -119,9 +150,14 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
             // ==========================================
             // CONTENIDO
             // ==========================================
+
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+
                 child: Column(
                   children: [
                     // ======================================
@@ -130,16 +166,21 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
 
                     SizedBox(
                       height: 52,
+
                       child: Row(
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.pop(context);
+                              Navigator.pop(
+                                context,
+                              );
                             },
+
                             child: Icon(
                               Icons.chevron_left,
                               size: 28,
-                              color: primaryTextColor,
+                              color:
+                                  primaryTextColor,
                             ),
                           ),
 
@@ -147,177 +188,315 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
                             child: Center(
                               child: Text(
                                 'Nuevo proyecto',
+
                                 style: TextStyle(
                                   fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: primaryTextColor,
+                                  fontWeight:
+                                      FontWeight.bold,
+                                  color:
+                                      primaryTextColor,
                                 ),
                               ),
                             ),
                           ),
 
-                          const SizedBox(width: 28),
+                          const SizedBox(
+                            width: 28,
+                          ),
                         ],
                       ),
                     ),
 
-                    Divider(height: 1, color: dividerColor),
+                    Divider(
+                      height: 1,
+                      color: dividerColor,
+                    ),
 
-                    const SizedBox(height: 28),
+                    const SizedBox(
+                      height: 28,
+                    ),
 
                     // ======================================
                     // TEXTO INTRODUCTORIO
                     // ======================================
+
                     Text(
                       'Crea tu nuevo proyecto',
-                      textAlign: TextAlign.center,
+                      textAlign:
+                          TextAlign.center,
+
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.grey.shade500,
+                        color:
+                            Colors.grey.shade500,
                       ),
                     ),
 
                     Text(
                       'compartiendo tus ideas y encuentra',
-                      textAlign: TextAlign.center,
+                      textAlign:
+                          TextAlign.center,
+
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.grey.shade500,
+                        color:
+                            Colors.grey.shade500,
                       ),
                     ),
 
                     Text(
                       'compañeros para ejecutarlas.',
-                      textAlign: TextAlign.center,
+                      textAlign:
+                          TextAlign.center,
+
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.grey.shade500,
+                        color:
+                            Colors.grey.shade500,
                       ),
                     ),
 
-                    const SizedBox(height: 25),
+                    const SizedBox(
+                      height: 25,
+                    ),
 
                     // ======================================
-                    // NOMBRE DEL PROYECTO
+                    // NOMBRE
                     // ======================================
-                    _buildLabel('Nombre del proyecto:', primaryTextColor),
 
-                    const SizedBox(height: 6),
+                    _buildLabel(
+                      'Nombre del proyecto:',
+                      primaryTextColor,
+                    ),
+
+                    const SizedBox(
+                      height: 6,
+                    ),
 
                     _buildTextField(
-                      controller: nombreController,
-                      hintText: 'Tu proyecto',
-                      backgroundColor: fieldBackground,
-                      hintColor: hintColor,
-                      textColor: primaryTextColor,
+                      controller:
+                          nombreController,
+
+                      hintText:
+                          'Tu proyecto',
+
+                      backgroundColor:
+                          fieldBackground,
+
+                      hintColor:
+                          hintColor,
+
+                      textColor:
+                          primaryTextColor,
+
                       maxLength: 50,
                     ),
 
-                    const SizedBox(height: 18),
+                    const SizedBox(
+                      height: 18,
+                    ),
 
                     // ======================================
                     // DESCRIPCIÓN
                     // ======================================
-                    _buildLabel('Descripción:', primaryTextColor),
 
-                    const SizedBox(height: 6),
+                    _buildLabel(
+                      'Descripción:',
+                      primaryTextColor,
+                    ),
+
+                    const SizedBox(
+                      height: 6,
+                    ),
 
                     _buildTextField(
-                      controller: descripcionController,
-                      hintText: 'Mi proyecto se basa en ...',
-                      backgroundColor: fieldBackground,
-                      hintColor: hintColor,
-                      textColor: primaryTextColor,
+                      controller:
+                          descripcionController,
+
+                      hintText:
+                          'Mi proyecto se basa en ...',
+
+                      backgroundColor:
+                          fieldBackground,
+
+                      hintColor:
+                          hintColor,
+
+                      textColor:
+                          primaryTextColor,
+
                       maxLines: 4,
+
                       maxLength: 400,
                     ),
 
-                    const SizedBox(height: 18),
+                    const SizedBox(
+                      height: 18,
+                    ),
 
                     // ======================================
                     // LÍDER
                     // ======================================
-                    _buildLabel('Líder del proyecto:', primaryTextColor),
 
-                    const SizedBox(height: 6),
+                    _buildLabel(
+                      'Líder del proyecto:',
+                      primaryTextColor,
+                    ),
+
+                    const SizedBox(
+                      height: 6,
+                    ),
 
                     _buildTextField(
-                      controller: liderController,
-                      hintText: 'Tu nombre',
-                      backgroundColor: fieldBackground,
-                      hintColor: hintColor,
-                      textColor: primaryTextColor,
+                      controller:
+                          liderController,
+
+                      hintText:
+                          'Tu nombre',
+
+                      backgroundColor:
+                          fieldBackground,
+
+                      hintColor:
+                          hintColor,
+
+                      textColor:
+                          primaryTextColor,
+
                       maxLength: 40,
                     ),
 
-                    const SizedBox(height: 18),
+                    const SizedBox(
+                      height: 18,
+                    ),
 
                     // ======================================
                     // CATEGORÍA
                     // ======================================
-                    _buildLabel('Categoría:', primaryTextColor),
 
-                    const SizedBox(height: 6),
-
-                    _buildCategoryDropdown(
-                      backgroundColor: fieldBackground,
-                      textColor: primaryTextColor,
-                      hintColor: hintColor,
+                    _buildLabel(
+                      'Categoría:',
+                      primaryTextColor,
                     ),
 
-                    const SizedBox(height: 32),
+                    const SizedBox(
+                      height: 6,
+                    ),
+
+                    _buildCategoryDropdown(
+                      backgroundColor:
+                          fieldBackground,
+
+                      textColor:
+                          primaryTextColor,
+
+                      hintColor:
+                          hintColor,
+                    ),
+
+                    const SizedBox(
+                      height: 32,
+                    ),
 
                     // ======================================
                     // BOTONES
                     // ======================================
+
                     Row(
                       children: [
+                        // CANCELAR
+
                         Expanded(
                           child: SizedBox(
                             height: 42,
-                            child: ElevatedButton(
+
+                            child:
+                                ElevatedButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                Navigator.pop(
+                                  context,
+                                );
                               },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: primaryRed,
-                                foregroundColor: Colors.white,
+
+                              style:
+                                  ElevatedButton
+                                      .styleFrom(
+                                backgroundColor:
+                                    primaryRed,
+
+                                foregroundColor:
+                                    Colors.white,
+
                                 elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
+
+                                shape:
+                                    RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(
+                                    8,
+                                  ),
                                 ),
                               ),
-                              child: const Text(
+
+                              child:
+                                  const Text(
                                 'Cancelar',
-                                style: TextStyle(
+
+                                style:
+                                    TextStyle(
                                   fontSize: 12,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight:
+                                      FontWeight.bold,
                                 ),
                               ),
                             ),
                           ),
                         ),
 
-                        const SizedBox(width: 12),
+                        const SizedBox(
+                          width: 12,
+                        ),
+
+                        // CONTINUAR
 
                         Expanded(
                           child: SizedBox(
                             height: 42,
-                            child: ElevatedButton(
-                              onPressed: continuar,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: primaryRed,
-                                foregroundColor: Colors.white,
+
+                            child:
+                                ElevatedButton(
+                              onPressed:
+                                  continuar,
+
+                              style:
+                                  ElevatedButton
+                                      .styleFrom(
+                                backgroundColor:
+                                    primaryRed,
+
+                                foregroundColor:
+                                    Colors.white,
+
                                 elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
+
+                                shape:
+                                    RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(
+                                    8,
+                                  ),
                                 ),
                               ),
-                              child: const Text(
+
+                              child:
+                                  const Text(
                                 'Continuar',
-                                style: TextStyle(
+
+                                style:
+                                    TextStyle(
                                   fontSize: 12,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight:
+                                      FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -326,7 +505,9 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
                       ],
                     ),
 
-                    const SizedBox(height: 24),
+                    const SizedBox(
+                      height: 24,
+                    ),
                   ],
                 ),
               ),
@@ -335,8 +516,10 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
             // ==========================================
             // BARRA INFERIOR
             // ==========================================
+
             QuickAccessButtons(
-              selectedItem: QuickAccessItem.crear,
+              selectedItem:
+                  QuickAccessItem.crear,
 
               onInicioTap: () {
                 Navigator.pop(context);
@@ -366,11 +549,16 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
   // LABEL
   // ======================================================
 
-  Widget _buildLabel(String text, Color color) {
+  Widget _buildLabel(
+    String text,
+    Color color,
+  ) {
     return Align(
       alignment: Alignment.centerLeft,
+
       child: Text(
         text,
+
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
@@ -395,27 +583,49 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
   }) {
     return Container(
       width: double.infinity,
+
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(8),
+
+        borderRadius:
+            BorderRadius.circular(8),
+
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.18),
+            color:
+                Colors.black.withOpacity(0.18),
             blurRadius: 4,
-            offset: const Offset(0, 2),
+            offset:
+                const Offset(0, 2),
           ),
         ],
       ),
+
       child: TextField(
         controller: controller,
         maxLines: maxLines,
         maxLength: maxLength,
-        style: TextStyle(fontSize: 12, color: textColor),
-        decoration: InputDecoration(
+
+        style: TextStyle(
+          fontSize: 12,
+          color: textColor,
+        ),
+
+        decoration:
+            InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(fontSize: 12, color: hintColor),
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
+
+          hintStyle:
+              TextStyle(
+            fontSize: 12,
+            color: hintColor,
+          ),
+
+          border:
+              InputBorder.none,
+
+          contentPadding:
+              const EdgeInsets.symmetric(
             horizontal: 12,
             vertical: 10,
           ),
@@ -436,44 +646,85 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
     return Container(
       height: 38,
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
+
+      padding:
+          const EdgeInsets.symmetric(
+        horizontal: 12,
+      ),
+
+      decoration:
+          BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(8),
+
+        borderRadius:
+            BorderRadius.circular(8),
+
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.18),
+            color:
+                Colors.black.withOpacity(0.18),
+
             blurRadius: 4,
-            offset: const Offset(0, 2),
+
+            offset:
+                const Offset(0, 2),
           ),
         ],
       ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: selectedCategory,
+
+      child:
+          DropdownButtonHideUnderline(
+        child:
+            DropdownButton<String>(
+          value:
+              selectedCategory,
 
           hint: Text(
             'Tecnología',
-            style: TextStyle(fontSize: 12, color: hintColor),
+
+            style:
+                TextStyle(
+              fontSize: 12,
+              color: hintColor,
+            ),
           ),
 
-          isExpanded: true,
+          isExpanded:
+              true,
 
-          icon: Icon(Icons.keyboard_arrow_down, size: 20, color: textColor),
+          icon: Icon(
+            Icons
+                .keyboard_arrow_down,
+            size: 20,
+            color: textColor,
+          ),
 
-          items: categories.map((category) {
-            return DropdownMenuItem<String>(
-              value: category,
-              child: Text(
-                category,
-                style: TextStyle(fontSize: 12, color: textColor),
-              ),
-            );
-          }).toList(),
+          items:
+              categories.map(
+            (category) {
+              return DropdownMenuItem<
+                  String>(
+                value: category,
 
-          onChanged: (value) {
+                child: Text(
+                  category,
+
+                  style:
+                      TextStyle(
+                    fontSize: 12,
+                    color:
+                        textColor,
+                  ),
+                ),
+              );
+            },
+          ).toList(),
+
+          onChanged:
+              (value) {
             setState(() {
-              selectedCategory = value;
+              selectedCategory =
+                  value;
             });
           },
         ),

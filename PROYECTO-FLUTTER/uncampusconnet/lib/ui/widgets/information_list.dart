@@ -198,7 +198,6 @@ const List<String> categories = [
 ];
 
 const List<String> roles = [
-  'Líder de proyecto',
   'Coordinador',
   'Investigador',
   'Analista',
@@ -513,3 +512,65 @@ const List<ProjectInfo> availableProjects = [
         'geolocalización estudiantes innovación',
   ),
 ];
+
+// ======================================================
+// MODELO DE PROYECTOS CREADOS
+// ======================================================
+
+class CreatedProjectInfo {
+  final String nombreProyecto;
+  final String descripcion;
+  final String liderProyecto;
+  final String categoria;
+
+  final String objetivo;
+
+  final List<String> roles;
+
+  // Cantidad de personas requerida por cada rol.
+  //  
+  // Ejemplo:
+  // {
+  //   'Desarrollador': 2,
+  //   'Diseñador UX/UI': 1
+  // }
+  final Map<String, int> cantidadesPorRol;
+
+  final List<String> habilidades;
+  final String requisitos;
+  final String? tipoProyecto;
+
+  final DateTime? fechaInicio;
+  final DateTime? fechaCierre;
+
+  final bool deseaDocente;
+
+  const CreatedProjectInfo({
+    required this.nombreProyecto,
+    required this.descripcion,
+    required this.liderProyecto,
+    required this.categoria,
+    required this.objetivo,
+    required this.roles,
+    required this.cantidadesPorRol,
+    required this.habilidades,
+    required this.requisitos,
+    required this.tipoProyecto,
+    required this.fechaInicio,
+    required this.fechaCierre,
+    required this.deseaDocente,
+  });
+}
+
+
+// ======================================================
+// LISTA DE PROYECTOS CREADOS
+// ======================================================
+//
+// Esta lista almacena temporalmente los proyectos que
+// el usuario publique.
+//
+// Más adelante podrá ser reemplazada por una base de datos.
+// ======================================================
+
+final List<CreatedProjectInfo> createdProjects = [];
