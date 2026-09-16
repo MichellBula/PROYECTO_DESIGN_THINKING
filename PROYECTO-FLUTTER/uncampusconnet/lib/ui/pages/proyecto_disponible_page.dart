@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:uncampusconnet/ui/widgets/header_banner.dart';
-import 'package:uncampusconnet/ui/widgets/quick_access_buttons.dart';
 
 class ProyectoDisponiblePage extends StatelessWidget {
   final String leader;
@@ -46,7 +44,6 @@ class ProyectoDisponiblePage extends StatelessWidget {
       backgroundColor: backgroundColor,
       body: Column(
         children: [
-          const HeaderBanner(),
 
           Expanded(
             child: SingleChildScrollView(
@@ -416,20 +413,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
           // NAVEGACIÓN INFERIOR
           // ======================================================
 
-          QuickAccessButtons(
-            selectedItem: QuickAccessItem.buscar,
-
-            onInicioTap: () {
-              Navigator.popUntil(
-                context,
-                (route) => route.isFirst,
-              );
-            },
-
-            onBuscarTap: () {
-              Navigator.pop(context);
-            },
-          ),
+       
         ],
       ),
     );

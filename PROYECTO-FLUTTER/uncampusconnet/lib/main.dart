@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:uncampusconnet/ui/pages/home_page.dart';
+import 'package:uncampusconnet/ui/pages/main_scaffold.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,7 +46,10 @@ class _MyAppState extends State<MyApp> {
 
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
 
-      home: HomePage(isDarkMode: isDarkMode, onThemeChanged: toggleTheme),
+      home: MainScaffold(
+        isDarkMode: isDarkMode,
+        onThemeChanged: toggleTheme,
+      ),
     );
   }
 }

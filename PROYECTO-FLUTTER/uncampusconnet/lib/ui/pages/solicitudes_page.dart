@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:uncampusconnet/ui/widgets/header_banner.dart';
-import 'package:uncampusconnet/ui/widgets/quick_access_buttons.dart';
 
 // ======================================================
 // COLORES
@@ -78,7 +76,7 @@ class _SolicitudesPageState extends State<SolicitudesPage> {
             // HEADER
             // ==========================================
 
-            const HeaderBanner(),
+            
 
             // ==========================================
             // CONTENIDO
@@ -338,30 +336,7 @@ class _SolicitudesPageState extends State<SolicitudesPage> {
             // ==========================================
             // BARRA INFERIOR
             // ==========================================
-            QuickAccessButtons(
-              selectedItem: QuickAccessItem.solicitudes,
-
-              // Volver a Home
-              onInicioTap: () {
-                Navigator.pop(context);
-              },
-
-              // Buscar
-              onBuscarTap: () {
-                Navigator.pop(context);
-              },
-
-              // Crear
-              onCrearTap: () {},
-
-              // Mis proyectos
-              onMisProyectosTap: () {
-                Navigator.pop(context);
-              },
-
-              // Ya estamos en solicitudes
-              onSolicitudesTap: () {},
-            ),
+           
           ],
         ),
       ),

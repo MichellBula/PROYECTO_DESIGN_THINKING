@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:uncampusconnet/ui/widgets/header_banner.dart';
-import 'package:uncampusconnet/ui/widgets/quick_access_buttons.dart';
 import 'package:uncampusconnet/ui/widgets/development_dialog.dart';
 import 'package:uncampusconnet/ui/widgets/project_card.dart';
 
@@ -49,7 +47,7 @@ class MisProyectosPage extends StatelessWidget {
             // HEADER
             // ==========================================
 
-            const HeaderBanner(),
+          
 
             // ==========================================
             // CONTENIDO
@@ -174,24 +172,6 @@ class MisProyectosPage extends StatelessWidget {
             // ==========================================
             // BARRA INFERIOR
             // ==========================================
-            QuickAccessButtons(
-              selectedItem: QuickAccessItem.misProyectos,
-
-              // Volver a Home
-              onInicioTap: () {
-                Navigator.pop(context);
-              },
-
-              // Ya estamos en esta pantalla
-              onMisProyectosTap: () {},
-              // Buscar
-              onBuscarTap: () {
-                Navigator.pop(context);
-              },
-              onSolicitudesTap: () {
-                Navigator.pop(context);
-              },
-            ),
           ],
         ),
       ),

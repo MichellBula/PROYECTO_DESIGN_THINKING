@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
 class HeaderBanner extends StatelessWidget {
-  const HeaderBanner({super.key});
+  final bool isDarkMode;
+  final VoidCallback onThemeChanged;
+
+  const HeaderBanner({
+    super.key,
+    required this.isDarkMode,
+    required this.onThemeChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
       width: double.infinity,
@@ -15,7 +22,7 @@ class HeaderBanner extends StatelessWidget {
       ),
 
       decoration: BoxDecoration(
-        color: isDarkMode
+        color: isDark
             ? const Color(0xFF1E1E1E)
             : const Color.fromRGBO(226, 226, 226, 1),
       ),
@@ -29,10 +36,27 @@ class HeaderBanner extends StatelessWidget {
 
           const Spacer(),
 
+          // Botón de modo oscuro
+          IconButton(
+            onPressed: onThemeChanged,
+            icon: Icon(
+              isDark ? Icons.light_mode : Icons.dark_mode,
+              size: 26,
+              color: isDark ? Colors.amber : Colors.black87,
+            ),
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+            tooltip: isDark
+                ? 'Cambiar a modo claro'
+                : 'Cambiar a modo oscuro',
+          ),
+
+          const SizedBox(width: 15),
+
           Icon(
             Icons.notifications_none,
             size: 28,
-            color: isDarkMode ? Colors.white : Colors.black87,
+            color: isDark ? Colors.white : Colors.black87,
           ),
 
           const SizedBox(width: 15),
@@ -40,7 +64,7 @@ class HeaderBanner extends StatelessWidget {
           Icon(
             Icons.person_outline,
             size: 28,
-            color: isDarkMode ? Colors.white : Colors.black87,
+            color: isDark ? Colors.white : Colors.black87,
           ),
         ],
       ),

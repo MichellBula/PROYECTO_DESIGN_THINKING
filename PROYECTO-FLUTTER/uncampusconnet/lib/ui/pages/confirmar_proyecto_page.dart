@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:uncampusconnet/ui/widgets/header_banner.dart';
-import 'package:uncampusconnet/ui/widgets/quick_access_buttons.dart';
 import 'package:uncampusconnet/ui/widgets/information_list.dart';
 
 // ======================================================
@@ -313,15 +311,8 @@ class ConfirmarProyectoPage extends StatelessWidget {
       backgroundColor:
           pageBackground,
 
-      body: SafeArea(
-        child: Column(
+      body: Column(
           children: [
-            // ==========================================
-            // HEADER
-            // ==========================================
-
-            const HeaderBanner(),
-
             // ==========================================
             // CONTENIDO
             // ==========================================
@@ -736,45 +727,8 @@ class ConfirmarProyectoPage extends StatelessWidget {
                 ),
               ),
             ),
-
-            // ==========================================
-            // BARRA INFERIOR
-            // ==========================================
-
-            QuickAccessButtons(
-              selectedItem:
-                  QuickAccessItem.crear,
-
-              onInicioTap: () {
-                Navigator.popUntil(
-                  context,
-                  (route) => route.isFirst,
-                );
-              },
-
-              onBuscarTap: () {
-                Navigator.pop(
-                  context,
-                );
-              },
-
-              onCrearTap: () {},
-
-              onMisProyectosTap: () {
-                Navigator.pop(
-                  context,
-                );
-              },
-
-              onSolicitudesTap: () {
-                Navigator.pop(
-                  context,
-                );
-              },
-            ),
           ],
         ),
-      ),
     );
   }
 }

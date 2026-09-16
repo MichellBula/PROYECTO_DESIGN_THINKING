@@ -7,32 +7,21 @@ import 'package:flutter/material.dart';
 const Color primaryRed = Color(0xFF931212);
 
 // ======================================================
-// ELEMENTO SELECCIONADO
-// ======================================================
-
-enum QuickAccessItem { inicio, buscar, crear, misProyectos, solicitudes }
-
-// ======================================================
 // BARRA DE ACCESO RÁPIDO
 // ======================================================
 
 class QuickAccessButtons extends StatelessWidget {
-  final QuickAccessItem selectedItem;
+  final int currentIndex;
+  final ValueChanged<int> onTabChanged;
 
-  final VoidCallback? onInicioTap;
-  final VoidCallback? onBuscarTap;
+  // Callbacks opcionales para acciones especiales (como el botón Crear)
   final VoidCallback? onCrearTap;
-  final VoidCallback? onMisProyectosTap;
-  final VoidCallback? onSolicitudesTap;
 
   const QuickAccessButtons({
     super.key,
-    required this.selectedItem,
-    this.onInicioTap,
-    this.onBuscarTap,
+    required this.currentIndex,
+    required this.onTabChanged,
     this.onCrearTap,
-    this.onMisProyectosTap,
-    this.onSolicitudesTap,
   });
 
   @override
@@ -62,72 +51,59 @@ class QuickAccessButtons extends StatelessWidget {
       child: Row(
         children: [
           // ==========================================
-          // INICIO
+          // INICIO (índice 0)
           // ==========================================
-
           Expanded(
             child: _QuickAccessButton(
               icon: Icons.home_outlined,
               label: 'Inicio',
-
-              color: selectedItem == QuickAccessItem.inicio
-                  ? primaryRed
-                  : defaultColor,
-
-              onTap: onInicioTap ?? () {},
+              color: currentIndex == 0 ? primaryRed : defaultColor,
+              onTap: () => onTabChanged(0),
             ),
           ),
 
           // ==========================================
-          // BUSCAR
+          // BUSCAR (índice 1)
           // ==========================================
           Expanded(
             child: _QuickAccessButton(
               icon: Icons.search,
               label: 'Buscar',
-
-              color: selectedItem == QuickAccessItem.buscar
-                  ? primaryRed
-                  : defaultColor,
-
-              onTap: onBuscarTap ?? () {},
+              color: currentIndex == 1 ? primaryRed : defaultColor,
+              onTap: () => onTabChanged(1),
             ),
           ),
 
           // ==========================================
-          // CREAR
+          // CREAR (acción especial, no cambia de página)
           // ==========================================
-          Expanded(child: _CreateButton(onTap: onCrearTap ?? () {})),
+          Expanded(
+            child: _CreateButton(
+              onTap: onCrearTap ?? () {},
+            ),
+          ),
 
           // ==========================================
-          // MIS PROYECTOS
+          // MIS PROYECTOS (índice 2)
           // ==========================================
           Expanded(
             child: _QuickAccessButton(
               icon: Icons.groups_outlined,
               label: 'Mis proyectos',
-
-              color: selectedItem == QuickAccessItem.misProyectos
-                  ? primaryRed
-                  : defaultColor,
-
-              onTap: onMisProyectosTap ?? () {},
+              color: currentIndex == 2 ? primaryRed : defaultColor,
+              onTap: () => onTabChanged(2),
             ),
           ),
 
           // ==========================================
-          // SOLICITUDES
+          // SOLICITUDES (índice 3)
           // ==========================================
           Expanded(
             child: _QuickAccessButton(
               icon: Icons.chat_bubble_outline,
               label: 'Solicitudes',
-
-              color: selectedItem == QuickAccessItem.solicitudes
-                  ? primaryRed
-                  : defaultColor,
-
-              onTap: onSolicitudesTap ?? () {},
+              color: currentIndex == 3 ? primaryRed : defaultColor,
+              onTap: () => onTabChanged(3),
             ),
           ),
         ],

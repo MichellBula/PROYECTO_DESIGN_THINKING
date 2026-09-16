@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:uncampusconnet/ui/widgets/header_banner.dart';
-import 'package:uncampusconnet/ui/widgets/quick_access_buttons.dart';
 import 'package:uncampusconnet/ui/pages/proyecto_disponible_page.dart';
 
 class BuscarPage extends StatefulWidget {
@@ -291,248 +289,246 @@ class _BuscarPageState extends State<BuscarPage> {
         Theme.of(context).brightness == Brightness.dark;
 
     final Color backgroundColor =
-        isDarkMode ? const Color(0xFF121212) : Colors.white;
+    isDarkMode ? const Color(0xFF121212) : const Color(0xFFF5F5F5);
 
     final Color textColor =
         isDarkMode ? Colors.white : const Color(0xFF0A0A0A);
 
     final List<_ProjectInfo> visibleProjects = filteredProjects;
 
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      body: Column(
+    // AHORA RETORNA SOLO EL CONTENIDO (sin Scaffold, sin HeaderBanner,
+    // sin QuickAccessButtons), porque MainScaffold ya los coloca.
+    return Container(
+      color: backgroundColor,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 28,
+          vertical: 20,
+        ),
+        child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const HeaderBanner(),
-
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 20,
+          SizedBox(
+            height: 52,
+            child: Center(
+              child: Text(
+                '¡Encuentra proyectos disponibles!',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: textColor,
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+          ),
+
+          Divider(
+            height: 1,
+            color: isDarkMode
+                ? const Color(0xFF333333)
+                : const Color(0xFFD9D9D9),
+          ),
+
+          const SizedBox(height: 20),
+
+            // BARRA DE BÚSQUEDA
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: const Color(0xFFE2E2E2),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: TextField(
+                controller: searchController,
+                style: const TextStyle(
+                  color: Color(0xFF0A0A0A),
+                ),
+                textInputAction: TextInputAction.search,
+                onSubmitted: (_) {
+                  _addFilter();
+                },
+                decoration: InputDecoration(
+                  hintText: 'Buscar proyecto o categoría',
+                  hintStyle: const TextStyle(
+                    color: Color(0xFF6B6B6B),
+                  ),
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
+                  suffixIcon: IconButton(
+                    tooltip: 'Agregar filtro',
+                    icon: const Icon(
+                      Icons.search,
+                      color: Color(0xFF500000),
+                    ),
+                    onPressed: _addFilter,
+                  ),
+                ),
+              ),
+            ),
+
+            // FILTROS GUARDADOS
+            if (activeFilters.isNotEmpty) ...[
+              const SizedBox(height: 14),
+
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
                 children: [
-                  Text(
-                    '¡Encuentra proyectos disponibles!',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // BARRA DE BÚSQUEDA
-                  Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE2E2E2),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TextField(
-                      controller: searchController,
-                      style: const TextStyle(
-                        color: Color(0xFF0A0A0A),
+                  ...activeFilters.map(
+                    (filter) => Container(
+                      padding: const EdgeInsets.only(
+                        left: 14,
+                        right: 6,
+                        top: 7,
+                        bottom: 7,
                       ),
-                      textInputAction: TextInputAction.search,
-                      onSubmitted: (_) {
-                        _addFilter();
-                      },
-                      decoration: InputDecoration(
-                        hintText: 'Buscar proyecto o categoría',
-                        hintStyle: const TextStyle(
-                          color: Color(0xFF6B6B6B),
-                        ),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 14,
-                        ),
-                        suffixIcon: IconButton(
-                          tooltip: 'Agregar filtro',
-                          icon: const Icon(
-                            Icons.search,
-                            color: Color(0xFF500000),
-                          ),
-                          onPressed: _addFilter,
-                        ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFC9ACAC),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                    ),
-                  ),
-
-                  // FILTROS GUARDADOS
-                  if (activeFilters.isNotEmpty) ...[
-                    const SizedBox(height: 14),
-
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        ...activeFilters.map(
-                          (filter) => Container(
-                            padding: const EdgeInsets.only(
-                              left: 14,
-                              right: 6,
-                              top: 7,
-                              bottom: 7,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFC9ACAC),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  filter,
-                                  style: const TextStyle(
-                                    color: Color(0xFF500000),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(20),
-                                  onTap: () {
-                                    _removeFilter(filter);
-                                  },
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(3),
-                                    child: Icon(
-                                      Icons.close,
-                                      size: 18,
-                                      color: Color(0xFF500000),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        TextButton.icon(
-                          onPressed: _clearAllFilters,
-                          icon: const Icon(
-                            Icons.delete_outline,
-                            size: 18,
-                            color: Color(0xFF931212),
-                          ),
-                          label: const Text(
-                            'Limpiar',
-                            style: TextStyle(
-                              color: Color(0xFF931212),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            filter,
+                            style: const TextStyle(
+                              color: Color(0xFF500000),
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-
-                  const SizedBox(height: 25),
-
-                  // CANTIDAD DE RESULTADOS
-                  Row(
-                    children: [
-                      Text(
-                        'Grupos disponibles:',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: textColor,
-                        ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        '${visibleProjects.length}',
-                        style: const TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF931212),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 15),
-
-                  // SIN RESULTADOS
-                  if (visibleProjects.isEmpty)
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 35,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isDarkMode
-                            ? const Color(0xFF1E1E1E)
-                            : const Color(0xFFF4F4F4),
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      child: Column(
-                        children: [
-                          const Icon(
-                            Icons.search_off,
-                            size: 45,
-                            color: Color(0xFF931212),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'No encontramos proyectos',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: textColor,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            'Prueba eliminando algún filtro.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: isDarkMode
-                                  ? Colors.white70
-                                  : const Color(0xFF6B6B6B),
+                          const SizedBox(width: 4),
+                          InkWell(
+                            borderRadius: BorderRadius.circular(20),
+                            onTap: () {
+                              _removeFilter(filter);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(3),
+                              child: Icon(
+                                Icons.close,
+                                size: 18,
+                                color: Color(0xFF500000),
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
+                  ),
 
-                  // TARJETAS DE PROYECTOS
-                  ...visibleProjects.map(
-                    (project) => Padding(
-                      padding: const EdgeInsets.only(bottom: 15),
-                      child: _GroupCard(
-                        leader: project.leader,
-                        name: project.name,
-                        members: project.members,
-                        vacancies: project.vacancies,
-                        closingDate: project.closingDate,
-                        area: project.area,
-                        description: project.description,
-                        requirements: project.requirements,
-                        roles: project.roles,
+                  TextButton.icon(
+                    onPressed: _clearAllFilters,
+                    icon: const Icon(
+                      Icons.delete_outline,
+                      size: 18,
+                      color: Color(0xFF931212),
+                    ),
+                    label: const Text(
+                      'Limpiar',
+                      style: TextStyle(
+                        color: Color(0xFF931212),
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-          ),
+            ],
 
-          QuickAccessButtons(
-            selectedItem: QuickAccessItem.buscar,
-            onInicioTap: () {
-              Navigator.pop(context);
-            },
-            onBuscarTap: () {},
-          ),
-        ],
+            const SizedBox(height: 25),
+
+            // CANTIDAD DE RESULTADOS
+            Row(
+              children: [
+                Text(
+                  'Grupos disponibles:',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: textColor,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  '${visibleProjects.length}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF500000),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 15),
+
+            // SIN RESULTADOS
+            if (visibleProjects.isEmpty)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 35,
+                ),
+                decoration: BoxDecoration(
+                  color: isDarkMode
+                      ? const Color(0xFF1E1E1E)
+                      : const Color(0xFFF4F4F4),
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Column(
+                  children: [
+                    const Icon(
+                      Icons.search_off,
+                      size: 45,
+                      color: Color(0xFF931212),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      'No encontramos proyectos',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: textColor,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      'Prueba eliminando algún filtro.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: isDarkMode
+                            ? Colors.white70
+                            : const Color(0xFF6B6B6B),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+            // TARJETAS DE PROYECTOS
+            ...visibleProjects.map(
+              (project) => Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: _GroupCard(
+                  leader: project.leader,
+                  name: project.name,
+                  members: project.members,
+                  vacancies: project.vacancies,
+                  closingDate: project.closingDate,
+                  area: project.area,
+                  description: project.description,
+                  requirements: project.requirements,
+                  roles: project.roles,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

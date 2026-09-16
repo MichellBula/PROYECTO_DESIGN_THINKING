@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:uncampusconnet/ui/widgets/header_banner.dart';
+
 import 'package:uncampusconnet/ui/widgets/information_list.dart';
-import 'package:uncampusconnet/ui/widgets/quick_access_buttons.dart';
 import 'package:uncampusconnet/ui/widgets/select_downdrop.dart';
 import 'package:uncampusconnet/ui/widgets/development_dialog.dart';
 import 'package:uncampusconnet/ui/pages/confirmar_proyecto_page.dart';
@@ -11,7 +10,7 @@ import 'package:uncampusconnet/ui/pages/confirmar_proyecto_page.dart';
 // COLORES
 // ======================================================
 
-const Color primaryRed = Color(0xFF931212);
+const Color primaryRed = Color.fromARGB(255, 80, 0, 0);
 const Color darkRed = Color(0xFF941818);
 
 // ======================================================
@@ -555,14 +554,8 @@ class _DetallesProyectoPageState
     return Scaffold(
       backgroundColor: pageBackground,
 
-      body: SafeArea(
-        child: Column(
+      body: Column(
           children: [
-            // ==========================================
-            // HEADER
-            // ==========================================
-
-            const HeaderBanner(),
 
             // ==========================================
             // CONTENIDO SCROLLEABLE
@@ -1133,30 +1126,8 @@ class _DetallesProyectoPageState
             // BARRA INFERIOR
             // ==========================================
 
-            QuickAccessButtons(
-              selectedItem:
-                  QuickAccessItem.crear,
-
-              onInicioTap: () {
-                Navigator.pop(context);
-              },
-
-              onBuscarTap: () {
-                Navigator.pop(context);
-              },
-
-              onCrearTap: () {},
-
-              onMisProyectosTap: () {
-                Navigator.pop(context);
-              },
-
-              onSolicitudesTap: () {
-                Navigator.pop(context);
-              },
-            ),
+          
           ],
-        ),
       ),
     );
   }
