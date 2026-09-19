@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 
-
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
 
@@ -33,6 +32,7 @@ class BottomNavBar extends StatelessWidget {
       child: Obx(
         () => Row(
           children: [
+            // INICIO → índice 0
             Expanded(
               child: _AppNavItem(
                 icon: Icons.home_outlined,
@@ -41,6 +41,8 @@ class BottomNavBar extends StatelessWidget {
                 onTap: () => controller.changeTab(0),
               ),
             ),
+
+            // BUSCAR → índice 1
             Expanded(
               child: _AppNavItem(
                 icon: Icons.search,
@@ -49,27 +51,32 @@ class BottomNavBar extends StatelessWidget {
                 onTap: () => controller.changeTab(1),
               ),
             ),
+
+            // CREAR → índice 2
             Expanded(
               child: _AppCreateButton(
-                onTap: () {
-                  // Get.to(() => const NuevoProyectoPage());
-                },
-              ),
-            ),
-            Expanded(
-              child: _AppNavItem(
-                icon: Icons.groups_outlined,
-                label: 'Mis proyectos',
                 isSelected: controller.currentIndex.value == 2,
                 onTap: () => controller.changeTab(2),
               ),
             ),
+
+            // MIS PROYECTOS → índice 3
+            Expanded(
+              child: _AppNavItem(
+                icon: Icons.groups_outlined,
+                label: 'Mis proyectos',
+                isSelected: controller.currentIndex.value == 3,
+                onTap: () => controller.changeTab(3),
+              ),
+            ),
+
+            // SOLICITUDES → índice 4
             Expanded(
               child: _AppNavItem(
                 icon: Icons.chat_bubble_outline,
                 label: 'Solicitudes',
-                isSelected: controller.currentIndex.value == 3,
-                onTap: () => controller.changeTab(3),
+                isSelected: controller.currentIndex.value == 4,
+                onTap: () => controller.changeTab(4),
               ),
             ),
           ],
@@ -79,7 +86,7 @@ class BottomNavBar extends StatelessWidget {
   }
 }
 
-//Navegacion
+//Item navegacion
 class _AppNavItem extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -119,11 +126,15 @@ class _AppNavItem extends StatelessWidget {
   }
 }
 
-//Boton crear
+//Boton Crear
 class _AppCreateButton extends StatelessWidget {
+  final bool isSelected;
   final VoidCallback onTap;
 
-  const _AppCreateButton({required this.onTap});
+  const _AppCreateButton({
+    required this.isSelected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -90,32 +90,7 @@ class AppTheme {
         ),
       ),
 
-      //Tipografias
-      textTheme: TextTheme(
-        titleLarge: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: scheme.onSurface,
-        ),
-        titleMedium: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-          color: scheme.onSurface,
-        ),
-        bodyMedium: TextStyle(
-          fontSize: 14,
-          color: scheme.onSurface,
-        ),
-        bodySmall: TextStyle(
-          fontSize: 12,
-          color: scheme.onSurfaceVariant,
-        ),
-        labelLarge: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: scheme.onPrimary,
-        ),
-      ),
+     
     );
   }
 }
