@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import 'package:uncampusconnet/ui/widgets/information_list.dart';
 import 'package:uncampusconnet/ui/widgets/select_downdrop.dart';
 import 'package:uncampusconnet/ui/widgets/development_dialog.dart';

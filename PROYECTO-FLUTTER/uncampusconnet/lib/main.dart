@@ -1,55 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import 'package:uncampusconnet/ui/pages/main_scaffold.dart';
+import 'package:uncampusconnet/core/theme/theme.dart';
+import 'package:uncampusconnet/core/utils/app_scroll_behavior.dart';
+import 'package:uncampusconnet/ui/widgets/widgets_resumidos/main_scaffold.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  bool isDarkMode = false;
-
-  void toggleTheme() {
-    setState(() {
-      isDarkMode = !isDarkMode;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'UnCampusConnect',
-
-      theme: ThemeData(
-        brightness: Brightness.light,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.red,
-          brightness: Brightness.light,
-        ),
-      ),
-
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.red,
-          brightness: Brightness.dark,
-        ),
-      ),
-
-      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-
-      home: MainScaffold(
-        isDarkMode: isDarkMode,
-        onThemeChanged: toggleTheme,
-      ),
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.light,
+      scrollBehavior: AppScrollBehavior(),   // ← ESTO FALTA
+      home: const MainScaffold(),
     );
   }
 }

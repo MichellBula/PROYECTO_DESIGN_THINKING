@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uncampusconnet/ui/widgets/event_data.dart';
+import 'package:uncampusconnet/features/home/data/event_data.dart';
 
 // ======================================================
 // DATOS DE HOME
