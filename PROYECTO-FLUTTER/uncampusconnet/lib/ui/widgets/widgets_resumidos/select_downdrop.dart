@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
 
-const Color primaryRed = Color(0xFF931212);
-const Color darkRed = Color(0xFF941818);
+import 'package:uncampusconnet/core/theme/text_styles.dart';
+import 'package:uncampusconnet/core/theme/theme.dart';
 
+/// Dropdown reutilizable para seleccionar varias opciones.
+///
+/// Permite:
+/// - Abrir y cerrar un menú de opciones.
+/// - Seleccionar una o varias opciones.
+/// - Mostrar las opciones seleccionadas en el campo.
+/// - Utilizarse tanto en modo claro como oscuro.
+///
+/// Este widget no maneja GetX directamente. Recibe los datos
+/// y devuelve los cambios mediante [onChanged].
 class MultiSelectDropdown extends StatefulWidget {
+  /// Texto que se muestra cuando no hay opciones seleccionadas.
   final String hintText;
+
+  /// Lista de opciones disponibles.
   final List<String> options;
+
+  /// Lista de opciones seleccionadas actualmente.
   final List<String> selectedItems;
+
+  /// Función ejecutada cuando cambia la selección.
   final ValueChanged<List<String>> onChanged;
 
   const MultiSelectDropdown({
@@ -22,8 +39,14 @@ class MultiSelectDropdown extends StatefulWidget {
 }
 
 class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
+  /// Indica si el menú de opciones está abierto.
   bool isOpen = false;
 
+  // ======================================================
+  // SELECCIÓN
+  // ======================================================
+
+  /// Agrega o elimina una opción de la lista seleccionada.
   void toggleOption(String option) {
     final List<String> updatedItems = List<String>.from(widget.selectedItems);
 
@@ -36,6 +59,11 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
     widget.onChanged(updatedItems);
   }
 
+  // ======================================================
+  // TEXTO MOSTRADO
+  // ======================================================
+
+  /// Genera el texto que se muestra dentro del campo.
   String get displayText {
     if (widget.selectedItems.isEmpty) {
       return widget.hintText;
@@ -44,23 +72,21 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
     return widget.selectedItems.join(', ');
   }
 
+  // ======================================================
+  // BUILD
+  // ======================================================
+
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final scheme = Theme.of(context).colorScheme;
 
-    final Color backgroundColor = isDarkMode
-        ? const Color(0xFF2A2A2A)
-        : Colors.white;
-
-    final Color textColor = isDarkMode ? Colors.white : Colors.grey;
-
-    final Color hintColor = isDarkMode ? Colors.white60 : Colors.grey;
+    final bool hasSelection = widget.selectedItems.isNotEmpty;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         // ==================================================
-        // CAMPO
+        // CAMPO PRINCIPAL
         // ==================================================
 
         GestureDetector(
@@ -69,16 +95,17 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
               isOpen = !isOpen;
             });
           },
+          behavior: HitTestBehavior.opaque,
           child: Container(
-            height: 38,
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            constraints: const BoxConstraints(minHeight: 38),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: BorderRadius.circular(10),
+              color: scheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(AppTheme.smallRadius),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.18),
+                  color: scheme.shadow.withValues(alpha: 0.15),
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 ),
@@ -86,23 +113,29 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
             ),
             child: Row(
               children: [
+                // TEXTO
                 Expanded(
                   child: Text(
                     displayText,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: widget.selectedItems.isEmpty
-                          ? hintColor
-                          : textColor,
-                    ),
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.smallText.copyWith(
+                      color: hasSelection
+                          ? scheme.onSurface
+                          : scheme.onSurfaceVariant,
+                    ),
                   ),
                 ),
+
+                const SizedBox(width: 8),
+
+                // FLECHA
                 Icon(
-                  isOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                  isOpen
+                      ? Icons.keyboard_arrow_up_rounded
+                      : Icons.keyboard_arrow_down_rounded,
                   size: 22,
-                  color: Colors.black87,
+                  color: scheme.onSurfaceVariant,
                 ),
               ],
             ),
@@ -110,25 +143,33 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
         ),
 
         // ==================================================
-        // OPCIONES
+        // MENÚ DE OPCIONES
         // ==================================================
         if (isOpen)
           Container(
             width: double.infinity,
-            margin: const EdgeInsets.only(top: 2),
+            margin: const EdgeInsets.only(top: 4),
+            constraints: const BoxConstraints(maxHeight: 250),
             decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: BorderRadius.circular(4),
+              color: scheme.surfaceContainer,
+              borderRadius: BorderRadius.circular(AppTheme.smallRadius),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.20),
+                  color: scheme.shadow.withValues(alpha: 0.20),
                   blurRadius: 5,
                   offset: const Offset(0, 2),
                 ),
               ],
             ),
-            child: Column(
-              children: widget.options.map((option) {
+
+            // Scroll interno para listas grandes
+            child: ListView.builder(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              itemCount: widget.options.length,
+              itemBuilder: (context, index) {
+                final String option = widget.options[index];
+
                 final bool isSelected = widget.selectedItems.contains(option);
 
                 return InkWell(
@@ -138,20 +179,25 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
-                      vertical: 8,
+                      vertical: 4,
                     ),
                     child: Row(
                       children: [
+                        // NOMBRE DE LA OPCIÓN
                         Expanded(
                           child: Text(
                             option,
-                            style: TextStyle(fontSize: 12, color: textColor),
+                            style: AppTextStyles.smallText.copyWith(
+                              color: scheme.onSurface,
+                            ),
                           ),
                         ),
 
+                        // CHECKBOX
                         Checkbox(
                           value: isSelected,
-                          activeColor: primaryRed,
+                          activeColor: scheme.primary,
+                          checkColor: scheme.onPrimary,
                           onChanged: (_) {
                             toggleOption(option);
                           },
@@ -160,7 +206,7 @@ class _MultiSelectDropdownState extends State<MultiSelectDropdown> {
                     ),
                   ),
                 );
-              }).toList(),
+              },
             ),
           ),
       ],

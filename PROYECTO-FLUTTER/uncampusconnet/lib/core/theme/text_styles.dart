@@ -16,14 +16,10 @@ class AppTextStyles {
 
   // Textos
   // Texto normal (ej: descripciones)
-  static const TextStyle bodyText = TextStyle(
-    fontSize: 14,
-  );
+  static const TextStyle bodyText = TextStyle(fontSize: 14);
 
   // Texto pequeño (ej: subtítulos, usuario, fecha)
-  static const TextStyle smallText = TextStyle(
-    fontSize: 12,
-  );
+  static const TextStyle smallText = TextStyle(fontSize: 12);
 
   //Botones
   static const TextStyle buttonText = TextStyle(
@@ -32,9 +28,7 @@ class AppTextStyles {
   );
 
   //Navegación
-  static const TextStyle navLabel = TextStyle(
-    fontSize: 11,
-  );
+  static const TextStyle navLabel = TextStyle(fontSize: 11);
 
   //Home
   // Saludo (ej: "Hola, Juan!")
@@ -44,9 +38,7 @@ class AppTextStyles {
   );
 
   // Subtítulo (ej: "¿Qué deseas hacer hoy?")
-  static const TextStyle subtitle = TextStyle(
-    fontSize: 13,
-  );
+  static const TextStyle subtitle = TextStyle(fontSize: 13);
 
   // Título de sección (ej: "Eventos próximos:", "Publicaciones:")
   static const TextStyle sectionTitle = TextStyle(
@@ -61,9 +53,7 @@ class AppTextStyles {
   );
 
   // Texto secundario (ej: "@usuario - Hace 2h")
-  static const TextStyle caption = TextStyle(
-    fontSize: 12,
-  );
+  static const TextStyle caption = TextStyle(fontSize: 12);
 
   //Eventos
   // Fecha del evento (ej: "Mañana - 10:00 am")
@@ -79,13 +69,26 @@ class AppTextStyles {
   );
 
   // Proyecto del evento (ej: "ElectroPesca")
-  static const TextStyle eventProject = TextStyle(
-    fontSize: 9,
-  );
+  static const TextStyle eventProject = TextStyle(fontSize: 9);
 
   // Etiqueta del evento (ej: "Avance", "Reunión")
   static const TextStyle eventTag = TextStyle(
     fontSize: 8,
     fontWeight: FontWeight.bold,
+  );
+
+  /// Título principal utilizado en formularios.
+  static const TextStyle formTitle = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+
+  /// Texto descriptivo utilizado debajo del título.
+  static const TextStyle formDescription = TextStyle(fontSize: 13);
+
+  /// Etiqueta utilizada encima de un campo.
+  static const TextStyle fieldLabel = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
   );
 }
