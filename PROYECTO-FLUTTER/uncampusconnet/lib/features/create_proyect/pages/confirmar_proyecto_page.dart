@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
+import 'package:uncampusconnet/features/create_proyect/controllers/create_project_controller.dart';
+import 'package:uncampusconnet/features/create_proyect/controllers/project_details_controller.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/information_box.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/confirmaction_button.dart';
+import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 import 'package:uncampusconnet/ui/widgets/information_list.dart';
 
 class ConfirmarProyectoPage extends StatelessWidget {
@@ -38,6 +43,11 @@ class ConfirmarProyectoPage extends StatelessWidget {
     required this.deseaDocente,
   });
 
+  /// Guarda el proyecto y regresa directamente al Home.
+  ///
+  /// Todas las pantallas del flujo de creación se eliminan
+  /// de la pila de navegación.
+  /// Guarda el proyecto y regresa directamente al Home.
   void _publicarProyecto(BuildContext context) {
     createdProjects.add(
       CreatedProjectInfo(
@@ -57,10 +67,14 @@ class ConfirmarProyectoPage extends StatelessWidget {
       ),
     );
 
-    debugPrint('Proyecto publicado: $nombreProyecto');
-    debugPrint('Total de proyectos: ${createdProjects.length}');
+    Get.find<MainController>().changeTab(0);
+    // Limpia la primera pantalla.
+    Get.find<CreateProjectController>().limpiarFormulario();
 
-    Navigator.popUntil(context, (route) => route.isFirst);
+    // Limpia la segunda pantalla.
+    Get.find<ProjectDetailsController>().limpiarFormulario();
+    // Regresamos al Home que ya existía en la pila.
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
   @override
@@ -71,10 +85,7 @@ class ConfirmarProyectoPage extends StatelessWidget {
       backgroundColor: scheme.surface,
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 18,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
           children: [
             Center(
               child: ConstrainedBox(
@@ -84,8 +95,7 @@ class ConfirmarProyectoPage extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
                   decoration: BoxDecoration(
                     color: scheme.surfaceContainerHighest,
-                    borderRadius:
-                        BorderRadius.circular(AppTheme.cardRadius),
+                    borderRadius: BorderRadius.circular(AppTheme.cardRadius),
                     boxShadow: [
                       BoxShadow(
                         color: scheme.shadow.withValues(alpha: 0.20),
@@ -107,9 +117,7 @@ class ConfirmarProyectoPage extends StatelessWidget {
 
                       const SizedBox(height: 10),
 
-                      Divider(
-                        color: scheme.outlineVariant,
-                      ),
+                      Divider(color: scheme.outlineVariant),
 
                       const SizedBox(height: 12),
 
@@ -157,8 +165,7 @@ class ConfirmarProyectoPage extends StatelessWidget {
                           Expanded(
                             child: ConfirmationButton(
                               text: 'Publicar',
-                              onPressed: () =>
-                                  _publicarProyecto(context),
+                              onPressed: () => _publicarProyecto(context),
                             ),
                           ),
                         ],

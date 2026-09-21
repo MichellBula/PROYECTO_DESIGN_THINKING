@@ -1,135 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:uncampusconnet/core/theme/text_styles.dart';
+import 'package:uncampusconnet/features/create_proyect/controllers/create_project_controller.dart';
 import 'package:uncampusconnet/features/create_proyect/data/project_options.dart';
 import 'package:uncampusconnet/features/create_proyect/pages/detalles_proyecto_page.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/project_dropdown_field.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/project_form_actions.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/project_text_field.dart';
+import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 import 'package:uncampusconnet/ui/widgets/widgets_resumidos/screen_title.dart';
 
 /// Primera pantalla del proceso de creación de un proyecto.
 ///
 /// Recoge la información básica del proyecto antes de pasar
 /// a la pantalla de detalles.
-class NuevoProyectoPage extends StatefulWidget {
+class NuevoProyectoPage extends StatelessWidget {
   const NuevoProyectoPage({super.key});
 
   @override
-  State<NuevoProyectoPage> createState() => _NuevoProyectoPageState();
-}
+  Widget build(BuildContext context) {
+    final controller = Get.put(CreateProjectController());
+    final mainController = Get.find<MainController>();
+    final scheme = Theme.of(context).colorScheme;
 
-class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
-  // ======================================================
-  // CONTROLADORES
-  // ======================================================
+    /// Valida el formulario y continúa a detalles.
+    void continuar() {
+      final nombre = controller.nombreController.text.trim();
+      final descripcion = controller.descripcionController.text.trim();
+      final lider = controller.liderController.text.trim();
+      final categoria = controller.categoriaSeleccionada.value;
 
-  /// Controla el nombre del proyecto.
-  final TextEditingController nombreController = TextEditingController();
+      if (nombre.isEmpty ||
+          descripcion.isEmpty ||
+          lider.isEmpty ||
+          categoria == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Completa todos los campos antes de continuar.'),
+          ),
+        );
 
-  /// Controla la descripción.
-  final TextEditingController descripcionController = TextEditingController();
+        return;
+      }
 
-  /// Controla el nombre del líder.
-  final TextEditingController liderController = TextEditingController();
-
-  // ======================================================
-  // ESTADO
-  // ======================================================
-
-  /// Categoría seleccionada.
-  String? selectedCategory;
-
-  // ======================================================
-  // CICLO DE VIDA
-  // ======================================================
-
-  @override
-  void dispose() {
-    nombreController.dispose();
-    descripcionController.dispose();
-    liderController.dispose();
-
-    super.dispose();
-  }
-
-  // ======================================================
-  // CONTINUAR
-  // ======================================================
-
-  /// Valida los campos y navega hacia los detalles
-  /// del proyecto.
-  void continuar() {
-    final nombre = nombreController.text.trim();
-    final descripcion = descripcionController.text.trim();
-    final lider = liderController.text.trim();
-
-    if (nombre.isEmpty ||
-        descripcion.isEmpty ||
-        lider.isEmpty ||
-        selectedCategory == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Completa todos los campos antes de continuar.'),
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetallesProyectoPage(
+            nombreProyecto: nombre,
+            descripcion: descripcion,
+            liderProyecto: lider,
+            categoria: categoria,
+          ),
         ),
       );
-
-      return;
     }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DetallesProyectoPage(
-          nombreProyecto: nombre,
-          descripcion: descripcion,
-          liderProyecto: lider,
-          categoria: selectedCategory!,
-        ),
-      ),
-    );
-  }
-
-  // ======================================================
-  // BUILD
-  // ======================================================
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
+    /// Regresa a la pestaña Inicio.
+    void volverInicio() {
+      mainController.changeTab(0);
+    }
 
     return Scaffold(
       backgroundColor: scheme.surface,
-
       body: SafeArea(
         child: Column(
           children: [
-            // ==========================================
-            // TÍTULO
-            // ==========================================
+            // Título de la pantalla.
+            AppScreenTitle(title: 'Nuevo proyecto', onBack: volverInicio),
 
-            AppScreenTitle(
-              title: 'Nuevo proyecto',
-              onBack: () {
-                Navigator.pop(context);
-              },
-            ),
-
-            // ==========================================
-            // FORMULARIO
-            // ==========================================
+            // Formulario.
             Expanded(
               child: ListView(
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
-
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
-
                 children: [
-                  // ======================================
-                  // INTRODUCCIÓN
-                  // ======================================
-
+                  // Introducción.
                   Text(
                     'Crea tu nuevo proyecto',
                     textAlign: TextAlign.center,
@@ -137,7 +85,6 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
                       color: scheme.onSurfaceVariant,
                     ),
                   ),
-
                   Text(
                     'compartiendo tus ideas y encuentra',
                     textAlign: TextAlign.center,
@@ -145,7 +92,6 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
                       color: scheme.onSurfaceVariant,
                     ),
                   ),
-
                   Text(
                     'compañeros para ejecutarlas.',
                     textAlign: TextAlign.center,
@@ -156,25 +102,21 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
 
                   const SizedBox(height: 25),
 
-                  // ======================================
-                  // NOMBRE
-                  // ======================================
+                  // Nombre.
                   ProjectTextField(
                     label: 'Nombre del proyecto',
                     hint: 'Tu proyecto',
-                    controller: nombreController,
+                    controller: controller.nombreController,
                     maxLength: 50,
                   ),
 
                   const SizedBox(height: 18),
 
-                  // ======================================
-                  // DESCRIPCIÓN
-                  // ======================================
+                  // Descripción.
                   ProjectTextField(
                     label: 'Descripción',
                     hint: 'Mi proyecto se basa en...',
-                    controller: descripcionController,
+                    controller: controller.descripcionController,
                     maxLength: 400,
                     maxLines: 4,
                     keyboardType: TextInputType.multiline,
@@ -182,42 +124,34 @@ class _NuevoProyectoPageState extends State<NuevoProyectoPage> {
 
                   const SizedBox(height: 18),
 
-                  // ======================================
-                  // LÍDER
-                  // ======================================
+                  // Líder.
                   ProjectTextField(
                     label: 'Líder del proyecto',
                     hint: 'Tu nombre',
-                    controller: liderController,
+                    controller: controller.liderController,
                     maxLength: 40,
                   ),
 
                   const SizedBox(height: 18),
 
-                  // ======================================
-                  // CATEGORÍA
-                  // ======================================
-                  ProjectDropdownField(
-                    label: 'Categoría',
-                    hint: 'Selecciona una categoría',
-                    value: selectedCategory,
-                    items: projectCategories,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedCategory = value;
-                      });
-                    },
+                  // Categoría.
+                  Obx(
+                    () => ProjectDropdownField(
+                      label: 'Categoría',
+                      hint: 'Selecciona una categoría',
+                      value: controller.categoriaSeleccionada.value,
+                      items: projectCategories,
+                      onChanged: (value) {
+                        controller.categoriaSeleccionada.value = value;
+                      },
+                    ),
                   ),
 
                   const SizedBox(height: 30),
 
-                  // ======================================
-                  // BOTONES
-                  // ======================================
+                  // Botones.
                   ProjectFormActions(
-                    onCancel: () {
-                      Navigator.pop(context);
-                    },
+                    onCancel: volverInicio,
                     onContinue: continuar,
                   ),
                 ],

@@ -145,6 +145,31 @@ class ProjectDetailsController extends GetxController {
     fechaCierre.value = value;
   }
 
+  /// Limpia todos los datos de una creación anterior.
+  ///
+  /// Se utiliza cuando el usuario va a comenzar
+  /// un proyecto completamente nuevo.
+  void limpiarFormulario() {
+    // Limpia los campos de texto.
+    objetivoController.clear();
+    requisitosController.clear();
+
+    // Limpia los roles y sus cantidades.
+    roleQuantities.clear();
+
+    // Limpia las habilidades seleccionadas.
+    selectedSkills.clear();
+
+    // Reinicia el tipo de proyecto.
+    selectedProjectType.value = null;
+
+    // Reinicia las fechas.
+    fechaInicio.value = null;
+    fechaCierre.value = null;
+
+    // Reinicia la opción de docente asesor.
+    deseaDocente.value = false;
+  }
   // ======================================================
   // VALIDACIÓN
   // ======================================================
