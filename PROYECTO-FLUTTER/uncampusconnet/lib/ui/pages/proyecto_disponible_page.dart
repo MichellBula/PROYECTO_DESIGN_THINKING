@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'package:uncampusconnet/ui/pages/completar_solicitud_page.dart';
+import 'package:uncampusconnet/core/theme/text_styles.dart';
+import 'package:uncampusconnet/core/theme/theme.dart';
 import 'package:uncampusconnet/ui/widgets/information_list.dart';
+import 'package:uncampusconnet/ui/widgets/widgets_resumidos/cards_wrapper.dart';
+import 'package:uncampusconnet/ui/widgets/widgets_resumidos/screen_title.dart';
 
 class ProyectoDisponiblePage extends StatelessWidget {
   final ProjectInfo project;
@@ -9,289 +15,214 @@ class ProyectoDisponiblePage extends StatelessWidget {
     required this.project,
   });
 
-  static const wineColor = Color(0xFF6B0000);
-
   @override
   Widget build(BuildContext context) {
-    final isDarkMode =
-        Theme.of(context).brightness == Brightness.dark;
-
-    final backgroundColor =
-        isDarkMode
-            ? const Color(0xFF121212)
-            : const Color(0xFFF7F7F7);
-
-    final textColor =
-        isDarkMode
-            ? Colors.white
-            : const Color(0xFF0A0A0A);
-
-    final cardColor =
-        isDarkMode
-            ? const Color(0xFF1E1E1E)
-            : Colors.white;
+    final scheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: backgroundColor,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 12,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _Header(textColor: textColor),
-
-            const SizedBox(height: 14),
-
-            _ProjectHeader(
-              project: project,
-              textColor: textColor,
-            ),
-
-            const SizedBox(height: 18),
-
-            _SectionTitle(
-              title: 'Descripción:',
-              color: textColor,
-            ),
-
-            const SizedBox(height: 8),
-
-            _InfoCard(
-              color: cardColor,
-              child: Text(
-                project.description,
-                style: TextStyle(
-                  fontSize: 14,
-                  height: 1.3,
-                  color: textColor,
-                ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 28,
+            vertical: 12,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Transform.translate(
+              offset: const Offset(-12, 0),
+              child: const AppScreenTitle(
+                title: 'Proyecto disponible',
               ),
             ),
 
-            const SizedBox(height: 18),
+              const SizedBox(height: 20),
 
-            _SectionTitle(
-              title: 'Requisitos:',
-              color: textColor,
-            ),
+              _ProjectHeader(project: project),
 
-            const SizedBox(height: 8),
+              const SizedBox(height: 28),
 
-            _InfoCard(
-              color: cardColor,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: project.requirements
-                    .map(
-                      (requirement) => Padding(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 2),
-                        child: Row(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              '•',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: wineColor,
-                                fontWeight: FontWeight.bold,
-                              ),
+              const _SectionTitle('Descripción:'),
+
+              const SizedBox(height: 10),
+
+              SizedBox(
+                width: double.infinity,
+                child: CardWrapper(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    project.description,
+                    style: AppTextStyles.bodyText.copyWith(
+                      color: scheme.onSurface,
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              const _SectionTitle('Requisitos:'),
+
+              const SizedBox(height: 10),
+
+              SizedBox(
+                width: double.infinity,
+                child: CardWrapper(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: project.requirements
+                        .map(
+                          (requirement) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 4,
                             ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                requirement,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: textColor,
+                            child: Row(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '•',
+                                  style:
+                                      AppTextStyles.bodyText.copyWith(
+                                    color: scheme.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(
+                                    requirement,
+                                    style:
+                                        AppTextStyles.bodyText.copyWith(
+                                      color: scheme.onSurface,
+                                      height: 1.3,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              const _SectionTitle('Roles disponibles:'),
+
+              const SizedBox(height: 12),
+
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: project.roles
+                    .map(
+                      (role) => Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: scheme.surfaceContainerHighest,
+                          borderRadius: BorderRadius.circular(
+                            AppTheme.cardRadius,
+                          ),
+                        ),
+                        child: Text(
+                          role,
+                          style: AppTextStyles.bodyText.copyWith(
+                            color: scheme.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     )
                     .toList(),
               ),
-            ),
 
-            const SizedBox(height: 18),
+              const SizedBox(height: 24),
 
-            _SectionTitle(
-              title: 'Roles disponibles:',
-              color: textColor,
-            ),
+              const _SectionTitle(
+                'Fecha cierre convocatoria:',
+              ),
 
-            const SizedBox(height: 8),
+              const SizedBox(height: 12),
 
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: project.roles
-                  .map(
-                    (role) => Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE2E2E2),
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      child: Text(
-                        role,
-                        style: const TextStyle(
-                          color: wineColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
-
-            const SizedBox(height: 18),
-
-            _SectionTitle(
-              title: 'Fecha cierre convocatoria:',
-              color: textColor,
-            ),
-
-            const SizedBox(height: 8),
-
-            Center(
-              child: Container(
+              Container(
                 width: 210,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
+                  horizontal: 14,
+                  vertical: 10,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE2E2E2),
-                  borderRadius: BorderRadius.circular(14),
+                  color: scheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(
+                    AppTheme.eventCardRadius,
+                  ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.calendar_month_outlined,
-                      size: 17,
-                      color: Colors.black87,
+                      size: 18,
+                      color: scheme.onSurface,
                     ),
                     const SizedBox(width: 8),
                     Text(
                       project.closingDate,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
+                      style: AppTextStyles.bodyText.copyWith(
+                        color: scheme.onSurface,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
 
-            const SizedBox(height: 18),
+              const SizedBox(height: 28),
 
-            Center(
-              child: SizedBox(
-                width: 180,
-                height: 44,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: wineColor,
-                    foregroundColor: Colors.white,
-                    elevation: 3,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Postularse',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
+              _ProjectActionButton(
+                project: project,
               ),
-            ),
 
-            const SizedBox(height: 18),
-          ],
+              const SizedBox(height: 24),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _Header extends StatelessWidget {
-  final Color textColor;
-
-  const _Header({
-    required this.textColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            size: 18,
-            color: textColor,
-          ),
-        ),
-        Expanded(
-          child: Text(
-            'Proyecto disponible',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: textColor,
-            ),
-          ),
-        ),
-        const SizedBox(width: 42),
-      ],
-    );
-  }
-}
-
 class _ProjectHeader extends StatelessWidget {
   final ProjectInfo project;
-  final Color textColor;
 
   const _ProjectHeader({
     required this.project,
-    required this.textColor,
   });
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          width: 95,
-          height: 95,
-          decoration: const BoxDecoration(
-            color: ProyectoDisponiblePage.wineColor,
+          width: 82,
+          height: 82,
+          decoration: BoxDecoration(
+            color: scheme.primary,
             shape: BoxShape.circle,
           ),
         ),
 
-        const SizedBox(width: 18),
+        const SizedBox(width: 20),
 
         Expanded(
           child: Column(
@@ -299,46 +230,45 @@ class _ProjectHeader extends StatelessWidget {
             children: [
               Text(
                 project.name,
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold,
-                  color: textColor,
+                style: AppTextStyles.greeting.copyWith(
+                  color: scheme.onSurface,
                 ),
               ),
 
-              const SizedBox(height: 3),
+              const SizedBox(height: 8),
 
               Text(
                 '${project.members} integrantes',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: textColor,
-                ),
-              ),
-
-              Text(
-                '${project.vacancies} vacantes',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: textColor,
+                style: AppTextStyles.bodyText.copyWith(
+                  color: scheme.onSurfaceVariant,
                 ),
               ),
 
               const SizedBox(height: 3),
 
               Text(
-                'Líder: ${project.leader}',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: textColor,
+                '${project.vacancies} vacantes',
+                style: AppTextStyles.bodyText.copyWith(
+                  color: scheme.onSurfaceVariant,
                 ),
               ),
 
+              const SizedBox(height: 8),
+
+              Text(
+                'Líder: ${project.leader}',
+                style: AppTextStyles.bodyText.copyWith(
+                  color: scheme.onSurface,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+
+              const SizedBox(height: 3),
+
               Text(
                 project.area,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: textColor,
+                style: AppTextStyles.bodyText.copyWith(
+                  color: scheme.onSurfaceVariant,
                 ),
               ),
             ],
@@ -351,52 +281,98 @@ class _ProjectHeader extends StatelessWidget {
 
 class _SectionTitle extends StatelessWidget {
   final String title;
-  final Color color;
 
-  const _SectionTitle({
-    required this.title,
-    required this.color,
-  });
+  const _SectionTitle(this.title);
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
     return Text(
       title,
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-        color: color,
+      style: AppTextStyles.screenTitle.copyWith(
+        color: scheme.onSurface,
       ),
     );
   }
 }
 
-class _InfoCard extends StatelessWidget {
-  final Color color;
-  final Widget child;
+class _ProjectActionButton extends StatelessWidget {
+  final ProjectInfo project;
 
-  const _InfoCard({
-    required this.color,
-    required this.child,
+  const _ProjectActionButton({
+    required this.project,
   });
+
+  bool get _isAvailable {
+    final parts = project.closingDate.split('/');
+
+    if (parts.length != 3) {
+      return false;
+    }
+
+    final day = int.tryParse(parts[0]);
+    final month = int.tryParse(parts[1]);
+    final year = int.tryParse(parts[2]);
+
+    if (day == null || month == null || year == null) {
+      return false;
+    }
+
+    final closing = DateTime(
+      year,
+      month,
+      day,
+      23,
+      59,
+      59,
+    );
+
+    return !DateTime.now().isAfter(closing);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.10),
-            blurRadius: 6,
-            offset: const Offset(0, 3),
+    final scheme = Theme.of(context).colorScheme;
+
+    if (!_isAvailable) {
+      return SizedBox(
+        width: double.infinity,
+        height: 46,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: scheme.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(
+              AppTheme.smallRadius,
+            ),
           ),
-        ],
+          child: Text(
+            'Convocatoria cerrada',
+            style: AppTextStyles.buttonText.copyWith(
+              color: scheme.onSurfaceVariant,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return SizedBox(
+      width: double.infinity,
+      height: 46,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => CompletarSolicitudPage(
+                project: project,
+              ),
+            ),
+          );
+        },
+        child: const Text('Postularse'),
       ),
-      child: child,
     );
   }
 }

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'package:uncampusconnet/core/theme/text_styles.dart';
+import 'package:uncampusconnet/core/theme/theme.dart';
 import 'package:uncampusconnet/ui/pages/proyecto_disponible_page.dart';
 import 'package:uncampusconnet/ui/widgets/information_list.dart';
+import 'package:uncampusconnet/ui/widgets/widgets_resumidos/cards_wrapper.dart';
+import 'package:uncampusconnet/ui/widgets/widgets_resumidos/search_bar.dart';
 
 class BuscarPage extends StatefulWidget {
   const BuscarPage({super.key});
@@ -13,10 +18,43 @@ class _BuscarPageState extends State<BuscarPage> {
   final searchController = TextEditingController();
   final List<String> activeFilters = [];
 
+  bool showAvailable = true;
+
   List<ProjectInfo> get filteredProjects {
-    if (activeFilters.isEmpty) return availableProjects;
+    final now = DateTime.now();
 
     return availableProjects.where((project) {
+      final closingDate = _parseDate(project.closingDate);
+
+      if (closingDate == null) {
+        return false;
+      }
+
+      final endOfClosingDay = DateTime(
+        closingDate.year,
+        closingDate.month,
+        closingDate.day,
+        23,
+        59,
+        59,
+      );
+
+      final isAvailable = !now.isAfter(endOfClosingDay);
+
+      // Disponibles o inspiración
+      if (showAvailable && !isAvailable) {
+        return false;
+      }
+
+      if (!showAvailable && isAvailable) {
+        return false;
+      }
+
+      // Buscador
+      if (activeFilters.isEmpty) {
+        return true;
+      }
+
       final searchableText = [
         project.name,
         project.leader,
@@ -28,29 +66,64 @@ class _BuscarPageState extends State<BuscarPage> {
       ].join(' ').toLowerCase();
 
       return activeFilters.every(
-        (filter) => searchableText.contains(filter.toLowerCase()),
+        (filter) => searchableText.contains(
+          filter.toLowerCase(),
+        ),
       );
     }).toList();
   }
 
+  DateTime? _parseDate(String value) {
+    final parts = value.split('/');
+
+    if (parts.length != 3) {
+      return null;
+    }
+
+    final day = int.tryParse(parts[0]);
+    final month = int.tryParse(parts[1]);
+    final year = int.tryParse(parts[2]);
+
+    if (day == null || month == null || year == null) {
+      return null;
+    }
+
+    return DateTime(year, month, day);
+  }
+
   void _addFilter() {
     final value = searchController.text.trim().toLowerCase();
+
     if (value.isEmpty) return;
 
     if (!activeFilters.contains(value)) {
-      setState(() => activeFilters.add(value));
+      setState(() {
+        activeFilters.add(value);
+      });
     }
 
     searchController.clear();
     FocusScope.of(context).unfocus();
   }
 
-  void _removeFilter(String filter) =>
-      setState(() => activeFilters.remove(filter));
+  void _removeFilter(String filter) {
+    setState(() {
+      activeFilters.remove(filter);
+    });
+  }
 
   void _clearAllFilters() {
-    setState(activeFilters.clear);
+    setState(() {
+      activeFilters.clear();
+    });
+
     searchController.clear();
+  }
+
+  void _changeProjectView(bool available) {
+    setState(() {
+      showAvailable = available;
+    });
   }
 
   @override
@@ -61,144 +134,227 @@ class _BuscarPageState extends State<BuscarPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final backgroundColor =
-        isDarkMode ? const Color(0xFF121212) : const Color(0xFFF5F5F5);
-    final textColor =
-        isDarkMode ? Colors.white : const Color(0xFF0A0A0A);
-
+    final scheme = Theme.of(context).colorScheme;
     final visibleProjects = filteredProjects;
 
     return Container(
-      color: backgroundColor,
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 28,
-          vertical: 20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 52,
-              child: Center(
-                child: Text(
-                  '¡Encuentra proyectos disponibles!',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: textColor,
+      color: scheme.surface,
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 28,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // TÍTULO
+              SizedBox(
+                height: 52,
+                child: Center(
+                  child: Text(
+                    '¡Encuentra proyectos!',
+                    style: AppTextStyles.screenTitle.copyWith(
+                      color: scheme.onSurface,
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            Divider(
-              height: 1,
-              color: isDarkMode
-                  ? const Color(0xFF333333)
-                  : const Color(0xFFD9D9D9),
-            ),
+              const Divider(),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 16),
 
-            _SearchBar(
-              controller: searchController,
-              onSearch: _addFilter,
-            ),
+              // DISPONIBLES / INSPIRACIÓN
+              // ESTA PARTE QUEDA FIJA
+              _ProjectViewSelector(
+                showAvailable: showAvailable,
+                onChanged: _changeProjectView,
+              ),
 
-            if (activeFilters.isNotEmpty) ...[
               const SizedBox(height: 14),
-              _FilterList(
-                filters: activeFilters,
-                onRemove: _removeFilter,
-                onClear: _clearAllFilters,
+
+              // BUSCADOR
+              // ESTA PARTE QUEDA FIJA
+              AppSearchBar(
+                hintText: showAvailable
+                    ? 'Buscar proyecto para participar'
+                    : 'Buscar proyecto como inspiración',
+                controller: searchController,
+                onSubmitted: (_) => _addFilter(),
+                onSuffixTap: _addFilter,
               ),
-            ],
 
-            const SizedBox(height: 25),
-
-            Row(
-              children: [
-                Text(
-                  'Grupos disponibles:',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: textColor,
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  '${visibleProjects.length}',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF500000),
-                  ),
+              // FILTROS ACTIVOS
+              if (activeFilters.isNotEmpty) ...[
+                const SizedBox(height: 10),
+                _FilterList(
+                  filters: activeFilters,
+                  onRemove: _removeFilter,
+                  onClear: _clearAllFilters,
                 ),
               ],
-            ),
 
-            const SizedBox(height: 15),
+              const SizedBox(height: 16),
 
-            if (visibleProjects.isEmpty)
-              _EmptyResults(
-                isDarkMode: isDarkMode,
-                textColor: textColor,
-              )
-            else
-              ...visibleProjects.map(
-                (project) => Padding(
-                  padding: const EdgeInsets.only(bottom: 15),
-                  child: _GroupCard(project: project),
-                ),
+              // ENCABEZADO DE RESULTADOS
+              Row(
+                children: [
+                  Text(
+                    showAvailable
+                        ? 'Proyectos disponibles:'
+                        : 'Proyectos anteriores:',
+                    style: AppTextStyles.screenTitle.copyWith(
+                      color: scheme.onSurface,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    '${visibleProjects.length}',
+                    style: AppTextStyles.screenTitle.copyWith(
+                      color: scheme.primary,
+                    ),
+                  ),
+                ],
               ),
-          ],
+
+              const SizedBox(height: 12),
+
+              // SOLO ESTA PARTE HACE SCROLL
+              Expanded(
+                child: visibleProjects.isEmpty
+                    ? SingleChildScrollView(
+                        child: _EmptyResults(
+                          showAvailable: showAvailable,
+                        ),
+                      )
+                    : ListView.separated(
+                        padding: const EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        itemCount: visibleProjects.length,
+                        separatorBuilder: (_, _) =>
+                            const SizedBox(height: 15),
+                        itemBuilder: (context, index) {
+                          final project =
+                              visibleProjects[index];
+
+                          return _GroupCard(
+                            project: project,
+                            isAvailable: showAvailable,
+                          );
+                        },
+                      ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _SearchBar extends StatelessWidget {
-  final TextEditingController controller;
-  final VoidCallback onSearch;
+class _ProjectViewSelector extends StatelessWidget {
+  final bool showAvailable;
+  final ValueChanged<bool> onChanged;
 
-  const _SearchBar({
-    required this.controller,
-    required this.onSearch,
+  const _ProjectViewSelector({
+    required this.showAvailable,
+    required this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
     return Container(
-      height: 50,
+      width: double.infinity,
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: const Color(0xFFE2E2E2),
-        borderRadius: BorderRadius.circular(15),
+        color: scheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(
+          AppTheme.cardRadius,
+        ),
       ),
-      child: TextField(
-        controller: controller,
-        style: const TextStyle(color: Color(0xFF0A0A0A)),
-        textInputAction: TextInputAction.search,
-        onSubmitted: (_) => onSearch(),
-        decoration: InputDecoration(
-          hintText: 'Buscar proyecto o categoría',
-          hintStyle: const TextStyle(color: Color(0xFF6B6B6B)),
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 14,
-          ),
-          suffixIcon: IconButton(
-            tooltip: 'Agregar filtro',
-            icon: const Icon(
-              Icons.search,
-              color: Color(0xFF500000),
+      child: Row(
+        children: [
+          Expanded(
+            child: _SelectorButton(
+              text: 'Disponibles',
+              icon: Icons.groups_outlined,
+              selected: showAvailable,
+              onTap: () => onChanged(true),
             ),
-            onPressed: onSearch,
           ),
+          Expanded(
+            child: _SelectorButton(
+              text: 'Inspiración',
+              icon: Icons.lightbulb_outline,
+              selected: !showAvailable,
+              onTap: () => onChanged(false),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SelectorButton extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _SelectorButton({
+    required this.text,
+    required this.icon,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(
+        AppTheme.smallRadius,
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 8,
+        ),
+        decoration: BoxDecoration(
+          color: selected
+              ? scheme.primary
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(
+            AppTheme.smallRadius,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 18,
+              color: selected
+                  ? scheme.onPrimary
+                  : scheme.onSurfaceVariant,
+            ),
+            const SizedBox(width: 6),
+            Text(
+              text,
+              style: AppTextStyles.smallText.copyWith(
+                color: selected
+                    ? scheme.onPrimary
+                    : scheme.onSurfaceVariant,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -218,6 +374,8 @@ class _FilterList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
     return Wrap(
       spacing: 8,
       runSpacing: 8,
@@ -231,29 +389,33 @@ class _FilterList extends StatelessWidget {
               bottom: 7,
             ),
             decoration: BoxDecoration(
-              color: const Color(0xFFC9ACAC),
-              borderRadius: BorderRadius.circular(20),
+              color: scheme.primaryContainer,
+              borderRadius: BorderRadius.circular(
+                AppTheme.cardRadius,
+              ),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   filter,
-                  style: const TextStyle(
-                    color: Color(0xFF500000),
+                  style: AppTextStyles.smallText.copyWith(
+                    color: scheme.onPrimaryContainer,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 const SizedBox(width: 4),
                 InkWell(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(
+                    AppTheme.cardRadius,
+                  ),
                   onTap: () => onRemove(filter),
-                  child: const Padding(
-                    padding: EdgeInsets.all(3),
+                  child: Padding(
+                    padding: const EdgeInsets.all(3),
                     child: Icon(
                       Icons.close,
                       size: 18,
-                      color: Color(0xFF500000),
+                      color: scheme.onPrimaryContainer,
                     ),
                   ),
                 ),
@@ -263,15 +425,15 @@ class _FilterList extends StatelessWidget {
         ),
         TextButton.icon(
           onPressed: onClear,
-          icon: const Icon(
+          icon: Icon(
             Icons.delete_outline,
             size: 18,
-            color: Color(0xFF931212),
+            color: scheme.primary,
           ),
-          label: const Text(
+          label: Text(
             'Limpiar',
-            style: TextStyle(
-              color: Color(0xFF931212),
+            style: AppTextStyles.smallText.copyWith(
+              color: scheme.primary,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -282,16 +444,16 @@ class _FilterList extends StatelessWidget {
 }
 
 class _EmptyResults extends StatelessWidget {
-  final bool isDarkMode;
-  final Color textColor;
+  final bool showAvailable;
 
   const _EmptyResults({
-    required this.isDarkMode,
-    required this.textColor,
+    required this.showAvailable,
   });
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(
@@ -299,58 +461,64 @@ class _EmptyResults extends StatelessWidget {
         vertical: 35,
       ),
       decoration: BoxDecoration(
-        color: isDarkMode
-            ? const Color(0xFF1E1E1E)
-            : const Color(0xFFF4F4F4),
-        borderRadius: BorderRadius.circular(18),
+        color: scheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(
+          AppTheme.cardRadius,
+        ),
       ),
       child: Column(
         children: [
-          const Icon(
-            Icons.search_off,
+          Icon(
+            showAvailable
+                ? Icons.search_off
+                : Icons.lightbulb_outline,
             size: 45,
-            color: Color(0xFF931212),
+            color: scheme.primary,
           ),
           const SizedBox(height: 10),
           Text(
-            'No encontramos proyectos',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: textColor,
+            showAvailable
+                ? 'No encontramos proyectos disponibles'
+                : 'No encontramos proyectos anteriores',
+            textAlign: TextAlign.center,
+            style: AppTextStyles.screenTitle.copyWith(
+              color: scheme.onSurface,
             ),
           ),
           const SizedBox(height: 5),
           Text(
-            'Prueba eliminando algún filtro.',
+            activeMessage,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 15,
-              color: isDarkMode
-                  ? Colors.white70
-                  : const Color(0xFF6B6B6B),
+            style: AppTextStyles.bodyText.copyWith(
+              color: scheme.onSurfaceVariant,
             ),
           ),
         ],
       ),
     );
   }
+
+  String get activeMessage {
+    if (showAvailable) {
+      return 'Prueba eliminando algún filtro.';
+    }
+
+    return 'Aquí aparecerán proyectos con convocatorias cerradas.';
+  }
 }
 
 class _GroupCard extends StatelessWidget {
   final ProjectInfo project;
+  final bool isAvailable;
 
-  const _GroupCard({required this.project});
+  const _GroupCard({
+    required this.project,
+    required this.isAvailable,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final cardColor =
-        isDarkMode ? const Color(0xFF1E1E1E) : Colors.white;
-    final textColor =
-        isDarkMode ? Colors.white : const Color(0xFF0A0A0A);
-    final secondaryTextColor =
-        isDarkMode ? Colors.white70 : const Color(0xFF6B6B6B);
+    final scheme = Theme.of(context).colorScheme;
 
     final information = {
       'Líder: ': project.leader,
@@ -360,70 +528,56 @@ class _GroupCard extends StatelessWidget {
       'Fecha cierre: ': project.closingDate,
     };
 
-    return Container(
-      width: double.infinity,
+    return CardWrapper(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: cardColor,
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.10),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ProyectoDisponiblePage(
+              project: project,
+            ),
           ),
-        ],
-      ),
+        );
+      },
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             width: 70,
             height: 70,
-            decoration: const BoxDecoration(
-              color: Color(0xFF500000),
+            decoration: BoxDecoration(
+              color: scheme.primary,
               shape: BoxShape.circle,
             ),
           ),
-
           const SizedBox(width: 16),
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: information.entries
-                  .map(
-                    (entry) => Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: _InfoLine(
-                        label: entry.key,
-                        value: entry.value,
-                        textColor: textColor,
-                        secondaryTextColor: secondaryTextColor,
-                      ),
+              children: [
+                ...information.entries.map(
+                  (entry) => Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 4,
                     ),
-                  )
-                  .toList(),
-            ),
-          ),
-
-          IconButton(
-            tooltip: 'Ver proyecto',
-            icon: Icon(
-              Icons.more_vert,
-              size: 28,
-              color: textColor,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => ProyectoDisponiblePage(
-                    project: project,
+                    child: _InfoLine(
+                      label: entry.key,
+                      value: entry.value,
+                    ),
                   ),
                 ),
-              );
-            },
+                if (!isAvailable) ...[
+                  const SizedBox(height: 5),
+                  Text(
+                    'Convocatoria cerrada',
+                    style: AppTextStyles.smallText.copyWith(
+                      color: scheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ],
+            ),
           ),
         ],
       ),
@@ -434,33 +588,31 @@ class _GroupCard extends StatelessWidget {
 class _InfoLine extends StatelessWidget {
   final String label;
   final String value;
-  final Color textColor;
-  final Color secondaryTextColor;
 
   const _InfoLine({
     required this.label,
     required this.value,
-    required this.textColor,
-    required this.secondaryTextColor,
   });
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
     return RichText(
       text: TextSpan(
-        style: TextStyle(
-          fontSize: 16,
-          color: textColor,
+        style: AppTextStyles.bodyText.copyWith(
+          color: scheme.onSurface,
         ),
         children: [
           TextSpan(
             text: label,
-            style: TextStyle(color: secondaryTextColor),
+            style: TextStyle(
+              color: scheme.onSurfaceVariant,
+            ),
           ),
           TextSpan(
             text: value,
-            style: TextStyle(
-              color: textColor,
+            style: const TextStyle(
               fontWeight: FontWeight.w500,
             ),
           ),
