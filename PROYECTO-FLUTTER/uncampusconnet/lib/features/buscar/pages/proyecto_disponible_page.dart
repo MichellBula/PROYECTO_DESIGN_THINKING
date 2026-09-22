@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:uncampusconnet/ui/pages/completar_solicitud_page.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
-import 'package:uncampusconnet/ui/widgets/information_list.dart';
+import 'package:uncampusconnet/features/buscar/data/information_list.dart';
+import 'package:uncampusconnet/features/buscar/pages/completar_solicitud_page.dart';
 import 'package:uncampusconnet/ui/widgets/widgets_resumidos/cards_wrapper.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/screen_title.dart';
+
 
 class ProyectoDisponiblePage extends StatelessWidget {
   final ProjectInfo project;
@@ -14,6 +14,28 @@ class ProyectoDisponiblePage extends StatelessWidget {
     super.key,
     required this.project,
   });
+
+  bool get _isAvailable {
+    final parts = project.closingDate.split('/');
+    if (parts.length != 3) return false;
+
+    final day = int.tryParse(parts[0]);
+    final month = int.tryParse(parts[1]);
+    final year = int.tryParse(parts[2]);
+
+    if (day == null || month == null || year == null) return false;
+
+    final closingDate = DateTime(
+      year,
+      month,
+      day,
+      23,
+      59,
+      59,
+    );
+
+    return !DateTime.now().isAfter(closingDate);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +51,35 @@ class ProyectoDisponiblePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Transform.translate(
-              offset: const Offset(-12, 0),
-              child: const AppScreenTitle(
-                title: 'Proyecto disponible',
+              SizedBox(
+                height: 52,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Center(
+                      child: Text(
+                        'Proyecto disponible',
+                        style: AppTextStyles.screenTitle.copyWith(
+                          color: scheme.onSurface,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 0,
+                      child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        icon: Icon(
+                          Icons.chevron_left,
+                          size: 28,
+                          color: scheme.onSurface,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
 
               const SizedBox(height: 20),
 
@@ -46,10 +91,10 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              SizedBox(
-                width: double.infinity,
-                child: CardWrapper(
-                  padding: const EdgeInsets.all(16),
+              CardWrapper(
+                padding: const EdgeInsets.all(16),
+                child: SizedBox(
+                  width: double.infinity,
                   child: Text(
                     project.description,
                     style: AppTextStyles.bodyText.copyWith(
@@ -66,26 +111,22 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              SizedBox(
-                width: double.infinity,
-                child: CardWrapper(
-                  padding: const EdgeInsets.all(16),
+              CardWrapper(
+                padding: const EdgeInsets.all(16),
+                child: SizedBox(
+                  width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: project.requirements
                         .map(
                           (requirement) => Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 4,
-                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 4),
                             child: Row(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   '•',
-                                  style:
-                                      AppTextStyles.bodyText.copyWith(
+                                  style: AppTextStyles.bodyText.copyWith(
                                     color: scheme.primary,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -94,8 +135,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     requirement,
-                                    style:
-                                        AppTextStyles.bodyText.copyWith(
+                                    style: AppTextStyles.bodyText.copyWith(
                                       color: scheme.onSurface,
                                       height: 1.3,
                                     ),
@@ -146,9 +186,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              const _SectionTitle(
-                'Fecha cierre convocatoria:',
-              ),
+              const _SectionTitle('Fecha cierre convocatoria:'),
 
               const SizedBox(height: 12),
 
@@ -188,6 +226,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
               _ProjectActionButton(
                 project: project,
+                isAvailable: _isAvailable,
               ),
 
               const SizedBox(height: 24),
@@ -211,7 +250,6 @@ class _ProjectHeader extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           width: 82,
@@ -234,27 +272,21 @@ class _ProjectHeader extends StatelessWidget {
                   color: scheme.onSurface,
                 ),
               ),
-
               const SizedBox(height: 8),
-
               Text(
                 '${project.members} integrantes',
                 style: AppTextStyles.bodyText.copyWith(
                   color: scheme.onSurfaceVariant,
                 ),
               ),
-
               const SizedBox(height: 3),
-
               Text(
                 '${project.vacancies} vacantes',
                 style: AppTextStyles.bodyText.copyWith(
                   color: scheme.onSurfaceVariant,
                 ),
               ),
-
               const SizedBox(height: 8),
-
               Text(
                 'Líder: ${project.leader}',
                 style: AppTextStyles.bodyText.copyWith(
@@ -262,9 +294,7 @@ class _ProjectHeader extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-
               const SizedBox(height: 3),
-
               Text(
                 project.area,
                 style: AppTextStyles.bodyText.copyWith(
@@ -299,59 +329,32 @@ class _SectionTitle extends StatelessWidget {
 
 class _ProjectActionButton extends StatelessWidget {
   final ProjectInfo project;
+  final bool isAvailable;
 
   const _ProjectActionButton({
     required this.project,
+    required this.isAvailable,
   });
-
-  bool get _isAvailable {
-    final parts = project.closingDate.split('/');
-
-    if (parts.length != 3) {
-      return false;
-    }
-
-    final day = int.tryParse(parts[0]);
-    final month = int.tryParse(parts[1]);
-    final year = int.tryParse(parts[2]);
-
-    if (day == null || month == null || year == null) {
-      return false;
-    }
-
-    final closing = DateTime(
-      year,
-      month,
-      day,
-      23,
-      59,
-      59,
-    );
-
-    return !DateTime.now().isAfter(closing);
-  }
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
 
-    if (!_isAvailable) {
-      return SizedBox(
+    if (!isAvailable) {
+      return Container(
         width: double.infinity,
         height: 46,
-        child: Container(
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: scheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(
-              AppTheme.smallRadius,
-            ),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: scheme.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(
+            AppTheme.smallRadius,
           ),
-          child: Text(
-            'Convocatoria cerrada',
-            style: AppTextStyles.buttonText.copyWith(
-              color: scheme.onSurfaceVariant,
-            ),
+        ),
+        child: Text(
+          'Convocatoria cerrada',
+          style: AppTextStyles.buttonText.copyWith(
+            color: scheme.onSurfaceVariant,
           ),
         ),
       );
