@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+<<<<<<< Updated upstream
+=======
+import 'package:uncampusconnet/features/create_project/pages/new_proyect_page.dart';
+>>>>>>> Stashed changes
 
 import 'package:uncampusconnet/features/create_proyect/pages/new_proyect_page.dart';
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
