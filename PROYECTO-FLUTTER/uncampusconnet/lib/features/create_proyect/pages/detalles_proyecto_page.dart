@@ -9,11 +9,10 @@ import 'package:uncampusconnet/features/create_proyect/widgets/advisor_toggle.da
 import 'package:uncampusconnet/features/create_proyect/widgets/project_date_field.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/project_form_actions.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/role_quantity_dropdown.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/dropdown_field.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/screen_title.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/select_downdrop.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/text_field.dart';
-
+import 'package:uncampusconnet/ui/widgets/dropdown_field.dart';
+import 'package:uncampusconnet/ui/widgets/screen_title.dart';
+import 'package:uncampusconnet/ui/widgets/select_downdrop.dart';
+import 'package:uncampusconnet/ui/widgets/text_field.dart';
 
 class DetallesProyectoPage extends StatelessWidget {
   final String nombreProyecto;

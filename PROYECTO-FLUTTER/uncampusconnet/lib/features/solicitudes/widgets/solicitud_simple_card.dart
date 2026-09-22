@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/features/solicitudes/data/solicitud_data.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/cards_wrapper.dart';
-
+import 'package:uncampusconnet/ui/widgets/cards_wrapper.dart';
 
 class SolicitudSimpleCard extends StatelessWidget {
   final Solicitud solicitud;
 
-  const SolicitudSimpleCard({
-    super.key,
-    required this.solicitud,
-  });
+  const SolicitudSimpleCard({super.key, required this.solicitud});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +24,7 @@ class SolicitudSimpleCard extends StatelessWidget {
               color: scheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(
-              Icons.send_outlined,
-              size: 22,
-              color: scheme.primary,
-            ),
+            child: Icon(Icons.send_outlined, size: 22, color: scheme.primary),
           ),
 
           const SizedBox(width: 12),

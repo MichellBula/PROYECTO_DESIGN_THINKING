@@ -5,12 +5,11 @@ import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/features/create_proyect/controllers/create_project_controller.dart';
 import 'package:uncampusconnet/features/create_proyect/data/project_options.dart';
 import 'package:uncampusconnet/features/create_proyect/pages/detalles_proyecto_page.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/dropdown_field.dart';
+import 'package:uncampusconnet/ui/widgets/dropdown_field.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/project_form_actions.dart';
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/text_field.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/screen_title.dart';
-
+import 'package:uncampusconnet/ui/widgets/text_field.dart';
+import 'package:uncampusconnet/ui/widgets/screen_title.dart';
 
 class NuevoProyectoPage extends StatelessWidget {
   const NuevoProyectoPage({super.key});

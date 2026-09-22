@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/features/solicitudes/data/solicitud_data.dart';
 import 'package:uncampusconnet/features/solicitudes/widgets/solicitud_card.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/cards_wrapper.dart';
-
+import 'package:uncampusconnet/ui/widgets/cards_wrapper.dart';
 
 class ProyectoSolicitudesCard extends StatefulWidget {
   final String proyecto;
@@ -42,11 +41,7 @@ class _ProyectoSolicitudesCardState extends State<ProyectoSolicitudesCard> {
             behavior: HitTestBehavior.opaque,
             child: Row(
               children: [
-                Icon(
-                  Icons.folder_outlined,
-                  size: 22,
-                  color: scheme.primary,
-                ),
+                Icon(Icons.folder_outlined, size: 22, color: scheme.primary),
                 const SizedBox(width: 8),
 
                 Expanded(

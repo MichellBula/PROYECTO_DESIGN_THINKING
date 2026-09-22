@@ -6,9 +6,9 @@ import 'package:uncampusconnet/core/theme/theme.dart';
 import 'package:uncampusconnet/features/buscar/controllers/buscar_controller.dart';
 import 'package:uncampusconnet/features/buscar/data/information_list.dart';
 import 'package:uncampusconnet/features/buscar/pages/proyecto_disponible_page.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/cards_wrapper.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/search_bar.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/tab_selector.dart';
+import 'package:uncampusconnet/ui/widgets/cards_wrapper.dart';
+import 'package:uncampusconnet/ui/widgets/search_bar.dart';
+import 'package:uncampusconnet/ui/widgets/tab_selector.dart';
 
 class BuscarPage extends StatelessWidget {
   const BuscarPage({super.key});
@@ -109,9 +109,7 @@ class BuscarPage extends StatelessWidget {
 
                 Expanded(
                   child: projects.isEmpty
-                      ? _EmptyResults(
-                          showAvailable: showAvailable,
-                        )
+                      ? _EmptyResults(showAvailable: showAvailable)
                       : ListView.separated(
                           padding: const EdgeInsets.only(bottom: 20),
                           itemCount: projects.length,
@@ -154,10 +152,7 @@ class _FilterChips extends StatelessWidget {
       children: [
         ...filters.map(
           (filter) => InputChip(
-            label: Text(
-              filter,
-              style: AppTextStyles.smallText,
-            ),
+            label: Text(filter, style: AppTextStyles.smallText),
             onDeleted: () => onRemove(filter),
             backgroundColor: scheme.primaryContainer,
             deleteIconColor: scheme.onPrimaryContainer,
@@ -166,10 +161,7 @@ class _FilterChips extends StatelessWidget {
         ),
         TextButton.icon(
           onPressed: onClear,
-          icon: const Icon(
-            Icons.delete_outline,
-            size: 18,
-          ),
+          icon: const Icon(Icons.delete_outline, size: 18),
           label: const Text('Limpiar'),
         ),
       ],
@@ -180,9 +172,7 @@ class _FilterChips extends StatelessWidget {
 class _EmptyResults extends StatelessWidget {
   final bool showAvailable;
 
-  const _EmptyResults({
-    required this.showAvailable,
-  });
+  const _EmptyResults({required this.showAvailable});
 
   @override
   Widget build(BuildContext context) {
@@ -191,10 +181,7 @@ class _EmptyResults extends StatelessWidget {
     return SingleChildScrollView(
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 35,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 35),
         decoration: BoxDecoration(
           color: scheme.surfaceContainer,
           borderRadius: BorderRadius.circular(AppTheme.cardRadius),
@@ -202,9 +189,7 @@ class _EmptyResults extends StatelessWidget {
         child: Column(
           children: [
             Icon(
-              showAvailable
-                  ? Icons.search_off
-                  : Icons.lightbulb_outline,
+              showAvailable ? Icons.search_off : Icons.lightbulb_outline,
               size: 45,
               color: scheme.primary,
             ),
@@ -239,10 +224,7 @@ class _ProjectCard extends StatelessWidget {
   final ProjectInfo project;
   final bool isAvailable;
 
-  const _ProjectCard({
-    required this.project,
-    required this.isAvailable,
-  });
+  const _ProjectCard({required this.project, required this.isAvailable});
 
   @override
   Widget build(BuildContext context) {
@@ -261,9 +243,7 @@ class _ProjectCard extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => ProyectoDisponiblePage(
-            project: project,
-          ),
+          builder: (_) => ProyectoDisponiblePage(project: project),
         ),
       ),
       child: Row(
@@ -294,15 +274,11 @@ class _ProjectCard extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: '${entry.key}: ',
-                            style: TextStyle(
-                              color: scheme.onSurfaceVariant,
-                            ),
+                            style: TextStyle(color: scheme.onSurfaceVariant),
                           ),
                           TextSpan(
                             text: entry.value,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),
