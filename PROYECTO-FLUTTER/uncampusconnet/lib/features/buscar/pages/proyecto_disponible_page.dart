@@ -4,16 +4,12 @@ import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 import 'package:uncampusconnet/features/buscar/data/information_list.dart';
 import 'package:uncampusconnet/features/buscar/pages/completar_solicitud_page.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/cards_wrapper.dart';
-
+import 'package:uncampusconnet/ui/widgets/cards_wrapper.dart';
 
 class ProyectoDisponiblePage extends StatelessWidget {
   final ProjectInfo project;
 
-  const ProyectoDisponiblePage({
-    super.key,
-    required this.project,
-  });
+  const ProyectoDisponiblePage({super.key, required this.project});
 
   bool get _isAvailable {
     final parts = project.closingDate.split('/');
@@ -25,14 +21,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
     if (day == null || month == null || year == null) return false;
 
-    final closingDate = DateTime(
-      year,
-      month,
-      day,
-      23,
-      59,
-      59,
-    );
+    final closingDate = DateTime(year, month, day, 23, 59, 59);
 
     return !DateTime.now().isAfter(closingDate);
   }
@@ -44,10 +33,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 28,
-            vertical: 12,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -198,9 +184,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: scheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(
-                    AppTheme.eventCardRadius,
-                  ),
+                  borderRadius: BorderRadius.circular(AppTheme.eventCardRadius),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -224,10 +208,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
               const SizedBox(height: 28),
 
-              _ProjectActionButton(
-                project: project,
-                isAvailable: _isAvailable,
-              ),
+              _ProjectActionButton(project: project, isAvailable: _isAvailable),
 
               const SizedBox(height: 24),
             ],
@@ -241,9 +222,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
 class _ProjectHeader extends StatelessWidget {
   final ProjectInfo project;
 
-  const _ProjectHeader({
-    required this.project,
-  });
+  const _ProjectHeader({required this.project});
 
   @override
   Widget build(BuildContext context) {
@@ -268,9 +247,7 @@ class _ProjectHeader extends StatelessWidget {
             children: [
               Text(
                 project.name,
-                style: AppTextStyles.greeting.copyWith(
-                  color: scheme.onSurface,
-                ),
+                style: AppTextStyles.greeting.copyWith(color: scheme.onSurface),
               ),
               const SizedBox(height: 8),
               Text(
@@ -320,9 +297,7 @@ class _SectionTitle extends StatelessWidget {
 
     return Text(
       title,
-      style: AppTextStyles.screenTitle.copyWith(
-        color: scheme.onSurface,
-      ),
+      style: AppTextStyles.screenTitle.copyWith(color: scheme.onSurface),
     );
   }
 }
@@ -347,9 +322,7 @@ class _ProjectActionButton extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: scheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(
-            AppTheme.smallRadius,
-          ),
+          borderRadius: BorderRadius.circular(AppTheme.smallRadius),
         ),
         child: Text(
           'Convocatoria cerrada',
@@ -368,9 +341,7 @@ class _ProjectActionButton extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => CompletarSolicitudPage(
-                project: project,
-              ),
+              builder: (_) => CompletarSolicitudPage(project: project),
             ),
           );
         },

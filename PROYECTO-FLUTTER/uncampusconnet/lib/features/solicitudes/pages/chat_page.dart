@@ -10,9 +10,7 @@ import 'package:uncampusconnet/features/solicitudes/widgets/chat_input.dart';
 import 'package:uncampusconnet/features/solicitudes/widgets/message_received.dart';
 import 'package:uncampusconnet/features/solicitudes/widgets/message_send.dart';
 import 'package:uncampusconnet/features/solicitudes/widgets/chat_typing.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/screen_title.dart';
-
-
+import 'package:uncampusconnet/ui/widgets/screen_title.dart';
 
 class ChatSolicitudPage extends StatelessWidget {
   final Solicitud solicitud;

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:uncampusconnet/core/theme/text_styles.dart';
+import 'package:uncampusconnet/features/buscar/data/information_list.dart';
 import 'package:uncampusconnet/features/home/widgets/post_card.dart';
-import 'package:uncampusconnet/ui/widgets/information_list.dart';
-
 
 class PostList extends StatelessWidget {
   const PostList({super.key});
@@ -22,9 +21,7 @@ class PostList extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Text(
             'Publicaciones:',
-            style: AppTextStyles.sectionTitle.copyWith(
-              color: scheme.onSurface,
-            ),
+            style: AppTextStyles.sectionTitle.copyWith(color: scheme.onSurface),
           ),
         ),
 

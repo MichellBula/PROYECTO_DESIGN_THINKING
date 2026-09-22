@@ -3,21 +3,21 @@ import 'package:get/get.dart';
 
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
-<<<<<<< Updated upstream:PROYECTO-FLUTTER/uncampusconnet/lib/features/create_proyect/pages/confirmar_proyecto_page.dart
-import 'package:uncampusconnet/features/create_proyect/controllers/create_project_controller.dart';
-import 'package:uncampusconnet/features/create_proyect/controllers/project_details_controller.dart';
-import 'package:uncampusconnet/features/create_proyect/widgets/confirmaction_button.dart';
-import 'package:uncampusconnet/features/create_proyect/widgets/information_box.dart';
-import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
-=======
-import 'package:uncampusconnet/features/create_project/widgets/information_box.dart';
+import 'package:uncampusconnet/features/buscar/data/information_list.dart';
+import 'package:uncampusconnet/features/create_project/controllers/create_project_controller.dart';
+import 'package:uncampusconnet/features/create_project/controllers/project_details_controller.dart';
 import 'package:uncampusconnet/features/create_project/widgets/confirmaction_button.dart';
->>>>>>> Stashed changes:PROYECTO-FLUTTER/uncampusconnet/lib/features/create_project/pages/confirmar_proyecto_page.dart
-import 'package:uncampusconnet/ui/widgets/information_list.dart';
+import 'package:uncampusconnet/features/create_project/widgets/information_box.dart';
+import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 
 class ConfirmarProyectoPage extends StatelessWidget {
-  final String nombreProyecto, descripcion, liderProyecto, categoria, objetivo, requisitos;
-  final List<String> roles,habilidades;
+  final String nombreProyecto,
+      descripcion,
+      liderProyecto,
+      categoria,
+      objetivo,
+      requisitos;
+  final List<String> roles, habilidades;
   final Map<String, int> cantidadesPorRol;
   final String? tipoProyecto;
   final DateTime? fechaInicio;
@@ -74,10 +74,7 @@ class ConfirmarProyectoPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 18,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
           children: [
             Center(
               child: ConstrainedBox(
@@ -87,9 +84,7 @@ class ConfirmarProyectoPage extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
                   decoration: BoxDecoration(
                     color: scheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(
-                      AppTheme.cardRadius,
-                    ),
+                    borderRadius: BorderRadius.circular(AppTheme.cardRadius),
                     boxShadow: [
                       BoxShadow(
                         color: scheme.shadow.withValues(alpha: 0.20),

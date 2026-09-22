@@ -3,21 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 import 'package:uncampusconnet/features/buscar/data/information_list.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/dropdown_field.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/screen_title.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/text_field.dart';
+import 'package:uncampusconnet/ui/widgets/dropdown_field.dart';
+import 'package:uncampusconnet/ui/widgets/screen_title.dart';
+import 'package:uncampusconnet/ui/widgets/text_field.dart';
 
 class CompletarSolicitudPage extends StatefulWidget {
   final ProjectInfo project;
 
-  const CompletarSolicitudPage({
-    super.key,
-    required this.project,
-  });
+  const CompletarSolicitudPage({super.key, required this.project});
 
   @override
-  State<CompletarSolicitudPage> createState() =>
-      _CompletarSolicitudPageState();
+  State<CompletarSolicitudPage> createState() => _CompletarSolicitudPageState();
 }
 
 class _CompletarSolicitudPageState extends State<CompletarSolicitudPage> {
@@ -62,9 +58,8 @@ class _CompletarSolicitudPageState extends State<CompletarSolicitudPage> {
   }
 
   void _mostrarMensaje(String mensaje) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(mensaje)),
-    );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(mensaje)));
   }
 
   void _mostrarSolicitudEnviada() {
@@ -88,18 +83,13 @@ class _CompletarSolicitudPageState extends State<CompletarSolicitudPage> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 28,
-            vertical: 12,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Transform.translate(
                 offset: const Offset(-12, 0),
-                child: const AppScreenTitle(
-                  title: 'Completar solicitud',
-                ),
+                child: const AppScreenTitle(title: 'Completar solicitud'),
               ),
 
               const SizedBox(height: 24),
@@ -230,10 +220,7 @@ class _SuccessDialog extends StatelessWidget {
   final String projectName;
   final VoidCallback onClose;
 
-  const _SuccessDialog({
-    required this.projectName,
-    required this.onClose,
-  });
+  const _SuccessDialog({required this.projectName, required this.onClose});
 
   @override
   Widget build(BuildContext context) {
@@ -268,9 +255,7 @@ class _SuccessDialog extends StatelessWidget {
             Text(
               '¡Tu solicitud fue enviada\ncon éxito!',
               textAlign: TextAlign.center,
-              style: AppTextStyles.formTitle.copyWith(
-                color: scheme.onSurface,
-              ),
+              style: AppTextStyles.formTitle.copyWith(color: scheme.onSurface),
             ),
 
             const SizedBox(height: 10),

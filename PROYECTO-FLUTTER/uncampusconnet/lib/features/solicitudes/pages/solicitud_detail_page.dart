@@ -5,7 +5,8 @@ import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 import 'package:uncampusconnet/features/solicitudes/data/solicitud_data.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/screen_title.dart';
+import 'package:uncampusconnet/ui/widgets/info_field.dart';
+import 'package:uncampusconnet/ui/widgets/screen_title.dart';
 
 class SolicitudDetallePage extends StatelessWidget {
   final Solicitud solicitud;
@@ -57,19 +58,19 @@ class SolicitudDetallePage extends StatelessWidget {
               const SizedBox(height: 24),
 
               // CAMPOS
-              _InfoField(label: 'Nombre completo:', value: solicitud.nombre),
+              InfoField(label: 'Nombre completo:', value: solicitud.nombre),
               const SizedBox(height: 16),
-              _InfoField(label: 'Carrera:', value: solicitud.carrera),
+              InfoField(label: 'Carrera:', value: solicitud.carrera),
               const SizedBox(height: 16),
-              _InfoField(label: 'Semestre:', value: solicitud.semestre),
+              InfoField(label: 'Semestre:', value: solicitud.semestre),
               const SizedBox(height: 16),
-              _InfoField(
+              InfoField(
                 label: '¿Por qué está interesado?:',
                 value: solicitud.motivo,
                 maxLines: 4,
               ),
               const SizedBox(height: 16),
-              _InfoField(label: 'Rol deseado:', value: solicitud.cargo),
+              InfoField(label: 'Rol deseado:', value: solicitud.cargo),
 
               const SizedBox(height: 20),
 
@@ -121,49 +122,6 @@ class SolicitudDetallePage extends StatelessWidget {
                 ],
               ),
             ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-
-class _InfoField extends StatelessWidget {
-  final String label;
-  final String value;
-  final int maxLines;
-
-  const _InfoField({
-    required this.label,
-    required this.value,
-    this.maxLines = 1,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: AppTextStyles.fieldLabel.copyWith(color: scheme.onSurface),
-        ),
-        const SizedBox(height: 6),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: scheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(AppTheme.smallRadius),
-          ),
-          child: Text(
-            value,
-            style: AppTextStyles.bodyText.copyWith(color: scheme.onSurface),
-            maxLines: maxLines,
-            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],
