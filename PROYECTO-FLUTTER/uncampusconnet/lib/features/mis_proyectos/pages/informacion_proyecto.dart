@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:uncampusconnet/core/theme/text_styles.dart';
+import 'package:uncampusconnet/features/create_project/widgets/confirmaction_button.dart';
 
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 import 'package:uncampusconnet/features/mis_proyectos/data/proyect_data.dart';
 import 'package:uncampusconnet/features/mis_proyectos/widgets/project_detail_header.dart';
-import 'package:uncampusconnet/features/create_proyect/widgets/confirmaction_button.dart';
 import 'package:uncampusconnet/ui/widgets/info_field.dart';
 import 'package:uncampusconnet/ui/widgets/screen_title.dart';
 

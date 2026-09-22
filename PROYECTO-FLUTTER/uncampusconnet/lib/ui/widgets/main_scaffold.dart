@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:uncampusconnet/features/create_proyect/pages/new_proyect_page.dart';
+import 'package:uncampusconnet/features/create_project/pages/new_proyect_page.dart';
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 import 'package:uncampusconnet/features/home/home_page.dart';
 import 'package:uncampusconnet/features/mis_proyectos/pages/informacion_proyecto.dart';

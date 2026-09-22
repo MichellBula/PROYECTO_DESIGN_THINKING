@@ -5,10 +5,9 @@ import 'package:get/get.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 
 import 'package:uncampusconnet/core/utils/app_scroll_behavior.dart';
+import 'package:uncampusconnet/ui/widgets/main_scaffold.dart';
 
 //import 'package:uncampusconnet/core/database/test_roble.dart';
-
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/main_scaffold.dart';
 
 Future<void> main() async {
   // Necesario antes de inicializar servicios que
@@ -43,13 +42,7 @@ class MyApp extends StatelessWidget {
       darkTheme: AppTheme.dark,
 
       themeMode: ThemeMode.light,
-<<<<<<< Updated upstream
-      scrollBehavior: AppScrollBehavior(), 
-=======
-
       scrollBehavior: AppScrollBehavior(),
-
->>>>>>> Stashed changes
       home: const MainScaffold(),
     );
   }

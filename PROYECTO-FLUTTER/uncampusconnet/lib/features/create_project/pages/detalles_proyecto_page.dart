@@ -2,31 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:uncampusconnet/core/theme/text_styles.dart';
-<<<<<<< Updated upstream:PROYECTO-FLUTTER/uncampusconnet/lib/features/create_proyect/pages/detalles_proyecto_page.dart
-import 'package:uncampusconnet/features/create_proyect/controllers/project_details_controller.dart';
-import 'package:uncampusconnet/features/create_proyect/data/project_options.dart';
-import 'package:uncampusconnet/features/create_proyect/pages/confirmar_proyecto_page.dart';
-import 'package:uncampusconnet/features/create_proyect/widgets/advisor_toggle.dart';
-import 'package:uncampusconnet/features/create_proyect/widgets/project_date_field.dart';
-import 'package:uncampusconnet/features/create_proyect/widgets/project_form_actions.dart';
-import 'package:uncampusconnet/features/create_proyect/widgets/role_quantity_dropdown.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/dropdown_field.dart';
-=======
 import 'package:uncampusconnet/features/create_project/controllers/project_details_controller.dart';
 import 'package:uncampusconnet/features/create_project/data/project_options.dart';
+import 'package:uncampusconnet/features/create_project/pages/confirmar_proyecto_page.dart';
 import 'package:uncampusconnet/features/create_project/widgets/advisor_toggle.dart';
 import 'package:uncampusconnet/features/create_project/widgets/project_date_field.dart';
-import 'package:uncampusconnet/features/create_project/widgets/project_dropdown_field.dart';
 import 'package:uncampusconnet/features/create_project/widgets/project_form_actions.dart';
 import 'package:uncampusconnet/features/create_project/widgets/project_text_field.dart';
 import 'package:uncampusconnet/features/create_project/widgets/role_quantity_dropdown.dart';
-import 'package:uncampusconnet/features/create_project/pages/confirmar_proyecto_page.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/select_downdrop.dart';
->>>>>>> Stashed changes:PROYECTO-FLUTTER/uncampusconnet/lib/features/create_project/pages/detalles_proyecto_page.dart
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/screen_title.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/select_downdrop.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/text_field.dart';
-
+import 'package:uncampusconnet/ui/widgets/dropdown_field.dart';
+import 'package:uncampusconnet/ui/widgets/screen_title.dart';
+import 'package:uncampusconnet/ui/widgets/select_downdrop.dart';
 
 class DetallesProyectoPage extends StatelessWidget {
   final String nombreProyecto;

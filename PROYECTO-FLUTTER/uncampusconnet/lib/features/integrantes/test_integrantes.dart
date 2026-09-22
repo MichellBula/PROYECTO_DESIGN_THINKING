@@ -2,8 +2,8 @@ import 'package:uncampusconnet/core/database/roble_client.dart';
 import 'package:uncampusconnet/features/integrantes/data/datasources/integrante_remote_datasource.dart';
 import 'package:uncampusconnet/features/integrantes/data/repositories/integrante_repository_impl.dart';
 import 'package:uncampusconnet/features/integrantes/domain/entities/integrante.dart';
-import 'package:uncampusconnet/features/integrantes/domain/usecases/create_integrante.dart';
-import 'package:uncampusconnet/features/integrantes/domain/usecases/get_integrantes_by_project.dart';
+import 'package:uncampusconnet/features/integrantes/domain/usercases/create_integrante.dart';
+import 'package:uncampusconnet/features/integrantes/domain/usercases/get_integrantes_by_project.dart';
 
 Future<void> main() async {
   print('========================================');
@@ -15,10 +15,7 @@ Future<void> main() async {
   try {
     print('\n--- LOGIN ---');
 
-    await roble.login(
-      email: 'prueba@correo.com',
-      password: 'Prueba123!',
-    );
+    await roble.login(email: 'prueba@correo.com', password: 'Prueba123!');
 
     print('Login exitoso.');
 
@@ -30,15 +27,11 @@ Future<void> main() async {
 
     final proyecto = await roble.read(
       'proyecto',
-      filters: {
-        'id_proyecto': idProyecto,
-      },
+      filters: {'id_proyecto': idProyecto},
     );
 
     if (proyecto.isEmpty) {
-      throw Exception(
-        'No existe el proyecto $idProyecto.',
-      );
+      throw Exception('No existe el proyecto $idProyecto.');
     }
 
     print('Proyecto encontrado.');
@@ -47,32 +40,21 @@ Future<void> main() async {
 
     final usuario = await roble.read(
       'usuario',
-      filters: {
-        'id_usuario': idUsuario,
-      },
+      filters: {'id_usuario': idUsuario},
     );
 
     if (usuario.isEmpty) {
-      throw Exception(
-        'No existe el usuario $idUsuario.',
-      );
+      throw Exception('No existe el usuario $idUsuario.');
     }
 
     print('Usuario encontrado.');
 
     print('\n--- COMPROBANDO ROL ---');
 
-    final rol = await roble.read(
-      'rol',
-      filters: {
-        'id_rol': idRol,
-      },
-    );
+    final rol = await roble.read('rol', filters: {'id_rol': idRol});
 
     if (rol.isEmpty) {
-      throw Exception(
-        'No existe el rol $idRol.',
-      );
+      throw Exception('No existe el rol $idRol.');
     }
 
     print(
@@ -80,25 +62,13 @@ Future<void> main() async {
       '${rol.first['nombre_rol']}',
     );
 
-    final datasource =
-        IntegranteRemoteDatasource(
-      roble: roble,
-    );
+    final datasource = IntegranteRemoteDatasource(roble: roble);
 
-    final repository =
-        IntegranteRepositoryImpl(
-      datasource: datasource,
-    );
+    final repository = IntegranteRepositoryImpl(datasource: datasource);
 
-    final createIntegrante =
-        CreateIntegrante(
-      repository: repository,
-    );
+    final createIntegrante = CreateIntegrante(repository: repository);
 
-    final getIntegrantes =
-        GetIntegrantesByProject(
-      repository: repository,
-    );
+    final getIntegrantes = GetIntegrantesByProject(repository: repository);
 
     print('\n--- CREANDO INTEGRANTE ---');
 
@@ -108,25 +78,15 @@ Future<void> main() async {
       idRol: idRol,
     );
 
-    final resultado =
-        await createIntegrante(
-      integrante,
-    );
+    final resultado = await createIntegrante(integrante);
 
-    print(
-      'Integrante creado correctamente.',
-    );
+    print('Integrante creado correctamente.');
 
-    print(
-      'Resultado: $resultado',
-    );
+    print('Resultado: $resultado');
 
     print('\n--- LEYENDO INTEGRANTES ---');
 
-    final integrantes =
-        await getIntegrantes(
-      idProyecto,
-    );
+    final integrantes = await getIntegrantes(idProyecto);
 
     print(
       'Cantidad de integrantes del proyecto '
