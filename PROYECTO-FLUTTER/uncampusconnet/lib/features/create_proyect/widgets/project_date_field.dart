@@ -4,9 +4,6 @@ import 'package:uncampusconnet/core/theme/theme.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 
 /// Campo visual reutilizable para seleccionar una fecha.
-///
-/// El widget no abre directamente el calendario. La acción
-/// para seleccionar la fecha es proporcionada mediante [onTap].
 class ProjectDateField extends StatelessWidget {
   /// Texto que identifica el campo.
   final String label;

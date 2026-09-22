@@ -4,20 +4,17 @@ import 'package:get/get.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/features/create_proyect/controllers/project_details_controller.dart';
 import 'package:uncampusconnet/features/create_proyect/data/project_options.dart';
+import 'package:uncampusconnet/features/create_proyect/pages/confirmar_proyecto_page.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/advisor_toggle.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/project_date_field.dart';
-import 'package:uncampusconnet/features/create_proyect/widgets/project_dropdown_field.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/project_form_actions.dart';
-import 'package:uncampusconnet/features/create_proyect/widgets/project_text_field.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/role_quantity_dropdown.dart';
-import 'package:uncampusconnet/features/create_proyect/pages/confirmar_proyecto_page.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/select_downdrop.dart';
+import 'package:uncampusconnet/ui/widgets/widgets_resumidos/dropdown_field.dart';
 import 'package:uncampusconnet/ui/widgets/widgets_resumidos/screen_title.dart';
+import 'package:uncampusconnet/ui/widgets/widgets_resumidos/select_downdrop.dart';
+import 'package:uncampusconnet/ui/widgets/widgets_resumidos/text_field.dart';
 
-/// Segunda pantalla del proceso de creación.
-///
-/// Aquí el usuario completa los detalles necesarios
-/// para definir el proyecto.
+
 class DetallesProyectoPage extends StatelessWidget {
   final String nombreProyecto;
   final String descripcion;
@@ -37,12 +34,9 @@ class DetallesProyectoPage extends StatelessWidget {
     ProjectDetailsController(),
   );
 
-  // ======================================================
-  // FECHAS
-  // ======================================================
-
+  //Fechas
   /// Abre el selector de fecha correspondiente.
-  Future<void> seleccionarFecha(BuildContext context, int tipoFecha) async {
+  Future<void> seleccionarFecha(int tipoFecha) async {
     final bool esInicio = tipoFecha == 1;
 
     // Para seleccionar el cierre primero debe existir
@@ -70,7 +64,7 @@ class DetallesProyectoPage extends StatelessWidget {
     }
 
     final DateTime? date = await showDatePicker(
-      context: context,
+      context: Get.context!,
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: DateTime(2035),
@@ -87,13 +81,10 @@ class DetallesProyectoPage extends StatelessWidget {
     }
   }
 
-  // ======================================================
-  // CONTINUAR
-  // ======================================================
-
+  //Continuar
   /// Valida la información y abre la pantalla
   /// de confirmación del proyecto.
-  void continuarAConfirmacion(BuildContext context) {
+  void continuarAConfirmacion() {
     final String? error = controller.validate();
 
     if (error != null) {
@@ -106,41 +97,35 @@ class DetallesProyectoPage extends StatelessWidget {
       return;
     }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ConfirmarProyectoPage(
-          nombreProyecto: nombreProyecto,
-          descripcion: descripcion,
-          liderProyecto: liderProyecto,
-          categoria: categoria,
+    Get.to(
+      () => ConfirmarProyectoPage(
+        nombreProyecto: nombreProyecto,
+        descripcion: descripcion,
+        liderProyecto: liderProyecto,
+        categoria: categoria,
 
-          objetivo: controller.objetivoController.text.trim(),
+        objetivo: controller.objetivoController.text.trim(),
 
-          roles: List<String>.from(controller.selectedRoles),
+        roles: List<String>.from(controller.selectedRoles),
 
-          cantidadesPorRol: Map<String, int>.from(controller.roleQuantities),
+        cantidadesPorRol: Map<String, int>.from(controller.roleQuantities),
 
-          habilidades: List<String>.from(controller.selectedSkills),
+        habilidades: List<String>.from(controller.selectedSkills),
 
-          requisitos: controller.requisitosController.text.trim(),
+        requisitos: controller.requisitosController.text.trim(),
 
-          tipoProyecto: controller.selectedProjectType.value,
+        tipoProyecto: controller.selectedProjectType.value,
 
-          fechaInicio: controller.fechaInicio.value,
+        fechaInicio: controller.fechaInicio.value,
 
-          fechaCierre: controller.fechaCierre.value,
+        fechaCierre: controller.fechaCierre.value,
 
-          deseaDocente: controller.deseaDocente.value,
-        ),
+        deseaDocente: controller.deseaDocente.value,
       ),
     );
   }
 
-  // ======================================================
-  // BUILD
-  // ======================================================
-
+  //Build
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
@@ -151,15 +136,10 @@ class DetallesProyectoPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // ==========================================
             // TÍTULO
-            // ==========================================
-
             const AppScreenTitle(title: 'Nuevo proyecto'),
 
-            // ==========================================
             // FORMULARIO
-            // ==========================================
             Expanded(
               child: ListView(
                 keyboardDismissBehavior:
@@ -168,10 +148,7 @@ class DetallesProyectoPage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(34, 10, 34, 30),
 
                 children: [
-                  // ======================================
                   // TÍTULO DE SECCIÓN
-                  // ======================================
-
                   Center(
                     child: Text(
                       'Información general:',
@@ -181,12 +158,10 @@ class DetallesProyectoPage extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
 
-                  // ======================================
                   // OBJETIVO
-                  // ======================================
-                  ProjectTextField(
+                  AppTextField(
                     label: 'Objetivo general',
                     hint: 'El objetivo de mi proyecto es...',
                     controller: controller.objetivoController,
@@ -195,11 +170,16 @@ class DetallesProyectoPage extends StatelessWidget {
                     keyboardType: TextInputType.multiline,
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
 
-                  // ======================================
-                  // ROLES + CANTIDADES
-                  // ======================================
+                  // ROLES
+                  Text(
+                    '¿Qué roles necesitas?',
+                    style: AppTextStyles.fieldLabel.copyWith(
+                      color: scheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
                   Obx(
                     () => RoleQuantityDropdown(
                       roles: projectRoles,
@@ -208,11 +188,16 @@ class DetallesProyectoPage extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
 
-                  // ======================================
                   // HABILIDADES
-                  // ======================================
+                  Text(
+                    'Habilidades necesarias:',
+                    style: AppTextStyles.fieldLabel.copyWith(
+                      color: scheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
                   Obx(
                     () => MultiSelectDropdown(
                       hintText: 'Puedes escoger más de una habilidad',
@@ -222,12 +207,10 @@ class DetallesProyectoPage extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
 
-                  // ======================================
                   // REQUISITOS
-                  // ======================================
-                  ProjectTextField(
+                  AppTextField(
                     label: 'Requisitos',
                     hint: 'Los requisitos son...',
                     controller: controller.requisitosController,
@@ -236,13 +219,11 @@ class DetallesProyectoPage extends StatelessWidget {
                     keyboardType: TextInputType.multiline,
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
 
-                  // ======================================
                   // TIPO DE PROYECTO
-                  // ======================================
                   Obx(
-                    () => ProjectDropdownField(
+                    () => AppDropdownField(
                       label: 'Tipo de proyecto',
                       hint: 'Selecciona el tipo de proyecto',
                       value: controller.selectedProjectType.value,
@@ -251,37 +232,31 @@ class DetallesProyectoPage extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
 
-                  // ======================================
                   // FECHA DE INICIO
-                  // ======================================
                   Obx(
                     () => ProjectDateField(
                       label: 'Fecha de inicio',
                       date: controller.fechaInicio.value,
-                      onTap: () => seleccionarFecha(context, 1),
+                      onTap: () => seleccionarFecha(1),
                     ),
                   ),
 
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 25),
 
-                  // ======================================
                   // FECHA DE CIERRE
-                  // ======================================
                   Obx(
                     () => ProjectDateField(
                       label: 'Fecha de cierre',
                       date: controller.fechaCierre.value,
-                      onTap: () => seleccionarFecha(context, 2),
+                      onTap: () => seleccionarFecha(2),
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
 
-                  // ======================================
                   // DOCENTE ASESOR
-                  // ======================================
                   Obx(
                     () => AdvisorToggle(
                       wantsAdvisor: controller.deseaDocente.value,
@@ -294,18 +269,14 @@ class DetallesProyectoPage extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 28),
+                  const SizedBox(height: 32),
 
-                  // ======================================
                   // BOTONES
-                  // ======================================
                   ProjectFormActions(
                     onCancel: () {
-                      Navigator.pop(context);
+                      Get.back();
                     },
-                    onContinue: () {
-                      continuarAConfirmacion(context);
-                    },
+                    onContinue: continuarAConfirmacion,
                   ),
                 ],
               ),

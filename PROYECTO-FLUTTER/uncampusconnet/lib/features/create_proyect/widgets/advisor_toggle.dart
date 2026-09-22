@@ -3,16 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 
-/// Selector reutilizable para indicar si el proyecto
-/// necesita un docente asesor.
-///
-/// Solo uno de los estados puede estar seleccionado:
-/// Sí o No.
+
 class AdvisorToggle extends StatelessWidget {
-  /// Estado actual.
-  ///
-  /// `true` representa "Sí".
-  /// `false` representa "No".
+  /// Estado actual. `true` representa "Sí". `false` representa "No".
   final bool wantsAdvisor;
 
   /// Acción cuando el usuario selecciona "Sí".

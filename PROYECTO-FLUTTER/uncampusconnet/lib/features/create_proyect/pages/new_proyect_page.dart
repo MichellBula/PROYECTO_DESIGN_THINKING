@@ -5,16 +5,13 @@ import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/features/create_proyect/controllers/create_project_controller.dart';
 import 'package:uncampusconnet/features/create_proyect/data/project_options.dart';
 import 'package:uncampusconnet/features/create_proyect/pages/detalles_proyecto_page.dart';
-import 'package:uncampusconnet/features/create_proyect/widgets/project_dropdown_field.dart';
+import 'package:uncampusconnet/ui/widgets/widgets_resumidos/dropdown_field.dart';
 import 'package:uncampusconnet/features/create_proyect/widgets/project_form_actions.dart';
-import 'package:uncampusconnet/features/create_proyect/widgets/project_text_field.dart';
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
+import 'package:uncampusconnet/ui/widgets/widgets_resumidos/text_field.dart';
 import 'package:uncampusconnet/ui/widgets/widgets_resumidos/screen_title.dart';
 
-/// Primera pantalla del proceso de creación de un proyecto.
-///
-/// Recoge la información básica del proyecto antes de pasar
-/// a la pantalla de detalles.
+
 class NuevoProyectoPage extends StatelessWidget {
   const NuevoProyectoPage({super.key});
 
@@ -103,7 +100,7 @@ class NuevoProyectoPage extends StatelessWidget {
                   const SizedBox(height: 25),
 
                   // Nombre.
-                  ProjectTextField(
+                  AppTextField(
                     label: 'Nombre del proyecto',
                     hint: 'Tu proyecto',
                     controller: controller.nombreController,
@@ -113,7 +110,7 @@ class NuevoProyectoPage extends StatelessWidget {
                   const SizedBox(height: 18),
 
                   // Descripción.
-                  ProjectTextField(
+                  AppTextField(
                     label: 'Descripción',
                     hint: 'Mi proyecto se basa en...',
                     controller: controller.descripcionController,
@@ -125,7 +122,7 @@ class NuevoProyectoPage extends StatelessWidget {
                   const SizedBox(height: 18),
 
                   // Líder.
-                  ProjectTextField(
+                  AppTextField(
                     label: 'Líder del proyecto',
                     hint: 'Tu nombre',
                     controller: controller.liderController,
@@ -136,7 +133,7 @@ class NuevoProyectoPage extends StatelessWidget {
 
                   // Categoría.
                   Obx(
-                    () => ProjectDropdownField(
+                    () => AppDropdownField(
                       label: 'Categoría',
                       hint: 'Selecciona una categoría',
                       value: controller.categoriaSeleccionada.value,

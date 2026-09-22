@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 
-/// Widget que muestra las acciones principales del formulario.
-///
-/// Contiene los botones "Cancelar" y "Continuar".
-/// Las acciones son recibidas desde la página mediante callbacks.
+
 class ProjectFormActions extends StatelessWidget {
   /// Acción ejecutada al cancelar el formulario.
   final VoidCallback onCancel;

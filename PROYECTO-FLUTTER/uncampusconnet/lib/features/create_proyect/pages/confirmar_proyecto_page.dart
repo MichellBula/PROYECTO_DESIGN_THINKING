@@ -11,15 +11,9 @@ import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 import 'package:uncampusconnet/ui/widgets/information_list.dart';
 
 class ConfirmarProyectoPage extends StatelessWidget {
-  final String nombreProyecto;
-  final String descripcion;
-  final String liderProyecto;
-  final String categoria;
-  final String objetivo;
-  final List<String> roles;
+  final String nombreProyecto, descripcion, liderProyecto, categoria, objetivo, requisitos;
+  final List<String> roles,habilidades;
   final Map<String, int> cantidadesPorRol;
-  final List<String> habilidades;
-  final String requisitos;
   final String? tipoProyecto;
   final DateTime? fechaInicio;
   final DateTime? fechaCierre;

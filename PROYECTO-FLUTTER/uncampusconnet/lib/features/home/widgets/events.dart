@@ -5,9 +5,7 @@ import 'package:uncampusconnet/features/home/widgets/event_card.dart';
 import 'package:uncampusconnet/ui/widgets/development_dialog.dart';
 import 'package:uncampusconnet/ui/widgets/information_list.dart';
 
-// ======================================================
-// SECCIÓN DE EVENTOS
-// ======================================================
+
 
 class HomeEvents extends StatelessWidget {
   const HomeEvents({super.key});

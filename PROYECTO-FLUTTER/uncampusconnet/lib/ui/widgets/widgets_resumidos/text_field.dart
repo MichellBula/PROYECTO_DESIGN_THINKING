@@ -3,16 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 
-/// Campo de texto reutilizable para los formularios
-/// relacionados con la creación de proyectos.
-///
-/// Se encarga de mostrar:
-/// - Etiqueta del campo.
-/// - Texto de ayuda.
-/// - Campo de escritura.
-/// - Límite máximo de caracteres.
-/// - Soporte para varias líneas.
-class ProjectTextField extends StatelessWidget {
+
+class AppTextField extends StatelessWidget {
   /// Texto que identifica el campo.
   final String label;
 
@@ -31,7 +23,7 @@ class ProjectTextField extends StatelessWidget {
   /// Tipo de teclado que se mostrará.
   final TextInputType? keyboardType;
 
-  const ProjectTextField({
+  const AppTextField({
     super.key,
     required this.label,
     required this.hint,

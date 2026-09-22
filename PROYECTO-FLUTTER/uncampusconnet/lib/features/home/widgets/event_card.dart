@@ -66,7 +66,7 @@ class EventCard extends StatelessWidget {
 
               const SizedBox(height: 4),
 
-              // FECHA Y HORA
+              //Fecha y hora
               Text(
                 '${event.day} - ${event.time}',
                 style: AppTextStyles.eventDate.copyWith(
@@ -74,7 +74,7 @@ class EventCard extends StatelessWidget {
                 ),
               ),
 
-              // TÍTULO
+              //Título
               Text(
                 event.title,
                 maxLines: 1,
@@ -96,7 +96,7 @@ class EventCard extends StatelessWidget {
 
               const Spacer(),
 
-              // ETIQUETA
+              //Etiqueta
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 7,

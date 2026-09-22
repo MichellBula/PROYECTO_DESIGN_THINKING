@@ -2,15 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 
-// ======================================================
-// BOTÓN DE CONFIRMACIÓN
-// ======================================================
-
-/// Botón reutilizable para las acciones de la pantalla
-/// de confirmación.
-///
-/// Utiliza [Expanded] desde el padre para que los botones
-/// tengan exactamente el mismo ancho.
+//
 
 class ConfirmationButton extends StatelessWidget {
   final String text;

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.light,
-      scrollBehavior: AppScrollBehavior(),   // ← ESTO FALTA
+      scrollBehavior: AppScrollBehavior(), 
       home: const MainScaffold(),
     );
   }

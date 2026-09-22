@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:uncampusconnet/features/create_proyect/pages/new_proyect_page.dart';
 
+import 'package:uncampusconnet/features/create_proyect/pages/new_proyect_page.dart';
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 import 'package:uncampusconnet/features/home/home_page.dart';
+import 'package:uncampusconnet/features/solicitudes/pages/chat_page.dart';
+import 'package:uncampusconnet/features/solicitudes/pages/solicitud_detail_page.dart';
+import 'package:uncampusconnet/features/solicitudes/pages/solicitudes_page.dart';
 import 'package:uncampusconnet/ui/pages/buscar_page.dart';
 import 'package:uncampusconnet/ui/pages/mis_proyectos_page.dart';
-
-import 'package:uncampusconnet/ui/pages/solicitudes_page.dart';
-import 'package:uncampusconnet/ui/widgets/widgets_resumidos/banner_botones.dart';
+import 'package:uncampusconnet/ui/widgets/widgets_resumidos/banner_buttons.dart';
 import 'package:uncampusconnet/ui/widgets/widgets_resumidos/header_banner.dart';
 
 class MainScaffold extends StatelessWidget {
@@ -18,15 +19,16 @@ class MainScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(MainController());
 
-    final pages = const [
-      HomePage(), // 0
-      BuscarPage(), // 1
-      NuevoProyectoPage(), // 2 ← NUEVA
-      MisProyectosPage(), // 3
-      SolicitudesPage(), // 4
+    const pages = [
+      HomePage(),           // 0
+      BuscarPage(),         // 1
+      NuevoProyectoPage(),  // 2
+      MisProyectosPage(),   // 3
+      SolicitudesPage(),    // 4
     ];
 
     return Scaffold(
+      // HEADER FIJO
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80),
         child: Obx(
@@ -41,13 +43,42 @@ class MainScaffold extends StatelessWidget {
         children: [
           Expanded(
             child: Obx(
-              () => IndexedStack(
-                index: controller.currentIndex.value,
-                children: pages,
-              ),
+              () {
+                final solicitud = controller.selectedSolicitud.value;
+                final index = controller.currentIndex.value;
+
+                // CHAT (índice 6)
+                if (index == 6 && solicitud != null) {
+                  return ChatSolicitudPage(solicitud: solicitud);
+                }
+
+                // DETALLE (índice 5)
+                if (index == 5 && solicitud != null) {
+                  return SolicitudDetallePage(solicitud: solicitud);
+                }
+
+                // PESTAÑAS NORMALES (0-4)
+                return IndexedStack(
+                  index: index,
+                  children: pages,
+                );
+              },
             ),
           ),
-          const BottomNavBar(),
+
+          // BARRA INFERIOR (oculta en el chat)
+          Obx(
+            () {
+              final index = controller.currentIndex.value;
+
+              // Ocultar en el chat (índice 6)
+              if (index == 6) {
+                return const SizedBox.shrink();
+              }
+
+              return const BottomNavBar();
+            },
+          ),
         ],
       ),
     );

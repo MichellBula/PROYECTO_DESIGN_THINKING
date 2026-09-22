@@ -1,8 +1,4 @@
 
-// ======================================================
-// CAJA DE INFORMACIÓN
-// ======================================================
-
 import 'package:flutter/material.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
@@ -35,10 +31,6 @@ class ImportantInfoBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
-          // ==================================================
-          // ICONO
-          // ==================================================
-
           Container(
             width: 25,
             height: 25,
@@ -61,9 +53,7 @@ class ImportantInfoBox extends StatelessWidget {
 
           const SizedBox(width: 8),
 
-          // ==================================================
-          // TEXTO
-          // ==================================================
+          //Tetxo
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
