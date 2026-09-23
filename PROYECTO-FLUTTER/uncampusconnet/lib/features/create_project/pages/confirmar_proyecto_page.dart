@@ -3,11 +3,15 @@ import 'package:get/get.dart';
 
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
+
 import 'package:uncampusconnet/features/create_project/controllers/create_project_controller.dart';
 import 'package:uncampusconnet/features/create_project/controllers/project_details_controller.dart';
-import 'package:uncampusconnet/features/create_project/controllers/publish_project_controller.dart';
+
+import 'package:uncampusconnet/features/create_project/domain/entities/create_project_request.dart';
+
 import 'package:uncampusconnet/features/create_project/widgets/confirmaction_button.dart';
 import 'package:uncampusconnet/features/create_project/widgets/information_box.dart';
+
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 
 class ConfirmarProyectoPage extends StatelessWidget {
@@ -47,74 +51,179 @@ class ConfirmarProyectoPage extends StatelessWidget {
     required this.deseaDocente,
   });
 
-  Future<void> _publicarProyecto(BuildContext context) async {
-    final controller = Get.find<PublishProjectController>();
+  // ======================================================
+  // PUBLICAR
+  // ======================================================
 
-    if (controller.isLoading.value) {
+  Future<void> _publicarProyecto(BuildContext context) async {
+    final controller = Get.find<CreateProjectController>();
+
+    print('');
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      'Botón PUBLICAR presionado.',
+    );
+
+    // ----------------------------------------------------
+    // Las fechas son obligatorias.
+    // ----------------------------------------------------
+
+    final inicio = fechaInicio;
+
+    final cierre = fechaCierre;
+
+    if (inicio == null || cierre == null) {
+      print(
+        '[CONFIRMAR_PROJECTO] '
+        '❌ Faltan fechas.',
+      );
+
+      Get.snackbar(
+        'Información incompleta',
+        'Debes seleccionar la fecha de inicio y la fecha de cierre.',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+
       return;
     }
 
-    try {
-      final resultado = await controller.publicar(
-        nombreProyecto: nombreProyecto,
-        descripcion: descripcion,
-        objetivo: objetivo,
-        categoria: categoria,
-        roles: roles,
-        cantidadesPorRol: cantidadesPorRol,
-        habilidades: habilidades,
-        requisitos: requisitos,
-        tipoProyecto: tipoProyecto,
-        fechaInicio: fechaInicio,
-        fechaCierre: fechaCierre,
-        deseaDocente: deseaDocente,
+    // ----------------------------------------------------
+    // Crear Request
+    // ----------------------------------------------------
+
+    final request = CreateProjectRequest(
+      nombreProyecto: nombreProyecto,
+
+      descripcion: descripcion,
+
+      objetivo: objetivo,
+
+      categoria: categoria,
+
+      tipoProyecto: tipoProyecto,
+
+      roles: List<String>.from(roles),
+
+      cantidadesPorRol: Map<String, int>.from(cantidadesPorRol),
+
+      habilidades: List<String>.from(habilidades),
+
+      requisitos: requisitos,
+
+      fechaInicio: inicio,
+
+      fechaCierre: cierre,
+
+      deseaDocente: deseaDocente,
+    );
+
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      'Request construido correctamente.',
+    );
+
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      'nombre=${request.nombreProyecto}',
+    );
+
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      'categoría=${request.categoria}',
+    );
+
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      'tipo=${request.tipoProyecto}',
+    );
+
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      'roles=${request.roles}',
+    );
+
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      'cantidades=${request.cantidadesPorRol}',
+    );
+
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      'habilidades=${request.habilidades}',
+    );
+
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      'fechaInicio=${request.fechaInicio}',
+    );
+
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      'fechaCierre=${request.fechaCierre}',
+    );
+
+    // ----------------------------------------------------
+    // Enviar al Controller
+    // ----------------------------------------------------
+
+    final creado = await controller.publicarProyecto(request);
+
+    // ----------------------------------------------------
+    // La página pudo cerrarse mientras Roble trabajaba.
+    // ----------------------------------------------------
+
+    if (!creado || !context.mounted) {
+      print(
+        '[CONFIRMAR_PROJECTO] '
+        'No se continuará con la navegación.',
       );
 
-      if (resultado == null) {
-        return;
-      }
-
-      final idProyecto = resultado['id_proyecto'];
-
-      if (!context.mounted) {
-        return;
-      }
-
-      Get.snackbar(
-        'Proyecto creado',
-        'El proyecto $idProyecto fue creado correctamente.',
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 3),
-      );
-
-      // Regresar a Inicio.
-      Get.find<MainController>().changeTab(0);
-
-      // Limpiar formularios.
-      Get.find<CreateProjectController>().limpiarFormulario();
-
-      Get.find<ProjectDetailsController>().limpiarFormulario();
-
-      Navigator.of(context).popUntil((route) => route.isFirst);
-    } catch (e) {
-      if (!context.mounted) {
-        return;
-      }
-
-      Get.snackbar(
-        'No se pudo crear el proyecto',
-        e.toString(),
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 4),
-      );
+      return;
     }
+
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      '✅ Proyecto guardado correctamente en Roble.',
+    );
+
+    // ----------------------------------------------------
+    // Aviso
+    // ----------------------------------------------------
+
+    Get.snackbar(
+      'Proyecto creado',
+      'El proyecto se guardó correctamente en la base de datos.',
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 3),
+    );
+
+    // ----------------------------------------------------
+    // Limpiar
+    // ----------------------------------------------------
+
+    Get.find<MainController>().changeTab(0);
+
+    Get.find<CreateProjectController>().limpiarFormulario();
+
+    Get.find<ProjectDetailsController>().limpiarFormulario();
+
+    // ----------------------------------------------------
+    // Volver al inicio
+    // ----------------------------------------------------
+
+    Navigator.of(context).popUntil((route) => route.isFirst);
+
+    print(
+      '[CONFIRMAR_PROJECTO] '
+      'Navegación finalizada.',
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
 
-    final controller = Get.put(PublishProjectController(), permanent: false);
+    final controller = Get.find<CreateProjectController>();
 
     return Scaffold(
       body: SafeArea(
@@ -126,10 +235,14 @@ class ConfirmarProyectoPage extends StatelessWidget {
                 constraints: const BoxConstraints(maxWidth: 340),
                 child: Container(
                   width: double.infinity,
+
                   padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+
                   decoration: BoxDecoration(
                     color: scheme.surfaceContainerHighest,
+
                     borderRadius: BorderRadius.circular(AppTheme.cardRadius),
+
                     boxShadow: [
                       BoxShadow(
                         color: scheme.shadow.withValues(alpha: 0.20),
@@ -138,6 +251,7 @@ class ConfirmarProyectoPage extends StatelessWidget {
                       ),
                     ],
                   ),
+
                   child: Column(
                     children: [
                       Text(
@@ -189,10 +303,11 @@ class ConfirmarProyectoPage extends StatelessWidget {
                           children: [
                             Expanded(
                               child: ConfirmationButton(
-                                text: controller.isLoading.value
+                                text: controller.cargando.value
                                     ? '...'
                                     : 'Editar',
-                                onPressed: controller.isLoading.value
+
+                                onPressed: controller.cargando.value
                                     ? null
                                     : () => Navigator.pop(context),
                               ),
@@ -202,10 +317,11 @@ class ConfirmarProyectoPage extends StatelessWidget {
 
                             Expanded(
                               child: ConfirmationButton(
-                                text: controller.isLoading.value
+                                text: controller.cargando.value
                                     ? 'Publicando...'
                                     : 'Publicar',
-                                onPressed: controller.isLoading.value
+
+                                onPressed: controller.cargando.value
                                     ? null
                                     : () => _publicarProyecto(context),
                               ),
