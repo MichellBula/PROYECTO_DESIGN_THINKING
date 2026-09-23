@@ -1,4 +1,4 @@
-import '../../../core/database/roble_client.dart';
+﻿import '../../../core/database/roble_client.dart';
 import '../../create_project/data/datasources/convocatoria_remote_datasource.dart';
 import '../../create_project/data/datasources/project_remote_datasource.dart';
 import '../../create_project/data/datasources/project_roles_remote_datasource.dart';
@@ -90,7 +90,7 @@ class BuscarRemoteDatasource {
       // CATEGORIA
       // ====================================================
 
-      String area = 'Sin categoría';
+      String area = 'Sin categorÃ­a';
 
       if (idCategoria != null) {
         for (final categoria in categorias) {
@@ -101,7 +101,7 @@ class BuscarRemoteDatasource {
           if (categoriaId == idCategoria) {
             area = categoria['nombre_categoria']
                     ?.toString() ??
-                'Sin categoría';
+                'Sin categorÃ­a';
 
             break;
           }
@@ -238,6 +238,7 @@ class BuscarRemoteDatasource {
 
       resultado.add(
         ProjectInfo(
+          idProyecto: idProyecto,
           leader: leader,
           name: proyecto['nombre']?.toString() ??
               'Proyecto sin nombre',
@@ -283,3 +284,4 @@ class BuscarRemoteDatasource {
     return '$day/$month/${date.year}';
   }
 }
+
