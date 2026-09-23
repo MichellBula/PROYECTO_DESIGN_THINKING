@@ -7,6 +7,7 @@ import '../data/datasources/auth_remote_data_source_impl.dart';
 import '../data/repositories/auth_repository_impl.dart';
 import '../domain/entities/auth_user.dart';
 
+
 class SesionController extends GetxController {
   SesionController({
     AuthRepositoryImpl? authRepository,
@@ -23,21 +24,24 @@ class SesionController extends GetxController {
   final AuthRepositoryImpl authRepository;
   final UsuarioRepositoryImpl usuarioRepository;
 
+  /// Usuario autenticado (Roble Auth)
   final Rxn<AuthUser> usuarioAutenticado = Rxn<AuthUser>();
 
+  /// Perfil del usuario (tabla usuario)
   final Rxn<Usuario> perfilUsuario = Rxn<Usuario>();
 
+  /// Indicador de carga
   final RxBool cargando = false.obs;
 
-  bool get estaAutenticado =>
-      usuarioAutenticado.value != null;
+  
+  bool get estaAutenticado => usuarioAutenticado.value != null;
 
-  bool get tienePerfil =>
-      perfilUsuario.value != null;
+  bool get tienePerfil => perfilUsuario.value != null;
 
   bool get necesitaCompletarPerfil =>
       estaAutenticado && !tienePerfil;
 
+  //Registrar cuenta
   Future<bool> registrarCuenta({
     required String email,
     required String password,
@@ -46,25 +50,14 @@ class SesionController extends GetxController {
     try {
       cargando.value = true;
 
+      // 1. Registrar en Roble Auth
       await authRepository.registrar(
         email: email,
         password: password,
         name: name,
       );
 
-      return true;
-    } finally {
-      cargando.value = false;
-    }
-  }
-
-  Future<bool> iniciarSesion({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      cargando.value = true;
-
+      // 2. Login automático (para tener usuarioAutenticado)
       final authUser = await authRepository.login(
         email: email,
         password: password,
@@ -72,6 +65,32 @@ class SesionController extends GetxController {
 
       usuarioAutenticado.value = authUser;
 
+      return true;
+    } catch (e) {
+      usuarioAutenticado.value = null;
+      rethrow;
+    } finally {
+      cargando.value = false;
+    }
+  }
+
+  //Iniciar sesion
+  Future<bool> iniciarSesion({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      cargando.value = true;
+
+      // 1. Login en Roble Auth
+      final authUser = await authRepository.login(
+        email: email,
+        password: password,
+      );
+
+      usuarioAutenticado.value = authUser;
+
+      // 2. Buscar perfil en la tabla usuario
       final perfil = await usuarioRepository.obtenerUsuarioActual(
         authUser.userId,
       );
@@ -88,22 +107,25 @@ class SesionController extends GetxController {
     }
   }
 
+  //Restaurar sesion
   Future<void> restaurarSesion() async {
     try {
       cargando.value = true;
 
       await authRepository.restaurarSesion();
 
-      final authUser =
-          await authRepository.obtenerUsuarioActual();
+      final authUser = await authRepository.obtenerUsuarioActual();
 
       usuarioAutenticado.value = authUser;
 
-      final perfil = await usuarioRepository.obtenerUsuarioActual(
-        authUser!.userId,
-      );
+      // Si hay usuario, buscar su perfil
+      if (authUser != null) {
+        final perfil = await usuarioRepository.obtenerUsuarioActual(
+          authUser.userId,
+        );
 
-      perfilUsuario.value = perfil;
+        perfilUsuario.value = perfil;
+      }
     } catch (e) {
       usuarioAutenticado.value = null;
       perfilUsuario.value = null;
@@ -113,6 +135,7 @@ class SesionController extends GetxController {
     }
   }
 
+  //Actualizar perfil
   Future<Usuario?> actualizarPerfil() async {
     final authUser = usuarioAutenticado.value;
 
@@ -136,6 +159,7 @@ class SesionController extends GetxController {
     }
   }
 
+  //Cerrar sesion
   Future<void> cerrarSesion() async {
     await authRepository.logout();
 
