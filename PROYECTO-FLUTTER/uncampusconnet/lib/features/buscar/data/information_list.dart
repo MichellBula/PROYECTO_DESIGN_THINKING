@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:uncampusconnet/features/home/data/event_data.dart';
 
 // ======================================================
@@ -6,20 +6,20 @@ import 'package:uncampusconnet/features/home/data/event_data.dart';
 // ======================================================
 //
 // Este archivo contiene las listas de datos de prueba
-// utilizadas en la aplicación.
+// utilizadas en la aplicaciÃ³n.
 //
-// Más adelante estas listas podrán ser reemplazadas
-// por información proveniente de una API o base de datos.
+// MÃ¡s adelante estas listas podrÃ¡n ser reemplazadas
+// por informaciÃ³n proveniente de una API o base de datos.
 // ======================================================
 
 
 // ======================================================
-// EVENTOS PRÓXIMOS
+// EVENTOS PRÃ“XIMOS
 // ======================================================
 
 const List<EventData> events = [
   EventData(
-    day: 'Mañana',
+    day: 'MaÃ±ana',
     time: '10:00 am',
     title: 'Entrega avance',
     project: 'ElectroPesca',
@@ -31,9 +31,9 @@ const List<EventData> events = [
   EventData(
     day: 'Jueves',
     time: '2:00 pm',
-    title: 'Reunión equipo',
+    title: 'ReuniÃ³n equipo',
     project: 'ServiGo',
-    tag: 'Reunión',
+    tag: 'ReuniÃ³n',
     icon: Icons.person_outline,
     type: EventType.meeting,
   ),
@@ -41,19 +41,19 @@ const List<EventData> events = [
   EventData(
     day: 'Viernes',
     time: '11:00 am',
-    title: 'Presentación',
+    title: 'PresentaciÃ³n',
     project: 'InnovaTech',
-    tag: 'Presentación',
+    tag: 'PresentaciÃ³n',
     icon: Icons.slideshow_outlined,
     type: EventType.task,
   ),
 
   EventData(
-    day: 'Sábado',
+    day: 'SÃ¡bado',
     time: '3:00 pm',
-    title: 'Revisión proyecto',
+    title: 'RevisiÃ³n proyecto',
     project: 'Grupo Alfa',
-    tag: 'Revisión',
+    tag: 'RevisiÃ³n',
     icon: Icons.folder_open_outlined,
     type: EventType.task,
   ),
@@ -61,9 +61,9 @@ const List<EventData> events = [
   EventData(
     day: 'Lunes',
     time: '9:00 am',
-    title: 'Reunión general',
+    title: 'ReuniÃ³n general',
     project: 'InnovaTech',
-    tag: 'Reunión',
+    tag: 'ReuniÃ³n',
     icon: Icons.groups_outlined,
     type: EventType.meeting,
   ),
@@ -71,7 +71,7 @@ const List<EventData> events = [
 
 
 // ======================================================
-// MODELO DE PUBLICACIÓN
+// MODELO DE PUBLICACIÃ“N
 // ======================================================
 
 class Post {
@@ -108,9 +108,9 @@ const List<Post> posts = [
     autor: 'InnovaTech Team',
     usuario: '@InnovaTech_team - FeriaGamer',
     tiempo: 'Hace 2h',
-    titulo: 'Nuevo diseño del juego!!',
+    titulo: 'Nuevo diseÃ±o del juego!!',
     contenido:
-        'Nos alegra compartir que ya nuestro juego tiene la interfaz gráfica preparada. '
+        'Nos alegra compartir que ya nuestro juego tiene la interfaz grÃ¡fica preparada. '
         'Hemos trabajado en los detalles visuales y la experiencia de usuario.',
     likes: 12,
     comentarios: 2,
@@ -147,10 +147,10 @@ const List<Post> posts = [
     autor: 'DevOps Team',
     usuario: '@devops_team - Infraestructura',
     tiempo: 'Hace 6h',
-    titulo: 'Nuevo despliegue en producción',
+    titulo: 'Nuevo despliegue en producciÃ³n',
     contenido:
-        'El nuevo sistema de autenticación ya está disponible en el entorno de producción. '
-        'Todos los servicios están funcionando correctamente.',
+        'El nuevo sistema de autenticaciÃ³n ya estÃ¡ disponible en el entorno de producciÃ³n. '
+        'Todos los servicios estÃ¡n funcionando correctamente.',
     likes: 5,
     comentarios: 1,
     imagen: 'assets/images/post4.png',
@@ -158,12 +158,12 @@ const List<Post> posts = [
 
   Post(
     autor: 'Marketing Digital',
-    usuario: '@marketing_digital - Campaña',
+    usuario: '@marketing_digital - CampaÃ±a',
     tiempo: 'Hace 8h',
-    titulo: 'Lanzamiento de nueva campaña',
+    titulo: 'Lanzamiento de nueva campaÃ±a',
     contenido:
-        'Estamos preparando el lanzamiento de la nueva campaña para el próximo mes. '
-        'Pronto compartiremos más detalles con el equipo.',
+        'Estamos preparando el lanzamiento de la nueva campaÃ±a para el prÃ³ximo mes. '
+        'Pronto compartiremos mÃ¡s detalles con el equipo.',
     likes: 7,
     comentarios: 3,
     imagen: 'assets/images/post5.png',
@@ -172,28 +172,28 @@ const List<Post> posts = [
 
 
 // ======================================================
-// LISTAS DE CREACIÓN DE PROYECTOS
+// LISTAS DE CREACIÃ“N DE PROYECTOS
 // ======================================================
 
 const List<String> categories = [
-  'Tecnología',
-  'Educación',
+  'TecnologÃ­a',
+  'EducaciÃ³n',
   'Salud',
-  'Ciencia e investigación',
-  'Arte y diseño',
+  'Ciencia e investigaciÃ³n',
+  'Arte y diseÃ±o',
   'Cultura',
   'Medio ambiente',
   'Sostenibilidad',
   'Emprendimiento',
   'Negocios',
   'Marketing y publicidad',
-  'Comunicación',
+  'ComunicaciÃ³n',
   'Ciencias sociales',
   'Comunidad y proyectos sociales',
   'Agricultura',
-  'Ingeniería',
+  'IngenierÃ­a',
   'Finanzas',
-  'Innovación',
+  'InnovaciÃ³n',
   'Otro',
 ];
 
@@ -202,23 +202,23 @@ const List<String> roles = [
   'Investigador',
   'Analista',
   'Desarrollador',
-  'Diseñador',
-  'Diseñador gráfico',
-  'Diseñador UX/UI',
+  'DiseÃ±ador',
+  'DiseÃ±ador grÃ¡fico',
+  'DiseÃ±ador UX/UI',
   'Marketing',
   'Comunicador',
   'Redactor',
   'Community Manager',
-  'Fotógrafo',
-  'Videógrafo',
+  'FotÃ³grafo',
+  'VideÃ³grafo',
   'Administrador',
   'Finanzas',
-  'Logística',
+  'LogÃ­stica',
   'Ventas',
   'Recursos humanos',
   'Consultor',
   'Emprendedor',
-  'Técnico',
+  'TÃ©cnico',
   'Asistente',
   'Otro',
 ];
@@ -226,45 +226,45 @@ const List<String> roles = [
 const List<String> skills = [
   'Liderazgo',
   'Trabajo en equipo',
-  'Comunicación',
-  'Organización',
-  'Planificación',
-  'Investigación',
-  'Análisis de datos',
-  'Resolución de problemas',
+  'ComunicaciÃ³n',
+  'OrganizaciÃ³n',
+  'PlanificaciÃ³n',
+  'InvestigaciÃ³n',
+  'AnÃ¡lisis de datos',
+  'ResoluciÃ³n de problemas',
   'Creatividad',
-  'Pensamiento crítico',
-  'Innovación',
-  'Gestión de proyectos',
-  'Gestión del tiempo',
-  'Negociación',
-  'Atención al cliente',
+  'Pensamiento crÃ­tico',
+  'InnovaciÃ³n',
+  'GestiÃ³n de proyectos',
+  'GestiÃ³n del tiempo',
+  'NegociaciÃ³n',
+  'AtenciÃ³n al cliente',
   'Ventas',
   'Marketing',
-  'Redacción',
-  'Presentación',
-  'Diseño gráfico',
-  'Diseño UX/UI',
-  'Fotografía',
-  'Edición de video',
-  'Programación',
+  'RedacciÃ³n',
+  'PresentaciÃ³n',
+  'DiseÃ±o grÃ¡fico',
+  'DiseÃ±o UX/UI',
+  'FotografÃ­a',
+  'EdiciÃ³n de video',
+  'ProgramaciÃ³n',
   'Desarrollo web',
-  'Desarrollo móvil',
+  'Desarrollo mÃ³vil',
   'Bases de datos',
   'Inteligencia artificial',
   'Contabilidad',
   'Finanzas',
-  'Logística',
+  'LogÃ­stica',
   'Docencia',
   'Idiomas',
   'Otro',
 ];
 
 const List<String> projectTypes = [
-  'Geoexpofísica',
+  'GeoexpofÃ­sica',
   'Servicios universitarios',
   'Proyecto de grado',
-  'Investigación',
+  'InvestigaciÃ³n',
   'Feria Gamer',
   'Grupos estudiantiles',
   'Otro',
@@ -276,6 +276,7 @@ const List<String> projectTypes = [
 // ======================================================
 
 class ProjectInfo {
+  final int? idProyecto;
   final String leader;
   final String name;
   final String members;
@@ -288,6 +289,7 @@ class ProjectInfo {
   final String keywords;
 
   const ProjectInfo({
+    this.idProyecto,
     required this.leader,
     required this.name,
     required this.members,
@@ -313,22 +315,22 @@ const List<ProjectInfo> availableProjects = [
     members: '5',
     vacancies: '2',
     closingDate: '02/09/2026',
-    area: 'Geoexpofísica',
+    area: 'GeoexpofÃ­sica',
     description:
-        'Juego didáctico que busca enseñar de manera divertida '
+        'Juego didÃ¡ctico que busca enseÃ±ar de manera divertida '
         'la Ley de Ohm y las leyes de Kirchhoff mediante una '
-        'experiencia interactiva basada en circuitos eléctricos.',
+        'experiencia interactiva basada en circuitos elÃ©ctricos.',
     requirements: [
-      'Conocimientos básicos de Arduino',
-      'Programación',
+      'Conocimientos bÃ¡sicos de Arduino',
+      'ProgramaciÃ³n',
       'Electricidad y circuitos',
     ],
     roles: [
       'Programador',
-      'Ingeniero electrónico',
+      'Ingeniero electrÃ³nico',
     ],
     keywords:
-        'innovación física electrónica electricidad circuitos '
+        'innovaciÃ³n fÃ­sica electrÃ³nica electricidad circuitos '
         'arduino voltaje ley de ohm kirchhoff',
   ),
 
@@ -338,23 +340,23 @@ const List<ProjectInfo> availableProjects = [
     members: '4',
     vacancies: '2',
     closingDate: '30/09/2026',
-    area: 'Tecnología y bienestar animal',
+    area: 'TecnologÃ­a y bienestar animal',
     description:
-        'Aplicación móvil pensada para ayudar a los dueños de '
+        'AplicaciÃ³n mÃ³vil pensada para ayudar a los dueÃ±os de '
         'mascotas a organizar vacunas, citas veterinarias, '
-        'alimentación y rutinas diarias desde un solo lugar.',
+        'alimentaciÃ³n y rutinas diarias desde un solo lugar.',
     requirements: [
-      'Interés en desarrollo móvil',
-      'Conocimientos básicos de UX/UI',
+      'InterÃ©s en desarrollo mÃ³vil',
+      'Conocimientos bÃ¡sicos de UX/UI',
       'Trabajo en equipo',
     ],
     roles: [
       'Desarrollador Flutter',
-      'Diseñador UX/UI',
+      'DiseÃ±ador UX/UI',
     ],
     keywords:
-        'mascotas animales veterinaria vacunas flutter aplicación '
-        'móvil innovación tecnología',
+        'mascotas animales veterinaria vacunas flutter aplicaciÃ³n '
+        'mÃ³vil innovaciÃ³n tecnologÃ­a',
   ),
 
   ProjectInfo(
@@ -367,20 +369,20 @@ const List<ProjectInfo> availableProjects = [
     description:
         'Plataforma que conecta estudiantes con personas que '
         'ofrecen servicios dentro de la comunidad universitaria, '
-        'como tutorías, diseño, reparación de equipos y apoyo académico.',
+        'como tutorÃ­as, diseÃ±o, reparaciÃ³n de equipos y apoyo acadÃ©mico.',
     requirements: [
-      'Desarrollo web o móvil',
+      'Desarrollo web o mÃ³vil',
       'Bases de datos',
-      'Comunicación y trabajo colaborativo',
+      'ComunicaciÃ³n y trabajo colaborativo',
     ],
     roles: [
       'Desarrollador frontend',
       'Desarrollador backend',
-      'Diseñador UI',
+      'DiseÃ±ador UI',
     ],
     keywords:
-        'servicios universidad tutorías estudiantes desarrollo web '
-        'móvil frontend backend innovación',
+        'servicios universidad tutorÃ­as estudiantes desarrollo web '
+        'mÃ³vil frontend backend innovaciÃ³n',
   ),
 
   ProjectInfo(
@@ -392,11 +394,11 @@ const List<ProjectInfo> availableProjects = [
     area: 'Sostenibilidad',
     description:
         'Proyecto enfocado en mejorar la sostenibilidad del campus '
-        'mediante herramientas para reciclaje, reducción de residuos '
+        'mediante herramientas para reciclaje, reducciÃ³n de residuos '
         'y seguimiento de iniciativas ambientales.',
     requirements: [
-      'Interés en sostenibilidad',
-      'Análisis de datos',
+      'InterÃ©s en sostenibilidad',
+      'AnÃ¡lisis de datos',
       'Desarrollo de soluciones digitales',
     ],
     roles: [
@@ -405,8 +407,8 @@ const List<ProjectInfo> availableProjects = [
       'Gestor ambiental',
     ],
     keywords:
-        'medio ambiente reciclaje residuos sostenibilidad ecología '
-        'campus verde innovación',
+        'medio ambiente reciclaje residuos sostenibilidad ecologÃ­a '
+        'campus verde innovaciÃ³n',
   ),
 
   ProjectInfo(
@@ -415,24 +417,24 @@ const List<ProjectInfo> availableProjects = [
     members: '4',
     vacancies: '3',
     closingDate: '20/09/2026',
-    area: 'Educación',
+    area: 'EducaciÃ³n',
     description:
-        'Aplicación diseñada para conectar estudiantes según '
-        'asignaturas, horarios e intereses académicos, facilitando '
-        'la creación de grupos de estudio.',
+        'AplicaciÃ³n diseÃ±ada para conectar estudiantes segÃºn '
+        'asignaturas, horarios e intereses acadÃ©micos, facilitando '
+        'la creaciÃ³n de grupos de estudio.',
     requirements: [
-      'Programación básica',
-      'Diseño de interfaces',
-      'Interés en educación',
+      'ProgramaciÃ³n bÃ¡sica',
+      'DiseÃ±o de interfaces',
+      'InterÃ©s en educaciÃ³n',
     ],
     roles: [
-      'Desarrollador móvil',
-      'Diseñador UX/UI',
+      'Desarrollador mÃ³vil',
+      'DiseÃ±ador UX/UI',
       'Gestor de comunidad',
     ],
     keywords:
-        'estudio estudiantes educación grupos asignaturas '
-        'universidad aplicación innovación',
+        'estudio estudiantes educaciÃ³n grupos asignaturas '
+        'universidad aplicaciÃ³n innovaciÃ³n',
   ),
 
   ProjectInfo(
@@ -441,15 +443,15 @@ const List<ProjectInfo> availableProjects = [
     members: '7',
     vacancies: '1',
     closingDate: '25/09/2026',
-    area: 'Tecnología sostenible',
+    area: 'TecnologÃ­a sostenible',
     description:
-        'Proyecto orientado al desarrollo de soluciones tecnológicas '
-        'que ayuden a reducir el consumo energético y mejorar prácticas '
+        'Proyecto orientado al desarrollo de soluciones tecnolÃ³gicas '
+        'que ayuden a reducir el consumo energÃ©tico y mejorar prÃ¡cticas '
         'sostenibles dentro de la universidad.',
     requirements: [
-      'Interés en tecnología sostenible',
-      'Programación',
-      'Conocimientos básicos de IoT',
+      'InterÃ©s en tecnologÃ­a sostenible',
+      'ProgramaciÃ³n',
+      'Conocimientos bÃ¡sicos de IoT',
     ],
     roles: [
       'Desarrollador IoT',
@@ -457,8 +459,8 @@ const List<ProjectInfo> availableProjects = [
       'Analista de sostenibilidad',
     ],
     keywords:
-        'iot tecnología energía consumo energético sostenibilidad '
-        'verde programación innovación',
+        'iot tecnologÃ­a energÃ­a consumo energÃ©tico sostenibilidad '
+        'verde programaciÃ³n innovaciÃ³n',
   ),
 
   ProjectInfo(
@@ -467,23 +469,23 @@ const List<ProjectInfo> availableProjects = [
     members: '5',
     vacancies: '2',
     closingDate: '28/09/2026',
-    area: 'Alimentación y tecnología',
+    area: 'AlimentaciÃ³n y tecnologÃ­a',
     description:
-        'Plataforma para consultar menús, realizar pedidos y conocer '
-        'opciones de alimentación disponibles dentro del campus universitario.',
+        'Plataforma para consultar menÃºs, realizar pedidos y conocer '
+        'opciones de alimentaciÃ³n disponibles dentro del campus universitario.',
     requirements: [
       'Desarrollo de aplicaciones',
-      'Diseño UX/UI',
-      'Manejo básico de bases de datos',
+      'DiseÃ±o UX/UI',
+      'Manejo bÃ¡sico de bases de datos',
     ],
     roles: [
       'Desarrollador Flutter',
-      'Diseñador UX/UI',
+      'DiseÃ±ador UX/UI',
       'Desarrollador backend',
     ],
     keywords:
-        'comida alimentación menú pedidos restaurante universidad '
-        'flutter aplicación innovación',
+        'comida alimentaciÃ³n menÃº pedidos restaurante universidad '
+        'flutter aplicaciÃ³n innovaciÃ³n',
   ),
 
   ProjectInfo(
@@ -498,18 +500,18 @@ const List<ProjectInfo> availableProjects = [
         'permite coordinar rutas, horarios y viajes hacia y desde '
         'la universidad.',
     requirements: [
-      'Desarrollo móvil',
-      'Manejo de mapas o geolocalización',
+      'Desarrollo mÃ³vil',
+      'Manejo de mapas o geolocalizaciÃ³n',
       'Bases de datos',
     ],
     roles: [
-      'Desarrollador móvil',
+      'Desarrollador mÃ³vil',
       'Desarrollador backend',
-      'Diseñador UX/UI',
+      'DiseÃ±ador UX/UI',
     ],
     keywords:
         'transporte movilidad carro viajes rutas mapas '
-        'geolocalización estudiantes innovación',
+        'geolocalizaciÃ³n estudiantes innovaciÃ³n',
   ),
 ];
 
@@ -532,7 +534,7 @@ class CreatedProjectInfo {
   // Ejemplo:
   // {
   //   'Desarrollador': 2,
-  //   'Diseñador UX/UI': 1
+  //   'DiseÃ±ador UX/UI': 1
   // }
   final Map<String, int> cantidadesPorRol;
 
@@ -570,7 +572,7 @@ class CreatedProjectInfo {
 // Esta lista almacena temporalmente los proyectos que
 // el usuario publique.
 //
-// Más adelante podrá ser reemplazada por una base de datos.
+// MÃ¡s adelante podrÃ¡ ser reemplazada por una base de datos.
 // ======================================================
 
 final List<CreatedProjectInfo> createdProjects = [];

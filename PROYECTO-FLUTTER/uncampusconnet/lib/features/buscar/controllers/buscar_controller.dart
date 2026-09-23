@@ -1,16 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:uncampusconnet/features/buscar/data/buscar_remote_datasource.dart';
 import 'package:uncampusconnet/features/buscar/data/information_list.dart';
 
 class BuscarController extends GetxController {
   final searchController = TextEditingController();
 
+  final BuscarRemoteDatasource datasource =
+      BuscarRemoteDatasource();
+
   final showAvailable = true.obs;
   final filters = <String>[].obs;
 
+  // Proyectos cargados desde Roble.
+  final projects = <ProjectInfo>[].obs;
+
+  // Estados de la consulta.
+  final isLoading = false.obs;
+  final errorMessage = ''.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadProjects();
+  }
+
+  // ======================================================
+  // CARGAR PROYECTOS DESDE ROBLE
+  // ======================================================
+
+  Future<void> loadProjects() async {
+    try {
+      isLoading.value = true;
+      errorMessage.value = '';
+
+      final result = await datasource.getProjects();
+
+      projects.assignAll(result);
+    } catch (e) {
+      errorMessage.value =
+          'No fue posible cargar los proyectos.';
+      debugPrint(
+        'Error cargando proyectos desde Roble: $e',
+      );
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  // ======================================================
+  // PROYECTOS VISIBLES
+  // ======================================================
+
   List<ProjectInfo> get visibleProjects {
-    return availableProjects.where((project) {
+    return projects.where((project) {
       final isAvailable = isProjectAvailable(project);
 
       if (showAvailable.value != isAvailable) {
@@ -31,9 +75,15 @@ class BuscarController extends GetxController {
         ...project.roles,
       ].join(' ').toLowerCase();
 
-      return filters.every(searchableText.contains);
+      return filters.every(
+        searchableText.contains,
+      );
     }).toList();
   }
+
+  // ======================================================
+  // VALIDAR DISPONIBILIDAD
+  // ======================================================
 
   bool isProjectAvailable(ProjectInfo project) {
     final parts = project.closingDate.split('/');
@@ -46,7 +96,9 @@ class BuscarController extends GetxController {
     final month = int.tryParse(parts[1]);
     final year = int.tryParse(parts[2]);
 
-    if (day == null || month == null || year == null) {
+    if (day == null ||
+        month == null ||
+        year == null) {
       return false;
     }
 
@@ -59,15 +111,26 @@ class BuscarController extends GetxController {
       59,
     );
 
-    return !DateTime.now().isAfter(closingDate);
+    return !DateTime.now().isAfter(
+      closingDate,
+    );
   }
+
+  // ======================================================
+  // CAMBIAR ENTRE DISPONIBLES / ANTERIORES
+  // ======================================================
 
   void changeView(bool value) {
     showAvailable.value = value;
   }
 
+  // ======================================================
+  // FILTROS
+  // ======================================================
+
   void addFilter() {
-    final value = searchController.text.trim().toLowerCase();
+    final value =
+        searchController.text.trim().toLowerCase();
 
     if (value.isEmpty) {
       return;
@@ -87,6 +150,14 @@ class BuscarController extends GetxController {
   void clearFilters() {
     filters.clear();
     searchController.clear();
+  }
+
+  // ======================================================
+  // RECARGAR
+  // ======================================================
+
+  Future<void> refreshProjects() async {
+    await loadProjects();
   }
 
   @override

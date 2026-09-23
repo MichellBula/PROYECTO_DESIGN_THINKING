@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:uncampusconnet/features/mis_proyectos/pages/avances_page.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/features/create_project/widgets/confirmaction_button.dart';
-
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 import 'package:uncampusconnet/features/mis_proyectos/data/proyect_data.dart';
+import 'package:uncampusconnet/features/mis_proyectos/pages/eventos_proyecto_page.dart';
+import 'package:uncampusconnet/features/mis_proyectos/pages/participantes_page.dart';
 import 'package:uncampusconnet/features/mis_proyectos/widgets/project_detail_header.dart';
 import 'package:uncampusconnet/ui/widgets/info_field.dart';
 import 'package:uncampusconnet/ui/widgets/screen_title.dart';
 
 class ProjectDetailPage extends StatelessWidget {
-  const ProjectDetailPage({super.key, ProjectData? project});
+  const ProjectDetailPage({
+    super.key,
+    ProjectData? project,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +35,9 @@ class ProjectDetailPage extends StatelessWidget {
       return SafeArea(
         child: Column(
           children: [
-            // -------------------------
+            // ==================================================
             // TÍTULO + BOTÓN REGRESAR
-            // -------------------------
+            // ==================================================
             AppScreenTitle(
               title: 'Mis proyectos',
               onBack: () {
@@ -40,22 +45,26 @@ class ProjectDetailPage extends StatelessWidget {
               },
             ),
 
-            // -------------------------
+            // ==================================================
             // CONTENIDO
-            // -------------------------
+            // ==================================================
             Expanded(
               child: ListView(
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
-
-                padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
-
+                padding: const EdgeInsets.fromLTRB(
+                  20,
+                  12,
+                  20,
+                  30,
+                ),
                 children: [
                   // ==================================================
                   // CABECERA
                   // ==================================================
-
-                  ProjectDetailHeader(project: project),
+                  ProjectDetailHeader(
+                    project: project,
+                  ),
 
                   const SizedBox(height: 24),
 
@@ -133,7 +142,9 @@ class ProjectDetailPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          _formatDate(project.closingDate),
+                          _formatDate(
+                            project.closingDate,
+                          ),
                           style: AppTextStyles.bodyText.copyWith(
                             color: scheme.onSurface,
                           ),
@@ -149,24 +160,44 @@ class ProjectDetailPage extends StatelessWidget {
                   // ==================================================
                   Row(
                     children: [
+                      // ==================================================
                       // PARTICIPANTES
+                      // ==================================================
                       Expanded(
                         child: ConfirmationButton(
                           text: 'Participantes',
                           onPressed: () {
-                            // Se implementará posteriormente.
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ParticipantesPage(
+                                  project: project,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
 
                       const SizedBox(width: 12),
 
+                      // ==================================================
                       // EVENTOS
+                      // ==================================================
                       Expanded(
                         child: ConfirmationButton(
                           text: 'Eventos',
                           onPressed: () {
-                            // Se implementará posteriormente.
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    EventosProyectoPage(
+                                  project: project,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -183,7 +214,14 @@ class ProjectDetailPage extends StatelessWidget {
                     child: ConfirmationButton(
                       text: 'Avances',
                       onPressed: () {
-                        // Se implementará posteriormente.
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AvancesPage(
+                              project: project,
+                            ),
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -198,7 +236,9 @@ class ProjectDetailPage extends StatelessWidget {
     });
   }
 
-  String _formatDate(DateTime? date) {
+  String _formatDate(
+    DateTime? date,
+  ) {
     if (date == null) {
       return 'No especificada';
     }
@@ -213,7 +253,10 @@ class _RoleVacancy extends StatelessWidget {
   final String role;
   final int quantity;
 
-  const _RoleVacancy({required this.role, required this.quantity});
+  const _RoleVacancy({
+    required this.role,
+    required this.quantity,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -221,23 +264,33 @@ class _RoleVacancy extends StatelessWidget {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
         child: Row(
           children: [
-            Icon(Icons.person_outline, color: scheme.primary),
+            Icon(
+              Icons.person_outline,
+              color: scheme.primary,
+            ),
 
             const SizedBox(width: 12),
 
             Expanded(
               child: Text(
                 role,
-                style: AppTextStyles.bodyText.copyWith(color: scheme.onSurface),
+                style: AppTextStyles.bodyText.copyWith(
+                  color: scheme.onSurface,
+                ),
               ),
             ),
 
             Text(
               '$quantity',
-              style: AppTextStyles.cardTitle.copyWith(color: scheme.onSurface),
+              style: AppTextStyles.cardTitle.copyWith(
+                color: scheme.onSurface,
+              ),
             ),
           ],
         ),

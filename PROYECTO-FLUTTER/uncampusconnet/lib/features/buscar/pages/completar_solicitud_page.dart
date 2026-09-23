@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'package:uncampusconnet/core/database/roble_client.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 import 'package:uncampusconnet/features/buscar/data/information_list.dart';
+import 'package:uncampusconnet/features/create_project/data/datasources/project_roles_remote_datasource.dart';
+import 'package:uncampusconnet/features/solicitudes/data/datasources/solicitud_remote_datasource.dart';
+import 'package:uncampusconnet/features/solicitudes/data/repositories/solicitud_repository_impl.dart';
+import 'package:uncampusconnet/features/solicitudes/domain/entities/solicitud.dart';
+import 'package:uncampusconnet/features/solicitudes/domain/usecases/create_solicitud.dart';
 import 'package:uncampusconnet/ui/widgets/dropdown_field.dart';
 import 'package:uncampusconnet/ui/widgets/screen_title.dart';
 import 'package:uncampusconnet/ui/widgets/text_field.dart';
@@ -10,20 +16,33 @@ import 'package:uncampusconnet/ui/widgets/text_field.dart';
 class CompletarSolicitudPage extends StatefulWidget {
   final ProjectInfo project;
 
-  const CompletarSolicitudPage({super.key, required this.project});
+  const CompletarSolicitudPage({
+    super.key,
+    required this.project,
+  });
 
   @override
-  State<CompletarSolicitudPage> createState() => _CompletarSolicitudPageState();
+  State<CompletarSolicitudPage> createState() =>
+      _CompletarSolicitudPageState();
 }
 
-class _CompletarSolicitudPageState extends State<CompletarSolicitudPage> {
+class _CompletarSolicitudPageState
+    extends State<CompletarSolicitudPage> {
   final _nombreController = TextEditingController();
   final _correoController = TextEditingController();
   final _carreraController = TextEditingController();
   final _semestreController = TextEditingController();
   final _motivoController = TextEditingController();
 
+  final SolicitudRemoteDatasource _solicitudDatasource =
+      SolicitudRemoteDatasource();
+
+  final ProjectRolesRemoteDatasource _rolesDatasource =
+      ProjectRolesRemoteDatasource();
+
   String? _rolSeleccionado;
+
+  bool _enviando = false;
 
   @override
   void dispose() {
@@ -35,31 +54,175 @@ class _CompletarSolicitudPageState extends State<CompletarSolicitudPage> {
     super.dispose();
   }
 
-  void _enviarSolicitud() {
+  Future<int> _obtenerIdProyectoRol({
+    required int idProyecto,
+    required String nombreRol,
+  }) async {
+    final relaciones =
+        await _rolesDatasource.getRolesByProject(
+      idProyecto,
+    );
+
+    final catalogoRoles = await RobleClient.instance.read(
+      'rol',
+    );
+
+    for (final relacion in relaciones) {
+      final idRol = int.tryParse(
+        relacion['id_rol']?.toString() ?? '',
+      );
+
+      final idProyectoRol = int.tryParse(
+        relacion['id_proyecto_rol']?.toString() ?? '',
+      );
+
+      if (idRol == null || idProyectoRol == null) {
+        continue;
+      }
+
+      for (final rol in catalogoRoles) {
+        final idRolCatalogo = int.tryParse(
+          rol['id_rol']?.toString() ?? '',
+        );
+
+        final nombreRolCatalogo =
+            rol['nombre_rol']?.toString().trim();
+
+        if (idRolCatalogo == idRol &&
+            nombreRolCatalogo != null &&
+            nombreRolCatalogo.toLowerCase() ==
+                nombreRol.trim().toLowerCase()) {
+          return idProyectoRol;
+        }
+      }
+    }
+
+    throw Exception(
+      'No fue posible encontrar el rol seleccionado para este proyecto.',
+    );
+  }
+
+  Future<void> _enviarSolicitud() async {
+    if (_enviando) {
+      return;
+    }
+
     final camposVacios = [
       _nombreController,
       _correoController,
       _carreraController,
       _semestreController,
       _motivoController,
-    ].any((controller) => controller.text.trim().isEmpty);
+    ].any(
+      (controller) => controller.text.trim().isEmpty,
+    );
 
     if (camposVacios || _rolSeleccionado == null) {
-      _mostrarMensaje('Completa todos los campos.');
+      _mostrarMensaje(
+        'Completa todos los campos.',
+      );
       return;
     }
 
     if (!_correoController.text.contains('@')) {
-      _mostrarMensaje('Ingresa un correo electrónico válido.');
+      _mostrarMensaje(
+        'Ingresa un correo electrónico válido.',
+      );
       return;
     }
 
-    _mostrarSolicitudEnviada();
+    final semestre = int.tryParse(
+      _semestreController.text.trim(),
+    );
+
+    if (semestre == null || semestre <= 0) {
+      _mostrarMensaje(
+        'Ingresa un semestre válido.',
+      );
+      return;
+    }
+
+    final idProyecto = widget.project.idProyecto;
+
+    if (idProyecto == null) {
+      _mostrarMensaje(
+        'No fue posible identificar el proyecto.',
+      );
+      return;
+    }
+
+    setState(() {
+      _enviando = true;
+    });
+
+    try {
+      final idUsuario =
+          await _solicitudDatasource
+              .getIdUsuarioAutenticado();
+
+      final idProyectoRol =
+          await _obtenerIdProyectoRol(
+        idProyecto: idProyecto,
+        nombreRol: _rolSeleccionado!,
+      );
+
+      final repository = SolicitudRepositoryImpl(
+        datasource: _solicitudDatasource,
+      );
+
+      final createSolicitud = CreateSolicitud(
+        repository: repository,
+      );
+
+      final solicitud = Solicitud(
+        idProyecto: idProyecto,
+        idUsuario: idUsuario,
+        estado: 'pendiente',
+        fechaEnviada: DateTime.now(),
+        fechaRespuesta: null,
+        idProyectoRol: idProyectoRol,
+      );
+
+      await createSolicitud(
+        solicitud,
+      );
+
+      if (!mounted) {
+        return;
+      }
+
+      _mostrarSolicitudEnviada();
+    } catch (e) {
+      if (!mounted) {
+        return;
+      }
+
+      final mensaje = _limpiarMensajeError(
+        e.toString(),
+      );
+
+      _mostrarMensaje(mensaje);
+    } finally {
+      if (mounted) {
+        setState(() {
+          _enviando = false;
+        });
+      }
+    }
+  }
+
+  String _limpiarMensajeError(String mensaje) {
+    return mensaje
+        .replaceFirst('Exception: ', '')
+        .trim();
   }
 
   void _mostrarMensaje(String mensaje) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(mensaje)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(mensaje),
+      ),
+    );
   }
 
   void _mostrarSolicitudEnviada() {
@@ -83,13 +246,18 @@ class _CompletarSolicitudPageState extends State<CompletarSolicitudPage> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 28,
+            vertical: 12,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Transform.translate(
                 offset: const Offset(-12, 0),
-                child: const AppScreenTitle(title: 'Completar solicitud'),
+                child: const AppScreenTitle(
+                  title: 'Completar solicitud',
+                ),
               ),
 
               const SizedBox(height: 24),
@@ -152,7 +320,8 @@ class _CompletarSolicitudPageState extends State<CompletarSolicitudPage> {
 
               AppTextField(
                 label: '¿Por qué desea unirse al proyecto?',
-                hint: 'Cuéntanos brevemente por qué quieres participar',
+                hint:
+                    'Cuéntanos brevemente por qué quieres participar',
                 controller: _motivoController,
                 maxLength: 500,
                 maxLines: 4,
@@ -160,15 +329,19 @@ class _CompletarSolicitudPageState extends State<CompletarSolicitudPage> {
 
               const SizedBox(height: 18),
 
-              AppDropdownField(
-                label: 'Rol deseado',
-                hint: 'Selecciona un rol',
-                value: _rolSeleccionado,
-                items: widget.project.roles,
-                onChanged: (value) {
-                  setState(() => _rolSeleccionado = value);
-                },
-              ),
+         AppDropdownField(
+  label: 'Rol deseado',
+  hint: 'Selecciona un rol',
+  value: _rolSeleccionado,
+  items: widget.project.roles,
+  onChanged: (value) {
+    if (_enviando) return;
+
+    setState(() {
+      _rolSeleccionado = value;
+    });
+  },
+),
 
               const SizedBox(height: 30),
 
@@ -178,12 +351,18 @@ class _CompletarSolicitudPageState extends State<CompletarSolicitudPage> {
                     child: SizedBox(
                       height: 46,
                       child: OutlinedButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: _enviando
+                            ? null
+                            : () =>
+                                Navigator.pop(context),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: scheme.primary,
-                          side: BorderSide(color: scheme.primary),
+                          side: BorderSide(
+                            color: scheme.primary,
+                          ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
+                            borderRadius:
+                                BorderRadius.circular(
                               AppTheme.smallRadius,
                             ),
                           ),
@@ -199,8 +378,19 @@ class _CompletarSolicitudPageState extends State<CompletarSolicitudPage> {
                     child: SizedBox(
                       height: 46,
                       child: ElevatedButton(
-                        onPressed: _enviarSolicitud,
-                        child: const Text('Enviar'),
+                        onPressed: _enviando
+                            ? null
+                            : _enviarSolicitud,
+                        child: _enviando
+                            ? const SizedBox(
+                                width: 22,
+                                height: 22,
+                                child:
+                                    CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : const Text('Enviar'),
                       ),
                     ),
                   ),
@@ -220,19 +410,26 @@ class _SuccessDialog extends StatelessWidget {
   final String projectName;
   final VoidCallback onClose;
 
-  const _SuccessDialog({required this.projectName, required this.onClose});
+  const _SuccessDialog({
+    required this.projectName,
+    required this.onClose,
+  });
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
 
     return Dialog(
-      insetPadding: const EdgeInsets.symmetric(horizontal: 32),
+      insetPadding:
+          const EdgeInsets.symmetric(horizontal: 32),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppTheme.cardRadius),
+        borderRadius: BorderRadius.circular(
+          AppTheme.cardRadius,
+        ),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(28, 36, 28, 28),
+        padding:
+            const EdgeInsets.fromLTRB(28, 36, 28, 28),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -255,7 +452,9 @@ class _SuccessDialog extends StatelessWidget {
             Text(
               '¡Tu solicitud fue enviada\ncon éxito!',
               textAlign: TextAlign.center,
-              style: AppTextStyles.formTitle.copyWith(color: scheme.onSurface),
+              style: AppTextStyles.formTitle.copyWith(
+                color: scheme.onSurface,
+              ),
             ),
 
             const SizedBox(height: 10),
