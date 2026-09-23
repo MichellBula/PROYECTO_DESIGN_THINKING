@@ -4,7 +4,7 @@ import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 
 
-class AppTextField extends StatelessWidget {
+class AppTextField extends StatefulWidget {
   /// Texto que identifica el campo.
   final String label;
 
@@ -23,6 +23,9 @@ class AppTextField extends StatelessWidget {
   /// Tipo de teclado que se mostrará.
   final TextInputType? keyboardType;
 
+  /// Si es un campo de contraseña (oculta el texto).
+  final bool isPassword;
+
   const AppTextField({
     super.key,
     required this.label,
@@ -31,7 +34,15 @@ class AppTextField extends StatelessWidget {
     required this.maxLength,
     this.maxLines = 1,
     this.keyboardType,
+    this.isPassword = false,
   });
+
+  @override
+  State<AppTextField> createState() => _AppTextFieldState();
+}
+
+class _AppTextFieldState extends State<AppTextField> {
+  bool _obscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +53,7 @@ class AppTextField extends StatelessWidget {
       children: [
         // ETIQUETA
         Text(
-          label,
+          widget.label,
           style: AppTextStyles.fieldLabel.copyWith(color: scheme.onSurface),
         ),
 
@@ -50,13 +61,14 @@ class AppTextField extends StatelessWidget {
 
         // CAMPO DE TEXTO
         TextField(
-          controller: controller,
-          maxLength: maxLength,
-          maxLines: maxLines,
-          keyboardType: keyboardType,
+          controller: widget.controller,
+          maxLength: widget.maxLength,
+          maxLines: widget.isPassword ? 1 : widget.maxLines,
+          keyboardType: widget.keyboardType,
+          obscureText: widget.isPassword && _obscure,
           style: AppTextStyles.bodyText.copyWith(color: scheme.onSurface),
           decoration: InputDecoration(
-            hintText: hint,
+            hintText: widget.hint,
             hintStyle: AppTextStyles.smallText.copyWith(
               color: scheme.onSurfaceVariant,
             ),
@@ -70,6 +82,24 @@ class AppTextField extends StatelessWidget {
             ),
 
             counterText: '',
+
+            // BOTÓN DE VER CONTRASEÑA
+            suffixIcon: widget.isPassword
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _obscure = !_obscure;
+                      });
+                    },
+                    icon: Icon(
+                      _obscure
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      size: 20,
+                      color: scheme.onSurfaceVariant,
+                    ),
+                  )
+                : null,
 
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppTheme.smallRadius),
