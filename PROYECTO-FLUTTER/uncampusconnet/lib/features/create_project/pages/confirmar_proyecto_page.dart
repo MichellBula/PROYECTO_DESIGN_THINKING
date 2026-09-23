@@ -3,25 +3,31 @@ import 'package:get/get.dart';
 
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
-import 'package:uncampusconnet/features/buscar/data/information_list.dart';
 import 'package:uncampusconnet/features/create_project/controllers/create_project_controller.dart';
 import 'package:uncampusconnet/features/create_project/controllers/project_details_controller.dart';
+import 'package:uncampusconnet/features/create_project/controllers/publish_project_controller.dart';
 import 'package:uncampusconnet/features/create_project/widgets/confirmaction_button.dart';
 import 'package:uncampusconnet/features/create_project/widgets/information_box.dart';
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 
 class ConfirmarProyectoPage extends StatelessWidget {
-  final String nombreProyecto,
-      descripcion,
-      liderProyecto,
-      categoria,
-      objetivo,
-      requisitos;
-  final List<String> roles, habilidades;
+  final String nombreProyecto;
+  final String descripcion;
+  final String liderProyecto;
+  final String categoria;
+  final String objetivo;
+  final String requisitos;
+
+  final List<String> roles;
+  final List<String> habilidades;
+
   final Map<String, int> cantidadesPorRol;
+
   final String? tipoProyecto;
+
   final DateTime? fechaInicio;
   final DateTime? fechaCierre;
+
   final bool deseaDocente;
 
   const ConfirmarProyectoPage({
@@ -41,35 +47,74 @@ class ConfirmarProyectoPage extends StatelessWidget {
     required this.deseaDocente,
   });
 
-  void _publicarProyecto(BuildContext context) {
-    createdProjects.add(
-      CreatedProjectInfo(
+  Future<void> _publicarProyecto(BuildContext context) async {
+    final controller = Get.find<PublishProjectController>();
+
+    if (controller.isLoading.value) {
+      return;
+    }
+
+    try {
+      final resultado = await controller.publicar(
         nombreProyecto: nombreProyecto,
         descripcion: descripcion,
-        liderProyecto: liderProyecto,
-        categoria: categoria,
         objetivo: objetivo,
-        roles: List.from(roles),
-        cantidadesPorRol: Map.from(cantidadesPorRol),
-        habilidades: List.from(habilidades),
+        categoria: categoria,
+        roles: roles,
+        cantidadesPorRol: cantidadesPorRol,
+        habilidades: habilidades,
         requisitos: requisitos,
         tipoProyecto: tipoProyecto,
         fechaInicio: fechaInicio,
         fechaCierre: fechaCierre,
         deseaDocente: deseaDocente,
-      ),
-    );
+      );
 
-    Get.find<MainController>().changeTab(0);
-    Get.find<CreateProjectController>().limpiarFormulario();
-    Get.find<ProjectDetailsController>().limpiarFormulario();
+      if (resultado == null) {
+        return;
+      }
 
-    Navigator.of(context).popUntil((route) => route.isFirst);
+      final idProyecto = resultado['id_proyecto'];
+
+      if (!context.mounted) {
+        return;
+      }
+
+      Get.snackbar(
+        'Proyecto creado',
+        'El proyecto $idProyecto fue creado correctamente.',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 3),
+      );
+
+      // Regresar a Inicio.
+      Get.find<MainController>().changeTab(0);
+
+      // Limpiar formularios.
+      Get.find<CreateProjectController>().limpiarFormulario();
+
+      Get.find<ProjectDetailsController>().limpiarFormulario();
+
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } catch (e) {
+      if (!context.mounted) {
+        return;
+      }
+
+      Get.snackbar(
+        'No se pudo crear el proyecto',
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 4),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+
+    final controller = Get.put(PublishProjectController(), permanent: false);
 
     return Scaffold(
       body: SafeArea(
@@ -139,24 +184,34 @@ class ConfirmarProyectoPage extends StatelessWidget {
 
                       const SizedBox(height: 18),
 
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ConfirmationButton(
-                              text: 'Editar',
-                              onPressed: () => Navigator.pop(context),
+                      Obx(
+                        () => Row(
+                          children: [
+                            Expanded(
+                              child: ConfirmationButton(
+                                text: controller.isLoading.value
+                                    ? '...'
+                                    : 'Editar',
+                                onPressed: controller.isLoading.value
+                                    ? null
+                                    : () => Navigator.pop(context),
+                              ),
                             ),
-                          ),
 
-                          const SizedBox(width: 12),
+                            const SizedBox(width: 12),
 
-                          Expanded(
-                            child: ConfirmationButton(
-                              text: 'Publicar',
-                              onPressed: () => _publicarProyecto(context),
+                            Expanded(
+                              child: ConfirmationButton(
+                                text: controller.isLoading.value
+                                    ? 'Publicando...'
+                                    : 'Publicar',
+                                onPressed: controller.isLoading.value
+                                    ? null
+                                    : () => _publicarProyecto(context),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),

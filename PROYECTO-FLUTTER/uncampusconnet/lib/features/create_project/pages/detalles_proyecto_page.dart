@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/features/create_project/controllers/project_details_controller.dart';
 import 'package:uncampusconnet/features/create_project/data/project_options.dart';
+
 import 'package:uncampusconnet/features/create_project/pages/confirmar_proyecto_page.dart';
 import 'package:uncampusconnet/features/create_project/widgets/advisor_toggle.dart';
 import 'package:uncampusconnet/features/create_project/widgets/project_date_field.dart';

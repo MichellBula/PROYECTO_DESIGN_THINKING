@@ -6,7 +6,7 @@ import 'package:uncampusconnet/core/theme/theme.dart';
 
 class ConfirmationButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const ConfirmationButton({required this.text, required this.onPressed});
 

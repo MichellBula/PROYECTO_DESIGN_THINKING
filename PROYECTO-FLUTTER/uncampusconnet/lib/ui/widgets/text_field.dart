@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 
-
 class AppTextField extends StatelessWidget {
   /// Texto que identifica el campo.
   final String label;
