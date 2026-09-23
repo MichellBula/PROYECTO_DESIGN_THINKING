@@ -33,7 +33,6 @@ class SesionController extends GetxController {
   /// Indicador de carga
   final RxBool cargando = false.obs;
 
-  
   bool get estaAutenticado => usuarioAutenticado.value != null;
 
   bool get tienePerfil => perfilUsuario.value != null;
@@ -41,7 +40,10 @@ class SesionController extends GetxController {
   bool get necesitaCompletarPerfil =>
       estaAutenticado && !tienePerfil;
 
-  //Registrar cuenta
+  /// ID del usuario en la tabla `usuario` de Roble.
+  int? get idUsuario => perfilUsuario.value?.idUsuario;
+
+  // Registrar cuenta
   Future<bool> registrarCuenta({
     required String email,
     required String password,
@@ -57,7 +59,7 @@ class SesionController extends GetxController {
         name: name,
       );
 
-      // 2. Login automático (para tener usuarioAutenticado)
+      // 2. Login automático
       final authUser = await authRepository.login(
         email: email,
         password: password,
@@ -74,7 +76,7 @@ class SesionController extends GetxController {
     }
   }
 
-  //Iniciar sesion
+  // Iniciar sesión
   Future<bool> iniciarSesion({
     required String email,
     required String password,
@@ -90,7 +92,7 @@ class SesionController extends GetxController {
 
       usuarioAutenticado.value = authUser;
 
-      // 2. Buscar perfil en la tabla usuario
+      // 2. Buscar perfil
       final perfil = await usuarioRepository.obtenerUsuarioActual(
         authUser.userId,
       );
@@ -107,7 +109,7 @@ class SesionController extends GetxController {
     }
   }
 
-  //Restaurar sesion
+  // Restaurar sesión
   Future<void> restaurarSesion() async {
     try {
       cargando.value = true;
@@ -118,7 +120,6 @@ class SesionController extends GetxController {
 
       usuarioAutenticado.value = authUser;
 
-      // Si hay usuario, buscar su perfil
       if (authUser != null) {
         final perfil = await usuarioRepository.obtenerUsuarioActual(
           authUser.userId,
@@ -135,7 +136,7 @@ class SesionController extends GetxController {
     }
   }
 
-  //Actualizar perfil
+  // Actualizar perfil
   Future<Usuario?> actualizarPerfil() async {
     final authUser = usuarioAutenticado.value;
 
@@ -159,7 +160,7 @@ class SesionController extends GetxController {
     }
   }
 
-  //Cerrar sesion
+  // Cerrar sesión
   Future<void> cerrarSesion() async {
     await authRepository.logout();
 
