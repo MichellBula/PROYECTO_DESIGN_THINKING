@@ -12,6 +12,10 @@ class ProjectRemoteDatasource {
 
   static const int _maxIntentosCrearProyecto = 5;
 
+  // ======================================================
+  // OBTENER SIGUIENTE ID DE PROYECTO
+  // ======================================================
+
   Future<int> _obtenerSiguienteIdProyecto() async {
     final proyectos = await roble.read('proyecto');
 
@@ -34,6 +38,10 @@ class ProjectRemoteDatasource {
     return mayorId + 1;
   }
 
+  // ======================================================
+  // VALIDAR SI UN ID YA EXISTE
+  // ======================================================
+
   Future<bool> _idYaExiste(int idProyecto) async {
     final proyectos = await roble.read(
       'proyecto',
@@ -44,6 +52,10 @@ class ProjectRemoteDatasource {
 
     return proyectos.isNotEmpty;
   }
+
+  // ======================================================
+  // CREAR PROYECTO
+  // ======================================================
 
   Future<Map<String, dynamic>> createProject(
     ProjectModel project,
@@ -76,6 +88,45 @@ class ProjectRemoteDatasource {
 
     throw Exception(
       'No fue posible crear el proyecto.',
+    );
+  }
+
+  // ======================================================
+  // OBTENER TODOS LOS PROYECTOS
+  // ======================================================
+
+  Future<List<Map<String, dynamic>>> getProjects() async {
+    final resultado = await roble.read(
+      'proyecto',
+    );
+
+    return resultado
+        .map(
+          (item) => Map<String, dynamic>.from(item),
+        )
+        .toList();
+  }
+
+  // ======================================================
+  // OBTENER PROYECTO POR ID
+  // ======================================================
+
+  Future<Map<String, dynamic>?> getProjectById(
+    int idProyecto,
+  ) async {
+    final resultado = await roble.read(
+      'proyecto',
+      filters: {
+        'id_proyecto': idProyecto,
+      },
+    );
+
+    if (resultado.isEmpty) {
+      return null;
+    }
+
+    return Map<String, dynamic>.from(
+      resultado.first,
     );
   }
 }
