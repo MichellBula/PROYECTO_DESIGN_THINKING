@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:uncampusconnet/features/buscar/data/buscar_remote_datasource.dart';
 import 'package:uncampusconnet/features/buscar/data/information_list.dart';
 
 class BuscarController extends GetxController {
   final searchController = TextEditingController();
 
-  final BuscarRemoteDatasource datasource =
-      BuscarRemoteDatasource();
+  final BuscarRemoteDatasource datasource = BuscarRemoteDatasource();
 
   final showAvailable = true.obs;
   final filters = <String>[].obs;
@@ -35,17 +33,29 @@ class BuscarController extends GetxController {
       isLoading.value = true;
       errorMessage.value = '';
 
+      print('');
+      print('==================================================');
+      print('[BUSCAR_CONTROLLER] CARGANDO PROYECTOS');
+      print('==================================================');
+
       final result = await datasource.getProjects();
 
       projects.assignAll(result);
-    } catch (e) {
-      errorMessage.value =
-          'No fue posible cargar los proyectos.';
-      debugPrint(
-        'Error cargando proyectos desde Roble: $e',
+
+      print(
+        '[BUSCAR_CONTROLLER] ✅ Proyectos cargados: '
+        '${projects.length}',
       );
+    } catch (e, stackTrace) {
+      errorMessage.value = 'No fue posible cargar los proyectos.';
+
+      debugPrint('[BUSCAR_CONTROLLER] ❌ Error cargando proyectos: $e');
+
+      debugPrint('[BUSCAR_CONTROLLER] StackTrace:\n$stackTrace');
     } finally {
       isLoading.value = false;
+
+      print('[BUSCAR_CONTROLLER] Consulta finalizada.');
     }
   }
 
@@ -75,9 +85,7 @@ class BuscarController extends GetxController {
         ...project.roles,
       ].join(' ').toLowerCase();
 
-      return filters.every(
-        searchableText.contains,
-      );
+      return filters.every(searchableText.contains);
     }).toList();
   }
 
@@ -96,24 +104,13 @@ class BuscarController extends GetxController {
     final month = int.tryParse(parts[1]);
     final year = int.tryParse(parts[2]);
 
-    if (day == null ||
-        month == null ||
-        year == null) {
+    if (day == null || month == null || year == null) {
       return false;
     }
 
-    final closingDate = DateTime(
-      year,
-      month,
-      day,
-      23,
-      59,
-      59,
-    );
+    final closingDate = DateTime(year, month, day, 23, 59, 59);
 
-    return !DateTime.now().isAfter(
-      closingDate,
-    );
+    return !DateTime.now().isAfter(closingDate);
   }
 
   // ======================================================
@@ -129,8 +126,7 @@ class BuscarController extends GetxController {
   // ======================================================
 
   void addFilter() {
-    final value =
-        searchController.text.trim().toLowerCase();
+    final value = searchController.text.trim().toLowerCase();
 
     if (value.isEmpty) {
       return;

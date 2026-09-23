@@ -1,57 +1,35 @@
-import '../../domain/entities/solicitud.dart';
-import '../../domain/repositories/solicitud_repository.dart';
-import '../../models/solicitud_model.dart';
-import '../datasources/solicitud_remote_datasource.dart';
+import 'package:uncampusconnet/features/solicitudes/data/datasources/solicitud_remote_datasource.dart';
+import 'package:uncampusconnet/features/solicitudes/domain/entities/solicitud.dart';
+import 'package:uncampusconnet/features/solicitudes/domain/repositories/solicitud_repository.dart';
+import 'package:uncampusconnet/features/solicitudes/models/solicitud_model.dart';
 
-class SolicitudRepositoryImpl
-    implements SolicitudRepository {
+class SolicitudRepositoryImpl implements SolicitudRepository {
   final SolicitudRemoteDatasource datasource;
 
-  SolicitudRepositoryImpl({
-    required this.datasource,
-  });
+  SolicitudRepositoryImpl({required this.datasource});
 
   @override
-  Future<Map<String, dynamic>> createSolicitud(
-    Solicitud solicitud,
-  ) async {
-    final model =
-        SolicitudModel.fromEntity(
-      solicitud,
-    );
+  Future<Map<String, dynamic>> createSolicitud(Solicitud solicitud) async {
+    final model = SolicitudModel.fromEntity(solicitud);
 
-    return await datasource.createSolicitud(
-      model,
-    );
+    return await datasource.createSolicitud(model);
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getMisSolicitudes(
+  Future<List<Map<String, dynamic>>> getMisSolicitudes(int idUsuario) {
+    return datasource.getMisSolicitudes(idUsuario);
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> getSolicitudesPendientesDeMisProyectos(
     int idUsuario,
   ) {
-    return datasource.getMisSolicitudes(
-      idUsuario,
-    );
+    return datasource.getSolicitudesPendientesDeMisProyectos(idUsuario);
   }
 
   @override
-  Future<List<Map<String, dynamic>>>
-      getSolicitudesPendientesDeMisProyectos(
-    int idUsuario,
-  ) {
-    return datasource
-        .getSolicitudesPendientesDeMisProyectos(
-      idUsuario,
-    );
-  }
-
-  @override
-  Future<Map<String, dynamic>?> getSolicitudById(
-    int idSolicitud,
-  ) {
-    return datasource.getSolicitudById(
-      idSolicitud,
-    );
+  Future<Map<String, dynamic>?> getSolicitudById(int idSolicitud) {
+    return datasource.getSolicitudById(idSolicitud);
   }
 
   @override
@@ -71,21 +49,12 @@ class SolicitudRepositoryImpl
   }
 
   @override
-  Future<int> getIdCreadorDelProyecto(
-    int idProyecto,
-  ) {
-    return datasource.getIdCreadorDelProyecto(
-      idProyecto,
-    );
+  Future<int> getIdCreadorDelProyecto(int idProyecto) {
+    return datasource.getIdCreadorDelProyecto(idProyecto);
   }
 
   @override
-  Future<Map<String, dynamic>?>
-      getProyectoRolById(
-    int idProyectoRol,
-  ) {
-    return datasource.getProyectoRolById(
-      idProyectoRol,
-    );
+  Future<Map<String, dynamic>?> getProyectoRolById(int idProyectoRol) {
+    return datasource.getProyectoRolById(idProyectoRol);
   }
 }

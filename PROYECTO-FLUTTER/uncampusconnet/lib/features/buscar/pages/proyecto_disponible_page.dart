@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 import 'package:uncampusconnet/features/buscar/data/information_list.dart';
-import 'package:uncampusconnet/features/buscar/pages/completar_solicitud_page.dart';
+import 'package:uncampusconnet/features/buscar/widgets/action_buscar_button.dart';
+import 'package:uncampusconnet/features/buscar/widgets/project_header.dart';
+import 'package:uncampusconnet/features/buscar/widgets/section_title.dart';
 import 'package:uncampusconnet/ui/widgets/cards_wrapper.dart';
 
 class ProyectoDisponiblePage extends StatelessWidget {
@@ -13,13 +14,18 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
   bool get _isAvailable {
     final parts = project.closingDate.split('/');
-    if (parts.length != 3) return false;
+
+    if (parts.length != 3) {
+      return false;
+    }
 
     final day = int.tryParse(parts[0]);
     final month = int.tryParse(parts[1]);
     final year = int.tryParse(parts[2]);
 
-    if (day == null || month == null || year == null) return false;
+    if (day == null || month == null || year == null) {
+      return false;
+    }
 
     final closingDate = DateTime(year, month, day, 23, 59, 59);
 
@@ -69,11 +75,11 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              _ProjectHeader(project: project),
+              ProjectHeader(project: project),
 
               const SizedBox(height: 28),
 
-              const _SectionTitle('Descripción:'),
+              const SectionTitle('Descripción:'),
 
               const SizedBox(height: 10),
 
@@ -93,7 +99,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              const _SectionTitle('Requisitos:'),
+              const SectionTitle('Requisitos:'),
 
               const SizedBox(height: 10),
 
@@ -138,7 +144,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              const _SectionTitle('Roles disponibles:'),
+              const SectionTitle('Roles disponibles:'),
 
               const SizedBox(height: 12),
 
@@ -172,7 +178,7 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              const _SectionTitle('Fecha cierre convocatoria:'),
+              const SectionTitle('Fecha cierre convocatoria:'),
 
               const SizedBox(height: 12),
 
@@ -208,144 +214,12 @@ class ProyectoDisponiblePage extends StatelessWidget {
 
               const SizedBox(height: 28),
 
-              _ProjectActionButton(project: project, isAvailable: _isAvailable),
+              ActionBuscarButton(project: project, isAvailable: _isAvailable),
 
               const SizedBox(height: 24),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _ProjectHeader extends StatelessWidget {
-  final ProjectInfo project;
-
-  const _ProjectHeader({required this.project});
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-
-    return Row(
-      children: [
-        Container(
-          width: 82,
-          height: 82,
-          decoration: BoxDecoration(
-            color: scheme.primary,
-            shape: BoxShape.circle,
-          ),
-        ),
-
-        const SizedBox(width: 20),
-
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                project.name,
-                style: AppTextStyles.greeting.copyWith(color: scheme.onSurface),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                '${project.members} integrantes',
-                style: AppTextStyles.bodyText.copyWith(
-                  color: scheme.onSurfaceVariant,
-                ),
-              ),
-              const SizedBox(height: 3),
-              Text(
-                '${project.vacancies} vacantes',
-                style: AppTextStyles.bodyText.copyWith(
-                  color: scheme.onSurfaceVariant,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Líder: ${project.leader}',
-                style: AppTextStyles.bodyText.copyWith(
-                  color: scheme.onSurface,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(height: 3),
-              Text(
-                project.area,
-                style: AppTextStyles.bodyText.copyWith(
-                  color: scheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _SectionTitle extends StatelessWidget {
-  final String title;
-
-  const _SectionTitle(this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-
-    return Text(
-      title,
-      style: AppTextStyles.screenTitle.copyWith(color: scheme.onSurface),
-    );
-  }
-}
-
-class _ProjectActionButton extends StatelessWidget {
-  final ProjectInfo project;
-  final bool isAvailable;
-
-  const _ProjectActionButton({
-    required this.project,
-    required this.isAvailable,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-
-    if (!isAvailable) {
-      return Container(
-        width: double.infinity,
-        height: 46,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: scheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(AppTheme.smallRadius),
-        ),
-        child: Text(
-          'Convocatoria cerrada',
-          style: AppTextStyles.buttonText.copyWith(
-            color: scheme.onSurfaceVariant,
-          ),
-        ),
-      );
-    }
-
-    return SizedBox(
-      width: double.infinity,
-      height: 46,
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => CompletarSolicitudPage(project: project),
-            ),
-          );
-        },
-        child: const Text('Postularse'),
       ),
     );
   }
