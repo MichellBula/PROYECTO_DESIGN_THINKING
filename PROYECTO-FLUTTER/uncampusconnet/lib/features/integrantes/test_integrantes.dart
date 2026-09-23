@@ -20,8 +20,31 @@ Future<void> main() async {
     print('Login exitoso.');
 
     const idProyecto = 2;
-    const idUsuario = 3;
     const idRol = 6;
+
+    print('\n--- OBTENIENDO ID DEL USUARIO AUTENTICADO ---');
+
+    final authUser = await roble.currentUser();
+    final userId = authUser['userId'].toString();
+
+    print('userId de Roble Auth: $userId');
+
+    final usuarios = await roble.read(
+      'usuario',
+      filters: {'id_autenticador': userId},
+    );
+
+    if (usuarios.isEmpty) {
+      throw Exception(
+        'No existe perfil en tabla usuario para este auth user.',
+      );
+    }
+
+    final idUsuario = int.parse(
+      usuarios.first['id_usuario'].toString(),
+    );
+
+    print('id_usuario en tabla usuario: $idUsuario');
 
     print('\n--- COMPROBANDO PROYECTO ---');
 
@@ -35,19 +58,6 @@ Future<void> main() async {
     }
 
     print('Proyecto encontrado.');
-
-    print('\n--- COMPROBANDO USUARIO ---');
-
-    final usuario = await roble.read(
-      'usuario',
-      filters: {'id_usuario': idUsuario},
-    );
-
-    if (usuario.isEmpty) {
-      throw Exception('No existe el usuario $idUsuario.');
-    }
-
-    print('Usuario encontrado.');
 
     print('\n--- COMPROBANDO ROL ---');
 
@@ -78,11 +88,14 @@ Future<void> main() async {
       idRol: idRol,
     );
 
-    final resultado = await createIntegrante(integrante);
-
-    print('Integrante creado correctamente.');
-
-    print('Resultado: $resultado');
+    try {
+      final resultado = await createIntegrante(integrante);
+      print('Integrante creado correctamente.');
+      print('Resultado: $resultado');
+    } catch (e) {
+      print('No se pudo crear el integrante (puede que ya exista):');
+      print(e);
+    }
 
     print('\n--- LEYENDO INTEGRANTES ---');
 

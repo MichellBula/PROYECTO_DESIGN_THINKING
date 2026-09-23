@@ -89,14 +89,14 @@ Future<void> main() async {
     );
 
     // =======================================================
-    // CREAR EVENTO
+    // CREAR EVENTO 1
     // =======================================================
 
-    print('\n--- CREANDO EVENTO ---');
+    print('\n--- CREANDO EVENTO 1 ---');
 
     final ahora = DateTime.now();
 
-    final fechaInicio = DateTime(
+    final fechaInicio1 = DateTime(
       ahora.year,
       ahora.month,
       ahora.day + 1,
@@ -104,7 +104,7 @@ Future<void> main() async {
       0,
     );
 
-    final fechaFinal = DateTime(
+    final fechaFinal1 = DateTime(
       ahora.year,
       ahora.month,
       ahora.day + 1,
@@ -112,27 +112,56 @@ Future<void> main() async {
       0,
     );
 
-    final evento = Evento(
+    final evento1 = Evento(
       idProyecto: idProyecto,
       nombre: 'Presentación de avance',
       tipoEvento: 'Presentación',
       descripcion:
           'Presentación del avance del proyecto al equipo.',
-      fechaInicio: fechaInicio,
-      fechaFinal: fechaFinal,
+      fechaInicio: fechaInicio1,
+      fechaFinal: fechaFinal1,
     );
 
-    final resultado =
+    final resultado1 =
         await createEvento(
-      evento,
+      evento1,
     );
 
     print(
-      'Evento creado correctamente.',
+      'Evento 1 creado correctamente.',
     );
 
     print(
-      'Resultado: $resultado',
+      'Resultado: $resultado1',
+    );
+
+    // =======================================================
+    // CREAR EVENTO 2 (NUEVO - fecha fin 25 de septiembre)
+    // =======================================================
+
+    print('\n--- CREANDO EVENTO 2 ---');
+
+    final evento2 = Evento(
+      idProyecto: idProyecto,
+      nombre: 'Reunión de equipo',
+      tipoEvento: 'Reunión',
+      descripcion:
+          'Reunión para coordinar el avance del proyecto.',
+      fechaInicio: DateTime(2026, 9, 23, 10, 0),
+      fechaFinal: DateTime(2026, 9, 25, 12, 0),
+    );
+
+    final resultado2 =
+        await createEvento(
+      evento2,
+    );
+
+    print(
+      'Evento 2 creado correctamente.',
+    );
+
+    print(
+      'Resultado: $resultado2',
     );
 
     // =======================================================
