@@ -1,77 +1,167 @@
 import 'package:get/get.dart';
+
+import 'package:uncampusconnet/core/database/roble_client.dart';
+import 'package:uncampusconnet/features/auth/controllers/sesion_controller.dart';
 import 'package:uncampusconnet/features/mis_proyectos/data/proyect_data.dart';
 
-/// Controlador encargado del estado de la pantalla
-/// "Mis proyectos".
-///
-/// Gestiona:
-/// - Pestaña seleccionada.
-/// - Texto de búsqueda.
-/// - Filtrado de proyectos.
-///
-/// No contiene código visual.
 class MyProjectsController extends GetxController {
-  // ======================================================
-  // PESTAÑAS
-  // ======================================================
+  final SesionController _sesionController = Get.find<SesionController>();
 
-  /// `true` = Mis proyectos.
-  /// `false` = Proyectos en los que participo.
-  final RxBool isMyProjectsSelected = true.obs;
+  /// Indicador de carga
+  final cargando = false.obs;
 
-  // ======================================================
-  // BÚSQUEDA
-  // ======================================================
+  /// Proyectos del usuario (desde Roble)
+  final proyectos = <ProjectData>[].obs;
 
-  /// Texto escrito en el buscador.
-  final RxString searchText = ''.obs;
+  /// Texto de búsqueda
+  final searchText = ''.obs;
 
-  // ======================================================
-  // DATOS
-  // ======================================================
-
-  /// Lista base de proyectos.
-  final List<ProjectData> allProjects = projects;
-
-  // ======================================================
-  // CAMBIAR PESTAÑA
-  // ======================================================
-
-  /// Cambia entre las dos pestañas.
-  void changeTab(bool isMyProjects) {
-    isMyProjectsSelected.value = isMyProjects;
+  @override
+  void onInit() {
+    super.onInit();
+    cargarProyectos();
   }
 
-  // ======================================================
-  // BÚSQUEDA
-  // ======================================================
+  //Cargar proyectos
+  Future<void> cargarProyectos() async {
+    cargando.value = true;
 
-  /// Actualiza el texto de búsqueda.
+    try {
+      // 1. ID del usuario
+      final idUsuario = _sesionController.idUsuario;
+      if (idUsuario == null) {
+        proyectos.clear();
+        return;
+      }
+
+      // 2. Obtener los integrantes del usuario
+      final integrantes = await RobleClient.instance.read(
+        'integrantes',
+        filters: {'id_usuario': idUsuario},
+      );
+
+      if (integrantes.isEmpty) {
+        proyectos.clear();
+        return;
+      }
+
+      // 3. Construir la lista de ProjectData
+      final lista = <ProjectData>[];
+
+      for (final integrante in integrantes) {
+        final idProyecto = int.tryParse(
+          integrante['id_proyecto'].toString(),
+        );
+        final idRol = int.tryParse(
+          integrante['id_rol'].toString(),
+        );
+
+        if (idProyecto == null) continue;
+
+        final project = await _construirProjectData(
+          idProyecto: idProyecto,
+          idRol: idRol,
+        );
+
+        if (project != null) {
+          lista.add(project);
+        }
+      }
+
+      proyectos.assignAll(lista);
+    } catch (e) {
+      proyectos.clear();
+    } finally {
+      cargando.value = false;
+    }
+  }
+
+  Future<ProjectData?> _construirProjectData({
+    required int idProyecto,
+    int? idRol,
+  }) async {
+    // 1. Obtener el proyecto
+    final proyectosRaw = await RobleClient.instance.read(
+      'proyecto',
+      filters: {'id_proyecto': idProyecto},
+    );
+
+    if (proyectosRaw.isEmpty) return null;
+
+    final proyecto = proyectosRaw.first;
+
+    // 2. Obtener el nombre del líder (id_creador → tabla usuario)
+    final idCreador = int.tryParse(
+      proyecto['id_creador'].toString(),
+    );
+    final nombreLider = await _obtenerNombreUsuario(idCreador);
+
+    // 3. Obtener el nombre de la categoría
+    final idCategoria = int.tryParse(
+      proyecto['id_categoria'].toString(),
+    );
+    final nombreCategoria = await _obtenerNombreCategoria(idCategoria);
+
+    // 4. Construir ProjectData
+    return ProjectData(
+      idProyecto: idProyecto,
+      title: proyecto['nombre']?.toString() ?? 'Sin nombre',
+      leader: '@$nombreLider',
+      description: proyecto['descripcion']?.toString() ?? '',
+      requirements: proyecto['requisitos']?.toString() ?? '',
+      category: nombreCategoria,
+      membersCount: int.tryParse(
+            proyecto['num_integrantes'].toString(),
+          ) ??
+          0,
+      vacancies: 0,
+      vacancyRoles: const {},
+      closingDate: null,
+      progress: 0.0,
+    );
+  }
+
+  //Helpers
+  Future<String> _obtenerNombreUsuario(int? idUsuario) async {
+    if (idUsuario == null) return '';
+
+    final usuarios = await RobleClient.instance.read(
+      'usuario',
+      filters: {'id_usuario': idUsuario},
+    );
+
+    if (usuarios.isEmpty) return '';
+
+    return usuarios.first['nombre_usuario']?.toString() ?? '';
+  }
+
+  Future<String> _obtenerNombreCategoria(int? idCategoria) async {
+    if (idCategoria == null) return '';
+
+    final categorias = await RobleClient.instance.read(
+      'categoria',
+      filters: {'id_categoria': idCategoria},
+    );
+
+    if (categorias.isEmpty) return '';
+
+    return categorias.first['nombre_categoria']?.toString() ?? '';
+  }
+
+  //Busqueda
   void search(String value) {
     searchText.value = value;
   }
 
-  // ======================================================
-  // PROYECTOS FILTRADOS
-  // ======================================================
-
-  /// Devuelve los proyectos que coinciden con la búsqueda.
-  ///
-  /// Por ahora filtra por categoría.
-  /// Más adelante podemos ampliar la búsqueda a:
-  /// nombre, rol, integrantes, etc.
-  /// Devuelve los proyectos que coinciden con el nombre
-  /// escrito en el buscador.
+  /// Proyectos filtrados por búsqueda
   List<ProjectData> get filteredProjects {
     final query = searchText.value.trim().toLowerCase();
 
-    // Si no hay texto, mostramos todos los proyectos.
     if (query.isEmpty) {
-      return allProjects;
+      return proyectos;
     }
 
-    // La búsqueda se realiza por nombre.
-    return allProjects.where((project) {
+    return proyectos.where((project) {
       return project.title.toLowerCase().contains(query);
     }).toList();
   }

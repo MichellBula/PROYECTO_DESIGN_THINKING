@@ -140,7 +140,6 @@ class _AvancesPageState extends State<AvancesPage> {
               title: 'Avances',
               onBack: () => Navigator.pop(context),
             ),
-            const Divider(height: 1),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(20),

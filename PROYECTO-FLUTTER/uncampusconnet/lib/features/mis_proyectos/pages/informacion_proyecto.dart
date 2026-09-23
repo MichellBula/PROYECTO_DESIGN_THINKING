@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:uncampusconnet/features/mis_proyectos/pages/avances_page.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/features/create_project/widgets/confirmaction_button.dart';
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 import 'package:uncampusconnet/features/mis_proyectos/data/proyect_data.dart';
+import 'package:uncampusconnet/features/mis_proyectos/pages/avances_page.dart';
 import 'package:uncampusconnet/features/mis_proyectos/pages/eventos_proyecto_page.dart';
 import 'package:uncampusconnet/features/mis_proyectos/pages/participantes_page.dart';
 import 'package:uncampusconnet/features/mis_proyectos/widgets/project_detail_header.dart';
@@ -13,64 +13,40 @@ import 'package:uncampusconnet/ui/widgets/info_field.dart';
 import 'package:uncampusconnet/ui/widgets/screen_title.dart';
 
 class ProjectDetailPage extends StatelessWidget {
-  const ProjectDetailPage({
-    super.key,
-    ProjectData? project,
-  });
+  const ProjectDetailPage({super.key, ProjectData? project});
 
   @override
   Widget build(BuildContext context) {
     final mainController = Get.find<MainController>();
+    final scheme = Theme.of(context).colorScheme;
 
     return Obx(() {
       final project = mainController.selectedProject.value;
 
-      // Mientras no haya un proyecto seleccionado
-      if (project == null) {
-        return const SizedBox.shrink();
-      }
-
-      final scheme = Theme.of(context).colorScheme;
+      if (project == null) return const SizedBox.shrink();
 
       return SafeArea(
         child: Column(
           children: [
-            // ==================================================
-            // TÍTULO + BOTÓN REGRESAR
-            // ==================================================
+            // TÍTULO
             AppScreenTitle(
               title: 'Mis proyectos',
-              onBack: () {
-                mainController.closeProjectDetail();
-              },
+              onBack: () => mainController.closeProjectDetail(),
             ),
 
-            // ==================================================
             // CONTENIDO
-            // ==================================================
             Expanded(
               child: ListView(
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
-                padding: const EdgeInsets.fromLTRB(
-                  20,
-                  12,
-                  20,
-                  30,
-                ),
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
                 children: [
-                  // ==================================================
                   // CABECERA
-                  // ==================================================
-                  ProjectDetailHeader(
-                    project: project,
-                  ),
+                  ProjectDetailHeader(project: project),
 
                   const SizedBox(height: 24),
 
-                  // ==================================================
                   // DESCRIPCIÓN
-                  // ==================================================
                   InfoField(
                     label: 'Descripción:',
                     value: project.description,
@@ -79,9 +55,7 @@ class ProjectDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // ==================================================
                   // REQUISITOS
-                  // ==================================================
                   InfoField(
                     label: 'Requisitos:',
                     value: project.requirements,
@@ -90,18 +64,14 @@ class ProjectDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // ==================================================
                   // ROLES DISPONIBLES
-                  // ==================================================
                   Text(
                     'Roles disponibles:',
                     style: AppTextStyles.fieldLabel.copyWith(
                       color: scheme.onSurface,
                     ),
                   ),
-
                   const SizedBox(height: 8),
-
                   Wrap(
                     spacing: 10,
                     runSpacing: 8,
@@ -117,37 +87,28 @@ class ProjectDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 22),
 
-                  // ==================================================
                   // FECHA DE CIERRE
-                  // ==================================================
                   Text(
                     'Fecha cierre convocatoria:',
                     style: AppTextStyles.fieldLabel.copyWith(
                       color: scheme.onSurface,
                     ),
                   ),
-
                   const SizedBox(height: 8),
-
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Center(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 35,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: scheme.surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          _formatDate(
-                            project.closingDate,
-                          ),
-                          style: AppTextStyles.bodyText.copyWith(
-                            color: scheme.onSurface,
-                          ),
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 35,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        color: scheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        _formatDate(project.closingDate),
+                        style: AppTextStyles.bodyText.copyWith(
+                          color: scheme.onSurface,
                         ),
                       ),
                     ),
@@ -155,50 +116,24 @@ class ProjectDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 28),
 
-                  // ==================================================
                   // ACCIONES
-                  // ==================================================
                   Row(
                     children: [
-                      // ==================================================
-                      // PARTICIPANTES
-                      // ==================================================
                       Expanded(
                         child: ConfirmationButton(
                           text: 'Participantes',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    ParticipantesPage(
-                                  project: project,
-                                ),
-                              ),
-                            );
-                          },
+                          onPressed: () => Get.to(
+                            () => ParticipantesPage(project: project),
+                          ),
                         ),
                       ),
-
                       const SizedBox(width: 12),
-
-                      // ==================================================
-                      // EVENTOS
-                      // ==================================================
                       Expanded(
                         child: ConfirmationButton(
                           text: 'Eventos',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    EventosProyectoPage(
-                                  project: project,
-                                ),
-                              ),
-                            );
-                          },
+                          onPressed: () => Get.to(
+                            () => EventosProyectoPage(project: project),
+                          ),
                         ),
                       ),
                     ],
@@ -206,23 +141,13 @@ class ProjectDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 12),
 
-                  // ==================================================
-                  // AVANCES
-                  // ==================================================
                   SizedBox(
                     width: double.infinity,
                     child: ConfirmationButton(
                       text: 'Avances',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AvancesPage(
-                              project: project,
-                            ),
-                          ),
-                        );
-                      },
+                      onPressed: () => Get.to(
+                        () => AvancesPage(project: project),
+                      ),
                     ),
                   ),
 
@@ -236,12 +161,8 @@ class ProjectDetailPage extends StatelessWidget {
     });
   }
 
-  String _formatDate(
-    DateTime? date,
-  ) {
-    if (date == null) {
-      return 'No especificada';
-    }
+  String _formatDate(DateTime? date) {
+    if (date == null) return 'No especificada';
 
     return '${date.day.toString().padLeft(2, '0')}/'
         '${date.month.toString().padLeft(2, '0')}/'
@@ -249,14 +170,13 @@ class ProjectDetailPage extends StatelessWidget {
   }
 }
 
+//Tarjeta rol
+
 class _RoleVacancy extends StatelessWidget {
   final String role;
   final int quantity;
 
-  const _RoleVacancy({
-    required this.role,
-    required this.quantity,
-  });
+  const _RoleVacancy({required this.role, required this.quantity});
 
   @override
   Widget build(BuildContext context) {
@@ -264,19 +184,11 @@ class _RoleVacancy extends StatelessWidget {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 12,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Row(
           children: [
-            Icon(
-              Icons.person_outline,
-              color: scheme.primary,
-            ),
-
+            Icon(Icons.person_outline, color: scheme.primary),
             const SizedBox(width: 12),
-
             Expanded(
               child: Text(
                 role,
@@ -285,7 +197,6 @@ class _RoleVacancy extends StatelessWidget {
                 ),
               ),
             ),
-
             Text(
               '$quantity',
               style: AppTextStyles.cardTitle.copyWith(

@@ -7,21 +7,13 @@ import 'package:uncampusconnet/features/mis_proyectos/widgets/project_card.dart'
 import 'package:uncampusconnet/ui/widgets/screen_title.dart';
 import 'package:uncampusconnet/ui/widgets/search_bar.dart';
 
-/// Pantalla principal de "Mis proyectos".
-///
-/// Muestra el listado de proyectos y permite:
-/// - Cambiar entre las dos categorías.
-/// - Buscar proyectos por categoría.
-/// - Abrir un proyecto al tocar su tarjeta.
 class MisProyectosPage extends StatelessWidget {
   const MisProyectosPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put<MyProjectsController>(MyProjectsController());
-
     final mainController = Get.find<MainController>();
-
     final scheme = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -30,25 +22,16 @@ class MisProyectosPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // ==========================================
-            // TÍTULO
-            // ==========================================
-
+            //Titulo
             AppScreenTitle(
               title: 'Mis proyectos',
-
               onBack: () {
                 mainController.changeTab(0);
               },
             ),
 
-            // ==========================================
-            // CONTENIDO
-            // ==========================================
             Expanded(
               child: Obx(() {
-                final projects = controller.filteredProjects;
-
                 return ListView(
                   keyboardDismissBehavior:
                       ScrollViewKeyboardDismissBehavior.onDrag,
@@ -58,40 +41,53 @@ class MisProyectosPage extends StatelessWidget {
                   children: [
                     const SizedBox(height: 18),
 
-                    // ==================================
-                    // BÚSQUEDA
-                    // ==================================
+                    //Busqueda
                     AppSearchBar(
                       hintText: 'Buscar proyecto',
-
                       onChanged: controller.search,
                     ),
 
                     const SizedBox(height: 25),
 
-                    // ==================================
+                    //Contenido
+                    // CARGANDO
+                    if (controller.cargando.value)
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 40),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+
+                    // VACÍO
+                    else if (controller.filteredProjects.isEmpty)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 40),
+                        child: Center(
+                          child: Text(
+                            'No tienes proyectos aún.',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: scheme.onSurfaceVariant,
+                                ),
+                          ),
+                        ),
+                      )
+
                     // LISTA
-                    // ==================================
-                    if (projects.isEmpty)
-                      _EmptyProjectsMessage()
                     else
-                      ...projects.map((project) {
+                      ...controller.filteredProjects.map((project) {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 18),
-
                           child: ProjectCard(
                             title: project.title,
-
                             members: project.members,
-
                             role: project.role,
-
                             progress: project.progress,
-
                             onTap: () {
-                              Get.find<MainController>().openProjectDetail(
-                                project,
-                              );
+                              mainController.openProjectDetail(project);
                             },
                           ),
                         );
@@ -101,27 +97,6 @@ class MisProyectosPage extends StatelessWidget {
               }),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Mensaje que se muestra cuando la búsqueda
-/// no encuentra proyectos.
-class _EmptyProjectsMessage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 40),
-
-      child: Center(
-        child: Text(
-          'No se encontraron proyectos.',
-          style: Theme.of(context).textTheme.bodyMedium
-              ?.copyWith(color: scheme.onSurfaceVariant),
         ),
       ),
     );

@@ -7,19 +7,18 @@ import '../data/datasources/auth_remote_data_source_impl.dart';
 import '../data/repositories/auth_repository_impl.dart';
 import '../domain/entities/auth_user.dart';
 
-
 class SesionController extends GetxController {
   SesionController({
     AuthRepositoryImpl? authRepository,
     UsuarioRepositoryImpl? usuarioRepository,
-  })  : authRepository = authRepository ??
-            AuthRepositoryImpl(
-              remoteDataSource: AuthRemoteDataSourceImpl(),
-            ),
-        usuarioRepository = usuarioRepository ??
-            UsuarioRepositoryImpl(
-              remoteDataSource: UsuarioRemoteDataSourceImpl(),
-            );
+  }) : authRepository =
+           authRepository ??
+           AuthRepositoryImpl(remoteDataSource: AuthRemoteDataSourceImpl()),
+       usuarioRepository =
+           usuarioRepository ??
+           UsuarioRepositoryImpl(
+             remoteDataSource: UsuarioRemoteDataSourceImpl(),
+           );
 
   final AuthRepositoryImpl authRepository;
   final UsuarioRepositoryImpl usuarioRepository;
@@ -37,8 +36,7 @@ class SesionController extends GetxController {
 
   bool get tienePerfil => perfilUsuario.value != null;
 
-  bool get necesitaCompletarPerfil =>
-      estaAutenticado && !tienePerfil;
+  bool get necesitaCompletarPerfil => estaAutenticado && !tienePerfil;
 
   /// ID del usuario en la tabla `usuario` de Roble.
   int? get idUsuario => perfilUsuario.value?.idUsuario;
