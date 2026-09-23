@@ -1,50 +1,29 @@
 /// Modelo que representa un proyecto.
-///
-/// Contiene la información necesaria para mostrar tanto
-/// la tarjeta de "Mis proyectos" como el detalle completo.
 class ProjectData {
-  // ======================================================
-  // INFORMACIÓN BÁSICA
-  // ======================================================
+  //Identificacion
+  /// ID del proyecto en Roble.
+  final int idProyecto;
 
+  //Informacion basica
   final String title;
   final String leader;
   final String description;
   final String requirements;
   final String category;
 
-  // ======================================================
-  // INTEGRANTES Y VACANTES
-  // ======================================================
-
-  /// Cantidad total de integrantes actuales.
+  //Integrantes
   final int membersCount;
-
-  /// Cantidad de vacantes disponibles.
   final int vacancies;
-
-  /// Roles que están disponibles como vacantes.
-  ///
-  /// Ejemplo:
-  /// {
-  ///   'Programador': 2,
-  ///   'Diseñador': 1,
-  /// }
   final Map<String, int> vacancyRoles;
 
-  // ======================================================
-  // FECHA
-  // ======================================================
-
+  //Fecha
   final DateTime? closingDate;
 
-  // ======================================================
-  // TARJETA
-  // ======================================================
-
+  //Tarjeta
   final double progress;
 
   const ProjectData({
+    required this.idProyecto,
     required this.title,
     required this.leader,
     required this.description,
@@ -57,55 +36,7 @@ class ProjectData {
     required this.progress,
   });
 
-  String get members => "";
+  String get members => membersCount.toString();
 
-  String get role => "";
+  String get role => '';
 }
-
-final List<ProjectData> projects = [
-  ProjectData(
-    title: 'Processing Music',
-    leader: '@JuanPerez',
-
-    description: 'Simulador de ondas estacionarias donde expones diferentes instrumentos musicales.',
-
-    requirements:
-        '• Saber de física de ondas estacionarias\n'
-        '• Programar en Java',
-
-    category: 'GeoExpofisica',
-
-    membersCount: 5,
-
-    vacancies: 2,
-
-    vacancyRoles: const {'Programador': 1, 'Especialista en ondas': 1},
-
-    closingDate: DateTime(2026, 9, 2),
-
-    progress: 0.10,
-  ),
-
-  ProjectData(
-    title: 'MyDailyPet',
-    leader: '@MariaGomez',
-
-    description: 'Aplicación para ayudar a las personas a organizar el cuidado diario de sus mascotas.',
-
-    requirements:
-        '• Conocimientos básicos de diseño\n'
-        '• Trabajo en equipo',
-
-    category: 'grupo estudiantiles',
-
-    membersCount: 3,
-
-    vacancies: 2,
-
-    vacancyRoles: const {'Diseñador UX/UI': 1, 'Desarrollador': 1},
-
-    closingDate: DateTime(2026, 10, 15),
-
-    progress: 0.90,
-  ),
-];

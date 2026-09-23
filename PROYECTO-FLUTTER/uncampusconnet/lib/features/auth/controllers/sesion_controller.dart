@@ -33,13 +33,16 @@ class SesionController extends GetxController {
   /// Indicador de carga
   final RxBool cargando = false.obs;
 
-  
   bool get estaAutenticado => usuarioAutenticado.value != null;
 
   bool get tienePerfil => perfilUsuario.value != null;
 
   bool get necesitaCompletarPerfil =>
       estaAutenticado && !tienePerfil;
+
+  /// ID del usuario en la tabla `usuario` de Roble.
+  /// Sirve para consultar integrantes y eventos.
+  int? get idUsuario => perfilUsuario.value?.idUsuario;
 
   //Registrar cuenta
   Future<bool> registrarCuenta({
