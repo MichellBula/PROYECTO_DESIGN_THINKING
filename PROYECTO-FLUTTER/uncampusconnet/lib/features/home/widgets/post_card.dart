@@ -1,178 +1,196 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:uncampusconnet/core/theme/text_styles.dart';
-import 'package:uncampusconnet/features/buscar/data/information_list.dart';
+import 'package:uncampusconnet/features/home/data/post_data.dart';
+import 'package:uncampusconnet/features/home/controllers/home_controller.dart';
+import 'package:uncampusconnet/ui/widgets/cards_wrapper.dart';
 import 'package:uncampusconnet/ui/widgets/development_dialog.dart';
 
-import 'package:uncampusconnet/ui/widgets/cards_wrapper.dart';
+class PostCard extends StatelessWidget {
+  final PostData post;
 
-class PostCard extends StatefulWidget {
-  final Post post;
-
-  const PostCard({super.key, required this.post});
-
-  @override
-  State<PostCard> createState() => _PostCardState();
-}
-
-class _PostCardState extends State<PostCard> {
-  late int likes = widget.post.likes;
-  late bool isLiked = widget.post.isLiked;
-
-  void _toggleLike() {
-    setState(() {
-      isLiked = !isLiked;
-      likes += isLiked ? 1 : -1;
-    });
-  }
+  const PostCard({
+    super.key,
+    required this.post,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
+    final scheme =
+        Theme.of(context).colorScheme;
+
+    final homeController =
+        Get.find<HomeController>();
 
     return CardWrapper(
-      onTap: () => showDevelopmentDialog(context),
+      onTap: () {
+        showDevelopmentDialog(
+          context,
+        );
+      },
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
         children: [
+          // =================================================
           // ENCABEZADO
+          // =================================================
+
           Row(
             children: [
               CircleAvatar(
                 radius: 16,
-                backgroundColor: scheme.surfaceContainerHighest,
+                backgroundColor:
+                    scheme.surfaceContainerHighest,
                 child: Icon(
-                  Icons.person,
+                  Icons.groups_outlined,
                   size: 18,
-                  color: scheme.onSurfaceVariant,
+                  color:
+                      scheme.onSurfaceVariant,
                 ),
               ),
+
               const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.post.autor,
-                      style: AppTextStyles.authorName.copyWith(
-                        color: scheme.onSurface,
-                      ),
-                    ),
-                    Text(
-                      widget.post.usuario,
-                      style: AppTextStyles.caption.copyWith(
-                        color: scheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text(
-                widget.post.tiempo,
-                style: AppTextStyles.caption.copyWith(
-                  color: scheme.onSurfaceVariant,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Icon(Icons.more_horiz, size: 20, color: scheme.onSurfaceVariant),
-            ],
-          ),
 
-          const SizedBox(height: 12),
-
-          // CONTENIDO
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.post.titulo,
-                      style: AppTextStyles.cardTitle.copyWith(
-                        color: scheme.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      widget.post.contenido,
-                      style: AppTextStyles.bodyText.copyWith(
-                        color: scheme.onSurfaceVariant,
-                      ),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 12),
-              if (widget.post.imagen != null)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    widget.post.imagen!,
-                    width: 120,
-                    height: 80,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Container(
-                      width: 120,
-                      height: 80,
-                      color: scheme.surfaceContainerHighest,
-                      child: Icon(
-                        Icons.image_not_supported,
-                        size: 30,
-                        color: scheme.onSurfaceVariant,
-                      ),
-                    ),
+                child: Text(
+                  post.nombreProyecto,
+                  style:
+                      AppTextStyles.authorName
+                          .copyWith(
+                    color: scheme.onSurface,
                   ),
                 ),
+              ),
+
+              Text(
+                homeController
+                    .tiempoDesdePublicacion(
+                  post.fechaPublicacion,
+                ),
+                style:
+                    AppTextStyles.caption
+                        .copyWith(
+                  color:
+                      scheme.onSurfaceVariant,
+                ),
+              ),
+
+              const SizedBox(width: 8),
+
+              Icon(
+                Icons.more_horiz,
+                size: 20,
+                color:
+                    scheme.onSurfaceVariant,
+              ),
             ],
           ),
 
           const SizedBox(height: 12),
 
-          // ACCIONES
-          Row(
+          // =================================================
+          // CONTENIDO
+          // =================================================
+
+          Column(
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: _toggleLike,
-                child: Row(
-                  children: [
-                    Icon(
-                      isLiked ? Icons.favorite : Icons.favorite_border,
-                      size: 20,
-                      color: isLiked ? scheme.primary : scheme.onSurfaceVariant,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      '$likes',
-                      style: AppTextStyles.caption.copyWith(
-                        color: isLiked ? scheme.primary : scheme.onSurface,
-                        fontWeight: isLiked
-                            ? FontWeight.w600
-                            : FontWeight.normal,
-                      ),
-                    ),
-                  ],
+              Text(
+                post.titulo,
+                style:
+                    AppTextStyles.cardTitle
+                        .copyWith(
+                  color:
+                      scheme.onSurface,
                 ),
               ),
-              const SizedBox(width: 16),
+
+              const SizedBox(height: 4),
+
+              Text(
+                post.contenido,
+                style:
+                    AppTextStyles.bodyText
+                        .copyWith(
+                  color:
+                      scheme.onSurfaceVariant,
+                ),
+                maxLines: 4,
+                overflow:
+                    TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 16),
+
+          // =================================================
+          // ACCIONES
+          // =================================================
+
+          Row(
+            children: [
+              // LIKE
+              Row(
+                children: [
+                  Icon(
+                    Icons.favorite_border,
+                    size: 20,
+                    color:
+                        scheme.onSurfaceVariant,
+                  ),
+
+                  const SizedBox(width: 4),
+
+                  Text(
+                    '${post.likes}',
+                    style:
+                        AppTextStyles.caption
+                            .copyWith(
+                      color:
+                          scheme.onSurface,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(width: 18),
+
+              // COMENTARIOS
               Row(
                 children: [
                   Icon(
                     Icons.chat_bubble_outline,
                     size: 20,
-                    color: scheme.onSurfaceVariant,
+                    color:
+                        scheme.onSurfaceVariant,
                   ),
+
                   const SizedBox(width: 4),
+
                   Text(
-                    '${widget.post.comentarios}',
-                    style: AppTextStyles.caption.copyWith(
-                      color: scheme.onSurface,
+                    '${post.comentarios}',
+                    style:
+                        AppTextStyles.caption
+                            .copyWith(
+                      color:
+                          scheme.onSurface,
                     ),
                   ),
                 ],
+              ),
+
+              const SizedBox(width: 18),
+
+              // COMPARTIR
+              Icon(
+                Icons.share_outlined,
+                size: 20,
+                color:
+                    scheme.onSurfaceVariant,
               ),
             ],
           ),

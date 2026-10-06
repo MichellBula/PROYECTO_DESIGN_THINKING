@@ -3,31 +3,44 @@ import 'package:flutter/material.dart';
 class HeaderBanner extends StatelessWidget {
   final bool isDarkMode;
   final VoidCallback onThemeChanged;
+  final VoidCallback onProfileTap;
 
   const HeaderBanner({
     super.key,
     required this.isDarkMode,
     required this.onThemeChanged,
+    required this.onProfileTap,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
-    final isDark = theme.brightness == Brightness.dark;
+  Widget build(
+    BuildContext context,
+  ) {
+    final theme =
+        Theme.of(context);
+
+    final scheme =
+        theme.colorScheme;
+
+    final isDark =
+        theme.brightness ==
+            Brightness.dark;
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
+      padding:
+          const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 15,
       ),
-
-      // Color del fondo: viene del surfaceContainer del tema
-      color: scheme.surfaceContainer,
-
+      color:
+          scheme.surfaceContainer,
       child: Row(
         children: [
+          // =================================================
+          // LOGO
+          // =================================================
+
           Image.asset(
             'assets/images/logo_encabezado.png',
             height: 50,
@@ -35,35 +48,69 @@ class HeaderBanner extends StatelessWidget {
 
           const Spacer(),
 
-          // Botón de modo oscuro
+          // =================================================
+          // MODO OSCURO
+          // =================================================
+
           IconButton(
-            onPressed: onThemeChanged,
+            onPressed:
+                onThemeChanged,
             icon: Icon(
-              isDark ? Icons.light_mode : Icons.dark_mode,
+              isDark
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
               size: 26,
-              color: isDark ? Colors.amber : scheme.onSurface,
+              color: isDark
+                  ? Colors.amber
+                  : scheme.onSurface,
             ),
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
+            padding:
+                EdgeInsets.zero,
+            constraints:
+                const BoxConstraints(),
             tooltip: isDark
                 ? 'Cambiar a modo claro'
                 : 'Cambiar a modo oscuro',
           ),
 
-          const SizedBox(width: 15),
+          const SizedBox(
+            width: 15,
+          ),
+
+          // =================================================
+          // NOTIFICACIONES
+          // =================================================
 
           Icon(
             Icons.notifications_none,
             size: 28,
-            color: scheme.onSurface,
+            color:
+                scheme.onSurface,
           ),
 
-          const SizedBox(width: 15),
+          const SizedBox(
+            width: 15,
+          ),
 
-          Icon(
-            Icons.person_outline,
-            size: 28,
-            color: scheme.onSurface,
+          // =================================================
+          // PERFIL
+          // =================================================
+
+          IconButton(
+            onPressed:
+                onProfileTap,
+            icon: Icon(
+              Icons.person_outline,
+              size: 28,
+              color:
+                  scheme.onSurface,
+            ),
+            tooltip:
+                'Mi perfil',
+            padding:
+                EdgeInsets.zero,
+            constraints:
+                const BoxConstraints(),
           ),
         ],
       ),

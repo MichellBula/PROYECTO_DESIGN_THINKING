@@ -12,6 +12,10 @@ class PublicacionRemoteDatasource {
 
   static const int _maxIntentosCrearPublicacion = 5;
 
+  // =========================================================
+  // OBTENER SIGUIENTE ID
+  // =========================================================
+
   Future<int> _obtenerSiguienteId() async {
     final publicaciones = await roble.read(
       'publicacion',
@@ -32,6 +36,10 @@ class PublicacionRemoteDatasource {
     return mayorId + 1;
   }
 
+  // =========================================================
+  // COMPROBAR SI EXISTE ID
+  // =========================================================
+
   Future<bool> _idExiste(
     int idPublicacion,
   ) async {
@@ -45,11 +53,14 @@ class PublicacionRemoteDatasource {
     return publicaciones.isNotEmpty;
   }
 
+  // =========================================================
+  // OBTENER USUARIO AUTENTICADO
+  // =========================================================
+
   Future<int> _obtenerIdUsuarioAutenticado() async {
     final user = await roble.currentUser();
 
-    final userId =
-        user['userId']?.toString();
+    final userId = user['userId']?.toString();
 
     if (userId == null || userId.isEmpty) {
       throw Exception(
@@ -83,6 +94,10 @@ class PublicacionRemoteDatasource {
     return idUsuario;
   }
 
+  // =========================================================
+  // OBTENER CREADOR DEL PROYECTO
+  // =========================================================
+
   Future<int> _obtenerIdCreadorDelProyecto(
     int idProyecto,
   ) async {
@@ -112,6 +127,10 @@ class PublicacionRemoteDatasource {
     return idCreador;
   }
 
+  // =========================================================
+  // CREAR PUBLICACIÓN
+  // =========================================================
+
   Future<Map<String, dynamic>> createPublicacion(
     PublicacionModel publicacion,
   ) async {
@@ -127,36 +146,29 @@ class PublicacionRemoteDatasource {
       );
     }
 
-    // -------------------------------------------------------
-    // Verificar que exista el proyecto
-    // -------------------------------------------------------
-
+    // Verificar que exista el proyecto.
     await _obtenerIdCreadorDelProyecto(
       publicacion.idProyecto,
     );
 
-    // -------------------------------------------------------
-    // Verificar que el usuario autenticado sea el creador
-    // -------------------------------------------------------
-
+    // Verificar usuario autenticado.
     final idUsuarioAutenticado =
         await _obtenerIdUsuarioAutenticado();
 
+    // Obtener creador.
     final idCreador =
         await _obtenerIdCreadorDelProyecto(
       publicacion.idProyecto,
     );
 
+    // Solo el creador puede publicar.
     if (idUsuarioAutenticado != idCreador) {
       throw Exception(
         'Solo el creador del proyecto puede crear publicaciones.',
       );
     }
 
-    // -------------------------------------------------------
-    // Generar ID de publicación y crear
-    // -------------------------------------------------------
-
+    // Crear publicación.
     for (
       int intento = 1;
       intento <= _maxIntentosCrearPublicacion;
@@ -194,6 +206,10 @@ class PublicacionRemoteDatasource {
     );
   }
 
+  // =========================================================
+  // OBTENER PUBLICACIONES DE UN PROYECTO
+  // =========================================================
+
   Future<List<Map<String, dynamic>>>
       getPublicacionesByProject(
     int idProyecto,
@@ -211,6 +227,10 @@ class PublicacionRemoteDatasource {
         )
         .toList();
   }
+
+  // =========================================================
+  // OBTENER PUBLICACIÓN POR ID
+  // =========================================================
 
   Future<Map<String, dynamic>?>
       getPublicacionById(
@@ -230,5 +250,57 @@ class PublicacionRemoteDatasource {
     return Map<String, dynamic>.from(
       publicaciones.first,
     );
+  }
+
+  // =========================================================
+  // OBTENER TODAS LAS PUBLICACIONES
+  // =========================================================
+  //
+  // ESTA ES LA NUEVA FUNCIÓN PARA EL HOME.
+  //
+  // No filtra por usuario.
+  // No filtra por proyecto.
+  //
+  // Devuelve todas las publicaciones existentes.
+  // =========================================================
+
+  Future<List<Map<String, dynamic>>>
+      getTodasLasPublicaciones() async {
+    final publicaciones = await roble.read(
+      'publicacion',
+    );
+
+    final resultado = publicaciones
+        .map(
+          (item) => Map<String, dynamic>.from(item),
+        )
+        .toList();
+
+    // Ordenar de más reciente a más antigua.
+    resultado.sort((a, b) {
+      final fechaA = DateTime.tryParse(
+        a['fecha_publicacion']?.toString() ?? '',
+      );
+
+      final fechaB = DateTime.tryParse(
+        b['fecha_publicacion']?.toString() ?? '',
+      );
+
+      if (fechaA == null && fechaB == null) {
+        return 0;
+      }
+
+      if (fechaA == null) {
+        return 1;
+      }
+
+      if (fechaB == null) {
+        return -1;
+      }
+
+      return fechaB.compareTo(fechaA);
+    });
+
+    return resultado;
   }
 }

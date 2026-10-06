@@ -11,67 +11,136 @@ import 'package:uncampusconnet/features/solicitudes/pages/solicitud_detail_page.
 import 'package:uncampusconnet/features/buscar/pages/buscar_page.dart';
 import 'package:uncampusconnet/features/solicitudes/pages/solicitudes_page.dart';
 
+import 'package:uncampusconnet/features/profile/pages/profile_page.dart';
+
 import 'package:uncampusconnet/ui/widgets/banner_buttons.dart';
 import 'package:uncampusconnet/ui/widgets/header_banner.dart';
 
 class MainScaffold extends StatelessWidget {
-  const MainScaffold({super.key});
+  const MainScaffold({
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    final controller = Get.put(MainController());
+  Widget build(
+    BuildContext context,
+  ) {
+    final controller =
+        Get.put(MainController());
 
     const pages = [
-      HomePage(), // 0
-      BuscarPage(), // 1
-      NuevoProyectoPage(), // 2
-      MisProyectosPage(), // 3
-      SolicitudesPage(), // 4
+      HomePage(),
+      BuscarPage(),
+      NuevoProyectoPage(),
+      MisProyectosPage(),
+      SolicitudesPage(),
     ];
 
     return Scaffold(
-      // HEADER FIJO
+      // =====================================================
+      // HEADER
+      // =====================================================
+
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80),
+        preferredSize:
+            const Size.fromHeight(80),
         child: Obx(
           () => HeaderBanner(
-            isDarkMode: controller.isDarkMode.value,
-            onThemeChanged: controller.toggleTheme,
+            isDarkMode:
+                controller
+                    .isDarkMode
+                    .value,
+
+            onThemeChanged:
+                controller
+                    .toggleTheme,
+
+            onProfileTap: () {
+              Get.to(
+                () =>
+                    const ProfilePage(),
+                transition:
+                    Transition
+                        .rightToLeft,
+              );
+            },
           ),
         ),
       ),
+
+      // =====================================================
+      // BODY
+      // =====================================================
 
       body: Column(
         children: [
           Expanded(
             child: Obx(() {
-              final solicitud = controller.selectedSolicitud.value;
-              final index = controller.currentIndex.value;
-              final project = controller.selectedProject.value;
-              // CHAT (índice 6)
-              if (index == 6 && solicitud != null) {
-                return ChatSolicitudPage(solicitud: solicitud);
-              }
-              if (index == 7 && controller.selectedProject.value != null) {
-                return ProjectDetailPage(project: project);
-              }
-              // DETALLE (índice 5)
-              if (index == 5 && solicitud != null) {
-                return SolicitudDetallePage(solicitud: solicitud);
+              final solicitud =
+                  controller
+                      .selectedSolicitud
+                      .value;
+
+              final index =
+                  controller
+                      .currentIndex
+                      .value;
+
+              final project =
+                  controller
+                      .selectedProject
+                      .value;
+
+              if (
+                  index == 6 &&
+                  solicitud != null) {
+                return ChatSolicitudPage(
+                  solicitud:
+                      solicitud,
+                );
               }
 
-              // PESTAÑAS NORMALES (0-4)
-              return IndexedStack(index: index, children: pages);
+              if (
+                  index == 7 &&
+                  controller
+                          .selectedProject
+                          .value !=
+                      null) {
+                return ProjectDetailPage(
+                  project:
+                      project,
+                );
+              }
+
+              if (
+                  index == 5 &&
+                  solicitud != null) {
+                return SolicitudDetallePage(
+                  solicitud:
+                      solicitud,
+                );
+              }
+
+              return IndexedStack(
+                index: index,
+                children: pages,
+              );
             }),
           ),
 
-          // BARRA INFERIOR (oculta en el chat)
-          Obx(() {
-            final index = controller.currentIndex.value;
+          // =================================================
+          // BARRA INFERIOR
+          // =================================================
 
-            // Ocultar en el chat (índice 6)
+          Obx(() {
+            final index =
+                controller
+                    .currentIndex
+                    .value;
+
             if (index == 6) {
-              return const SizedBox.shrink();
+              return const SizedBox
+                  .shrink();
             }
 
             return const BottomNavBar();

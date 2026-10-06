@@ -44,4 +44,10 @@ class PublicacionRepositoryImpl
       idPublicacion,
     );
   }
+
+  @override
+  Future<List<Map<String, dynamic>>>
+      getTodasLasPublicaciones() {
+    return datasource.getTodasLasPublicaciones();
+  }
 }

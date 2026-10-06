@@ -14,4 +14,7 @@ abstract class PublicacionRepository {
       getPublicacionById(
     int idPublicacion,
   );
+
+  Future<List<Map<String, dynamic>>>
+      getTodasLasPublicaciones();
 }
