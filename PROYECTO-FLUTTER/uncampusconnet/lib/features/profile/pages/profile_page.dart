@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:uncampusconnet/features/profile/controllers/profile_controller.dart';
 import 'package:uncampusconnet/features/profile/widgets/profile_header.dart';
 import 'package:uncampusconnet/features/profile/widgets/profile_skills.dart';
+import 'package:uncampusconnet/features/profile/widgets/profile_stats.dart';
 import 'package:uncampusconnet/ui/widgets/cards_wrapper.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -12,9 +13,7 @@ class ProfilePage extends StatelessWidget {
   });
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     final scheme =
         Theme.of(context).colorScheme;
 
@@ -22,20 +21,17 @@ class ProfilePage extends StatelessWidget {
         Get.put(ProfileController());
 
     return Scaffold(
-      backgroundColor:
-          scheme.surface,
-
+      backgroundColor: scheme.surface,
       appBar: AppBar(
         title: const Text(
           'Mi perfil',
         ),
         centerTitle: false,
       ),
-
       body: Obx(() {
-        // ===================================================
+        // =================================================
         // CARGANDO
-        // ===================================================
+        // =================================================
 
         if (controller.cargando.value) {
           return const Center(
@@ -44,18 +40,15 @@ class ProfilePage extends StatelessWidget {
           );
         }
 
-        // ===================================================
+        // =================================================
         // ERROR
-        // ===================================================
+        // =================================================
 
-        if (controller.error.value !=
-            null) {
+        if (controller.error.value != null) {
           return Center(
             child: Padding(
               padding:
-                  const EdgeInsets.all(
-                30,
-              ),
+                  const EdgeInsets.all(30),
               child: Column(
                 mainAxisSize:
                     MainAxisSize.min,
@@ -63,8 +56,8 @@ class ProfilePage extends StatelessWidget {
                   Icon(
                     Icons.person_off_outlined,
                     size: 45,
-                    color: scheme
-                        .onSurfaceVariant,
+                    color:
+                        scheme.onSurfaceVariant,
                   ),
 
                   const SizedBox(
@@ -91,8 +84,7 @@ class ProfilePage extends StatelessWidget {
                     icon: const Icon(
                       Icons.refresh,
                     ),
-                    label:
-                        const Text(
+                    label: const Text(
                       'Reintentar',
                     ),
                   ),
@@ -102,9 +94,9 @@ class ProfilePage extends StatelessWidget {
           );
         }
 
-        // ===================================================
+        // =================================================
         // PERFIL
-        // ===================================================
+        // =================================================
 
         final profile =
             controller.perfil.value;
@@ -132,17 +124,35 @@ class ProfilePage extends StatelessWidget {
               30,
             ),
             children: [
+              // ===========================================
               // HEADER
+              // ===========================================
+
               ProfileHeader(
                 profile: profile,
                 initials: initials,
               ),
 
               const SizedBox(
+                height: 14,
+              ),
+
+              // ===========================================
+              // ESTADISTICAS
+              // ===========================================
+
+              ProfileStats(
+                profile: profile,
+              ),
+
+              const SizedBox(
                 height: 18,
               ),
 
-              // INFORMACIÓN
+              // ===========================================
+              // INFORMACION
+              // ===========================================
+
               CardWrapper(
                 child: Column(
                   crossAxisAlignment:
@@ -170,8 +180,8 @@ class ProfilePage extends StatelessWidget {
                     ),
 
                     Divider(
-                      color: scheme
-                          .outlineVariant,
+                      color:
+                          scheme.outlineVariant,
                     ),
 
                     _InfoRow(
@@ -181,8 +191,8 @@ class ProfilePage extends StatelessWidget {
                     ),
 
                     Divider(
-                      color: scheme
-                          .outlineVariant,
+                      color:
+                          scheme.outlineVariant,
                     ),
 
                     _InfoRow(
@@ -199,7 +209,10 @@ class ProfilePage extends StatelessWidget {
                 height: 18,
               ),
 
+              // ===========================================
               // HABILIDADES
+              // ===========================================
+
               ProfileSkills(
                 profile: profile,
               ),
@@ -211,6 +224,10 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
+// =========================================================
+// FILA DE INFORMACION
+// =========================================================
+
 class _InfoRow extends StatelessWidget {
   final String label;
   final String value;
@@ -221,9 +238,7 @@ class _InfoRow extends StatelessWidget {
   });
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     final scheme =
         Theme.of(context).colorScheme;
 
@@ -243,8 +258,8 @@ class _InfoRow extends StatelessWidget {
                 fontSize: 13,
                 fontWeight:
                     FontWeight.w600,
-                color: scheme
-                    .onSurfaceVariant,
+                color:
+                    scheme.onSurfaceVariant,
               ),
             ),
           ),

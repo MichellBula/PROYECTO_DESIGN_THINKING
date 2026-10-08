@@ -1,6 +1,7 @@
 import 'package:roble/roble.dart';
 
 import '../../../../core/database/roble_client.dart';
+import '../../../../core/services/usuario_stats_service.dart';
 import '../../models/integrante_model.dart';
 
 class IntegranteRemoteDatasource {
@@ -11,6 +12,12 @@ class IntegranteRemoteDatasource {
   }) : roble = roble ?? RobleClient.instance;
 
   static const int _maxIntentosCrearIntegrante = 5;
+
+  UsuarioStatsService get _statsService {
+    return UsuarioStatsService(
+      roble: roble,
+    );
+  }
 
   Future<int> _obtenerSiguienteId() async {
     final integrantes = await roble.read(
@@ -38,8 +45,7 @@ class IntegranteRemoteDatasource {
     final integrantes = await roble.read(
       'integrantes',
       filters: {
-        'id_usuario_integrante':
-            idUsuarioIntegrante,
+        'id_usuario_integrante': idUsuarioIntegrante,
       },
     );
 
@@ -70,8 +76,7 @@ class IntegranteRemoteDatasource {
   Future<Map<String, dynamic>> createIntegrante(
     IntegranteModel integrante,
   ) async {
-    final existente =
-        await _buscarIntegranteExistente(
+    final existente = await _buscarIntegranteExistente(
       idUsuario: integrante.idUsuario,
       idProyecto: integrante.idProyecto,
     );
@@ -94,14 +99,52 @@ class IntegranteRemoteDatasource {
         final resultado = await roble.create(
           'integrantes',
           integrante.toMap(
-            idUsuarioIntegrante:
-                idUsuarioIntegrante,
+            idUsuarioIntegrante: idUsuarioIntegrante,
           ),
         );
 
-        return Map<String, dynamic>.from(
+        final integranteCreado =
+            Map<String, dynamic>.from(
           resultado,
         );
+
+        print(
+          '[INTEGRANTE] ✅ Integrante creado correctamente.',
+        );
+
+        print(
+          '[INTEGRANTE] id_usuario=${integrante.idUsuario}',
+        );
+
+        print(
+          '[INTEGRANTE] id_proyecto=${integrante.idProyecto}',
+        );
+
+        print(
+          '[INTEGRANTE] Sincronizando estadísticas del usuario '
+          'id_usuario=${integrante.idUsuario}...',
+        );
+
+        try {
+          await _statsService.sincronizarUsuario(
+            integrante.idUsuario,
+          );
+
+          print(
+            '[INTEGRANTE] ✅ Estadísticas del usuario actualizadas.',
+          );
+        } catch (e) {
+          print(
+            '[INTEGRANTE] ⚠️ El integrante fue creado, '
+            'pero no fue posible sincronizar sus estadísticas.',
+          );
+
+          print(
+            '[INTEGRANTE] Error de estadísticas: $e',
+          );
+        }
+
+        return integranteCreado;
       } catch (e) {
         final idFueOcupado =
             await _idExiste(
@@ -122,8 +165,7 @@ class IntegranteRemoteDatasource {
     );
   }
 
-  Future<List<Map<String, dynamic>>>
-      getIntegrantesByProject(
+  Future<List<Map<String, dynamic>>> getIntegrantesByProject(
     int idProyecto,
   ) async {
     final integrantes = await roble.read(

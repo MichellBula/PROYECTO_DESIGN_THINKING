@@ -15,11 +15,11 @@ Future<void> main() async {
   try {
     print('\n--- LOGIN ---');
 
-    await roble.login(email: 'prueba@correo.com', password: 'Prueba123!');
+    await roble.login(email: 'registro_prueba_02@correo.com', password: 'RegistroPrueba!123');
 
     print('Login exitoso.');
 
-    const idProyecto = 2;
+    const idProyecto = 15;
     const idRol = 6;
 
     print('\n--- OBTENIENDO ID DEL USUARIO AUTENTICADO ---');

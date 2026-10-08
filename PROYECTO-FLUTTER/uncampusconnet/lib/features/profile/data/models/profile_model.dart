@@ -8,6 +8,8 @@ class ProfileModel extends Profile {
     required super.carrera,
     required super.semestre,
     required super.habilidades,
+    super.numeroProyectos,
+    super.calificacionUsuario,
   });
 
   factory ProfileModel.fromEntity(
@@ -21,6 +23,10 @@ class ProfileModel extends Profile {
       carrera: profile.carrera,
       semestre: profile.semestre,
       habilidades: profile.habilidades,
+      numeroProyectos:
+          profile.numeroProyectos,
+      calificacionUsuario:
+          profile.calificacionUsuario,
     );
   }
 }

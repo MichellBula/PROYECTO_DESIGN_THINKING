@@ -96,7 +96,7 @@ Future<void> main() async {
     print('\n--- CREANDO PROYECTO ---');
 
     final proyecto = Project(
-      nombre: 'Proyecto de prueba Roble',
+      nombre: 'Proyecto de prueba Roble2',
       descripcion:
           'Proyecto creado para probar la tabla proyecto.',
       idCreador: idUsuario,

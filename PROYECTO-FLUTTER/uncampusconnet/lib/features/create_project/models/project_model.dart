@@ -12,25 +12,33 @@ class ProjectModel extends Project {
     required super.numIntegrantes,
     required super.docenteAsesor,
     required super.estado,
+    super.calificacion,
   });
 
-  factory ProjectModel.fromEntity(Project project) {
+  factory ProjectModel.fromEntity(
+    Project project,
+  ) {
     return ProjectModel(
       nombre: project.nombre,
       descripcion: project.descripcion,
       idCreador: project.idCreador,
       idCategoria: project.idCategoria,
-      idTipoProyecto: project.idTipoProyecto,
+      idTipoProyecto:
+          project.idTipoProyecto,
       objetivo: project.objetivo,
       requisitos: project.requisitos,
-      numIntegrantes: project.numIntegrantes,
-      docenteAsesor: project.docenteAsesor,
+      numIntegrantes:
+          project.numIntegrantes,
+      docenteAsesor:
+          project.docenteAsesor,
       estado: project.estado,
+      calificacion:
+          project.calificacion,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    final data = <String, dynamic>{
       'nombre': nombre,
       'descripcion': descripcion,
       'id_creador': idCreador,
@@ -42,5 +50,12 @@ class ProjectModel extends Project {
       'docente_asesor': docenteAsesor,
       'estado': estado,
     };
+
+    // Solo se agrega si ya existe una calificación.
+    if (calificacion != null) {
+      data['calificacion'] = calificacion;
+    }
+
+    return data;
   }
 }

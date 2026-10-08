@@ -16,10 +16,23 @@ class ProjectRepositoryImpl
     Project project,
   ) async {
     final ProjectModel model =
-        ProjectModel.fromEntity(project);
+        ProjectModel.fromEntity(
+      project,
+    );
 
     return await datasource.createProject(
       model,
+    );
+  }
+
+  @override
+  Future<Map<String, dynamic>> calificarProyecto({
+    required int idProyecto,
+    required double calificacion,
+  }) {
+    return datasource.calificarProyecto(
+      idProyecto: idProyecto,
+      calificacion: calificacion,
     );
   }
 }

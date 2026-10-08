@@ -9,7 +9,11 @@ abstract class UsuarioRemoteDataSource {
     required String idAutenticador,
   });
 
-  Future<Usuario?> obtenerUsuarioActual(String idAutenticador);
+  Future<Usuario?> obtenerUsuarioActual(
+    String idAutenticador,
+  );
 
-  Future<Usuario?> obtenerUsuarioPorId(int idUsuario);
+  Future<Usuario?> obtenerUsuarioPorId(
+    int idUsuario,
+  );
 }

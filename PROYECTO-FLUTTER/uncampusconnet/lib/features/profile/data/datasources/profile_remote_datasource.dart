@@ -28,7 +28,14 @@ class ProfileRemoteDatasource {
       return null;
     }
 
-    final usuario = usuarios.first;
+    final usuario =
+        Map<String, dynamic>.from(
+      usuarios.first,
+    );
+
+    // =====================================================
+    // DATOS BASICOS
+    // =====================================================
 
     final nombreUsuario =
         usuario['nombre_usuario']
@@ -55,11 +62,34 @@ class ProfileRemoteDatasource {
             '';
 
     // =====================================================
+    // ESTADISTICAS
+    // =====================================================
+
+    final numeroProyectosRaw =
+        usuario['numero_proyectos'];
+
+    final calificacionUsuarioRaw =
+        usuario['calificacion_usuario'];
+
+    final int? numeroProyectos =
+        numeroProyectosRaw == null
+            ? null
+            : int.tryParse(
+                numeroProyectosRaw.toString(),
+              );
+
+    final double? calificacionUsuario =
+        calificacionUsuarioRaw == null
+            ? null
+            : double.tryParse(
+                calificacionUsuarioRaw.toString(),
+              );
+
+    // =====================================================
     // HABILIDADES
     // =====================================================
 
-    final relaciones =
-        await roble.read(
+    final relaciones = await roble.read(
       'usuario_habilidades',
       filters: {
         'id_usuario': idUsuario,
@@ -69,10 +99,8 @@ class ProfileRemoteDatasource {
     final habilidades = <String>[];
 
     for (final relacion in relaciones) {
-      final idHabilidad =
-          int.tryParse(
-        relacion['id_habilidad']
-            .toString(),
+      final idHabilidad = int.tryParse(
+        relacion['id_habilidad'].toString(),
       );
 
       if (idHabilidad == null) {
@@ -83,8 +111,7 @@ class ProfileRemoteDatasource {
           await roble.read(
         'habilidad',
         filters: {
-          'id_habilidad':
-              idHabilidad,
+          'id_habilidad': idHabilidad,
         },
       );
 
@@ -93,14 +120,12 @@ class ProfileRemoteDatasource {
       }
 
       final nombreHabilidad =
-          resultadoHabilidad
-                  .first[
-                      'nombre_habilidad']
+          resultadoHabilidad.first[
+                  'nombre_habilidad']
               ?.toString()
               .trim();
 
-      if (
-          nombreHabilidad != null &&
+      if (nombreHabilidad != null &&
           nombreHabilidad.isNotEmpty &&
           !habilidades.contains(
             nombreHabilidad,
@@ -111,6 +136,10 @@ class ProfileRemoteDatasource {
       }
     }
 
+    // =====================================================
+    // PERFIL COMPLETO
+    // =====================================================
+
     return ProfileModel(
       idUsuario: idUsuario,
       nombreUsuario: nombreUsuario,
@@ -119,6 +148,12 @@ class ProfileRemoteDatasource {
       carrera: carrera,
       semestre: semestre,
       habilidades: habilidades,
+
+      // Nuevas estadísticas
+      numeroProyectos:
+          numeroProyectos,
+      calificacionUsuario:
+          calificacionUsuario,
     );
   }
 }

@@ -10,6 +10,9 @@ class Project {
   final bool docenteAsesor;
   final String estado;
 
+  // NUEVO
+  final double? calificacion;
+
   const Project({
     required this.nombre,
     required this.descripcion,
@@ -21,5 +24,9 @@ class Project {
     required this.numIntegrantes,
     required this.docenteAsesor,
     required this.estado,
+
+    // Opcional porque un proyecto nuevo aún
+    // no tiene calificación.
+    this.calificacion,
   });
 }

@@ -2,7 +2,8 @@ import '../../domain/entities/usuario.dart';
 import '../../domain/repositories/usuario_repository.dart';
 import '../datasources/usuario_remote_data_source.dart';
 
-class UsuarioRepositoryImpl implements UsuarioRepository {
+class UsuarioRepositoryImpl
+    implements UsuarioRepository {
   final UsuarioRemoteDataSource remoteDataSource;
 
   UsuarioRepositoryImpl({
@@ -19,22 +20,28 @@ class UsuarioRepositoryImpl implements UsuarioRepository {
   }) {
     return remoteDataSource.crearUsuario(
       nombreUsuario: nombreUsuario,
-      correoInstitucional: correoInstitucional,
+      correoInstitucional:
+          correoInstitucional,
       carrera: carrera,
       semestre: semestre,
-      idAutenticador: idAutenticador,
+      idAutenticador:
+          idAutenticador,
     );
   }
 
   @override
-  Future<Usuario?> obtenerUsuarioActual(String idAutenticador) {
+  Future<Usuario?> obtenerUsuarioActual(
+    String idAutenticador,
+  ) {
     return remoteDataSource.obtenerUsuarioActual(
       idAutenticador,
     );
   }
 
   @override
-  Future<Usuario?> obtenerUsuarioPorId(int idUsuario) {
+  Future<Usuario?> obtenerUsuarioPorId(
+    int idUsuario,
+  ) {
     return remoteDataSource.obtenerUsuarioPorId(
       idUsuario,
     );

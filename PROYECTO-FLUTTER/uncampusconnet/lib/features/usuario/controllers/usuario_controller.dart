@@ -9,22 +9,28 @@ class UsuarioController extends GetxController {
     UsuarioRepositoryImpl? repository,
   }) : repository = repository ??
             UsuarioRepositoryImpl(
-              remoteDataSource: UsuarioRemoteDataSourceImpl(),
+              remoteDataSource:
+                  UsuarioRemoteDataSourceImpl(),
             );
 
   final UsuarioRepositoryImpl repository;
 
-  final Rxn<Usuario> perfilUsuario = Rxn<Usuario>();
+  final Rxn<Usuario> perfilUsuario =
+      Rxn<Usuario>();
 
   final RxBool cargando = false.obs;
 
-  bool get tienePerfil => perfilUsuario.value != null;
+  bool get tienePerfil =>
+      perfilUsuario.value != null;
 
-  Future<Usuario?> obtenerMiPerfil(String idAutenticador) async {
+  Future<Usuario?> obtenerMiPerfil(
+    String idAutenticador,
+  ) async {
     try {
       cargando.value = true;
 
-      final usuario = await repository.obtenerUsuarioActual(
+      final usuario =
+          await repository.obtenerUsuarioActual(
         idAutenticador,
       );
 
@@ -46,12 +52,15 @@ class UsuarioController extends GetxController {
     try {
       cargando.value = true;
 
-      final usuario = await repository.crearUsuario(
+      final usuario =
+          await repository.crearUsuario(
         nombreUsuario: nombreUsuario,
-        correoInstitucional: correoInstitucional,
+        correoInstitucional:
+            correoInstitucional,
         carrera: carrera,
         semestre: semestre,
-        idAutenticador: idAutenticador,
+        idAutenticador:
+            idAutenticador,
       );
 
       perfilUsuario.value = usuario;
