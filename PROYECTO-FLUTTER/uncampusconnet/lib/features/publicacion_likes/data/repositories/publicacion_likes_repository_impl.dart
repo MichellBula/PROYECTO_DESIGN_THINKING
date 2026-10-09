@@ -12,24 +12,20 @@ class PublicacionLikesRepositoryImpl
   });
 
   @override
-  Future<Map<String, dynamic>>
-      createPublicacionLike(
+  Future<Map<String, dynamic>> createPublicacionLike(
     PublicacionLike like,
   ) async {
-    final model =
-        PublicacionLikeModel.fromEntity(
+    final model = PublicacionLikeModel.fromEntity(
       like,
     );
 
-    return await datasource
-        .createPublicacionLike(
+    return datasource.createPublicacionLike(
       model,
     );
   }
 
   @override
-  Future<List<Map<String, dynamic>>>
-      getLikesByPublicacion(
+  Future<List<Map<String, dynamic>>> getLikesByPublicacion(
     int idPublicacion,
   ) {
     return datasource.getLikesByPublicacion(
@@ -43,8 +39,18 @@ class PublicacionLikesRepositoryImpl
     required int idUsuario,
     required int idPublicacion,
   }) {
-    return datasource
-        .getPublicacionLikeByUserAndPublicacion(
+    return datasource.getPublicacionLikeByUserAndPublicacion(
+      idUsuario: idUsuario,
+      idPublicacion: idPublicacion,
+    );
+  }
+
+  @override
+  Future<bool> deletePublicacionLikeByUserAndPublicacion({
+    required int idUsuario,
+    required int idPublicacion,
+  }) {
+    return datasource.deletePublicacionLikeByUserAndPublicacion(
       idUsuario: idUsuario,
       idPublicacion: idPublicacion,
     );

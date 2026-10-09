@@ -194,4 +194,39 @@ class PublicacionLikesRemoteDatasource {
       idPublicacion: idPublicacion,
     );
   }
+
+    // ==========================================================
+  // ELIMINAR LIKE
+  // ==========================================================
+
+  Future<bool> deletePublicacionLikeByUserAndPublicacion({
+    required int idUsuario,
+    required int idPublicacion,
+  }) async {
+    final existente = await _buscarLikeExistente(
+      idUsuario: idUsuario,
+      idPublicacion: idPublicacion,
+    );
+
+    // Si no existe, no hay nada que borrar.
+    if (existente == null) {
+      return false;
+    }
+
+    // Roble identifica el registro mediante su UUID _id.
+    final robleId = existente['_id']?.toString();
+
+    if (robleId == null || robleId.isEmpty) {
+      throw Exception(
+        'El like no tiene un _id válido de Roble.',
+      );
+    }
+
+    await roble.delete(
+      'publicacion_likes',
+      robleId,
+    );
+
+    return true;
+  }
 }

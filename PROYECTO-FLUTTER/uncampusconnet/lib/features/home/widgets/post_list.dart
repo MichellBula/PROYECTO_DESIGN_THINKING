@@ -135,6 +135,7 @@ class PostList extends StatelessWidget {
                         .publicaciones[index];
 
                 return PostCard(
+                  key: ValueKey(post.idPublicacion),
                   post: post,
                 );
               },
