@@ -1,3 +1,4 @@
+
 class AvanceData {
   final String autor;
   final String etiqueta;

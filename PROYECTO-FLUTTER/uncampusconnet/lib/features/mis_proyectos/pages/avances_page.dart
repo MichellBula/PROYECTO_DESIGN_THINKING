@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 
 import 'package:uncampusconnet/features/mis_proyectos/data/proyect_data.dart';
 import 'package:uncampusconnet/features/mis_proyectos/models/etapa_data.dart';
+import 'package:uncampusconnet/features/mis_proyectos/models/etapas_local_store.dart';
 import 'package:uncampusconnet/features/mis_proyectos/pages/detalle_etapa_page.dart';
 import 'package:uncampusconnet/features/mis_proyectos/widgets/etapa_card.dart';
 import 'package:uncampusconnet/features/mis_proyectos/widgets/etapa_form_dialog.dart';
@@ -20,106 +22,119 @@ class AvancesPage extends StatefulWidget {
 }
 
 class _AvancesPageState extends State<AvancesPage> {
-  final List<EtapaData> _etapas = [
-    EtapaData(
-      etiqueta: 'Creación del equipo',
-      descripcion:
-          'Organización inicial del equipo y asignación de responsabilidades.',
-      progreso: 1.0,
-      fechaFin: DateTime(2026, 8, 23),
-      avances: [
-        AvanceData(
-          autor: 'Michell Bula',
-          etiqueta: 'Creó nuevo evento',
-          descripcion:
-              'Se creó un nuevo evento para organizar las actividades.',
-          fecha: DateTime(2026, 8, 23),
-        ),
-      ],
-    ),
-    EtapaData(
-      etiqueta: 'Intento de simular ondas',
-      descripcion:
-          'Durante esta etapa el equipo se reunirá semanalmente para preparar las pruebas.',
-      progreso: 0.05,
-      fechaFin: DateTime(2026, 9, 5),
-      avances: [
-        AvanceData(
-          autor: 'Michell Bula',
-          etiqueta: 'Creó nuevo evento',
-          descripcion:
-              'Se creó un evento para coordinar las pruebas.',
-          fecha: DateTime(2026, 8, 23),
-        ),
-        AvanceData(
-          autor: 'Emanuel Siachoque',
-          etiqueta: 'Adjuntó un .py',
-          descripcion:
-              'Se adjuntó el archivo de simulación.',
-          fecha: DateTime(2026, 8, 22),
-          archivos: const ['simulacion.py'],
-        ),
-      ],
-    ),
-  ];
+  late List<EtapaData> _etapas;
+
+  @override
+  void initState() {
+    super.initState();
+    _cargarEtapas();
+  }
+
+  void _cargarEtapas() {
+    _etapas = EtapasLocalStore.obtenerEtapas(
+      widget.project.idProyecto,
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant AvancesPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.project.idProyecto != widget.project.idProyecto) {
+      _cargarEtapas();
+    }
+  }
 
   Future<void> _crearEtapa() async {
     final etapa = await showEtapaFormDialog(context);
 
-    if (etapa != null && mounted) {
-      setState(() => _etapas.add(etapa));
-    }
+    if (!mounted || etapa == null) return;
+
+    setState(() {
+      _etapas.add(etapa);
+    });
   }
 
   Future<void> _editarEtapa(int index) async {
-    final etapa = await showEtapaFormDialog(
+    if (index < 0 || index >= _etapas.length) return;
+
+    final etapaOriginal = _etapas[index];
+
+    final etapaEditada = await showEtapaFormDialog(
       context,
-      etapa: _etapas[index],
+      etapa: etapaOriginal,
     );
 
-    if (etapa != null && mounted) {
-      setState(() => _etapas[index] = etapa);
-    }
+    if (!mounted || etapaEditada == null) return;
+
+    final posicionActual = _etapas.indexOf(etapaOriginal);
+
+    if (posicionActual == -1) return;
+
+    setState(() {
+      _etapas[posicionActual] = etapaEditada;
+    });
   }
 
   Future<void> _eliminarEtapa(int index) async {
+    if (index < 0 || index >= _etapas.length) return;
+
+    final etapaSeleccionada = _etapas[index];
+
     final confirmar = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         title: const Text('Eliminar etapa'),
         content: Text(
-          '¿Deseas eliminar la Etapa #${index + 1}?',
+          '¿Deseas eliminar la Etapa #${index + 1}? '
+          'También se eliminarán sus avances locales.',
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context, false),
+            onPressed: () => Navigator.pop(dialogContext, false),
             child: const Text('Cancelar'),
           ),
           TextButton(
-            onPressed: () => Navigator.pop(context, true),
+            onPressed: () => Navigator.pop(dialogContext, true),
             child: const Text('Eliminar'),
           ),
         ],
       ),
     );
 
-    if (confirmar == true && mounted) {
-      setState(() => _etapas.removeAt(index));
-    }
+    if (!mounted || confirmar != true) return;
+
+    final posicionActual = _etapas.indexOf(etapaSeleccionada);
+
+    if (posicionActual == -1) return;
+
+    setState(() {
+      _etapas.removeAt(posicionActual);
+    });
   }
 
   void _verDetalles(int index) {
+    if (index < 0 || index >= _etapas.length) return;
+
+    final etapaSeleccionada = _etapas[index];
+
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => DetalleEtapaPage(
           numero: index + 1,
-          etapa: _etapas[index],
-          onChanged: (etapa) {
+          etapa: etapaSeleccionada,
+          onChanged: (etapaActualizada) {
             if (!mounted) return;
 
+            final posicionActual = _etapas.indexOf(
+              etapaSeleccionada,
+            );
+
+            if (posicionActual == -1) return;
+
             setState(() {
-              _etapas[index] = etapa;
+              _etapas[posicionActual] = etapaActualizada;
             });
           },
         ),
@@ -144,10 +159,38 @@ class _AvancesPageState extends State<AvancesPage> {
               child: ListView(
                 padding: const EdgeInsets.all(20),
                 children: [
-                  _ProjectHeader(
-                    project: widget.project,
-                  ),
+                  _ProjectHeader(project: widget.project),
+
                   const SizedBox(height: 30),
+
+                  if (_etapas.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 30,
+                      ),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.layers_outlined,
+                              size: 55,
+                              color: scheme.primary,
+                            ),
+                            const SizedBox(height: 12),
+                            const Text(
+                              'Este proyecto aún no tiene etapas.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              'Crea una etapa para comenzar a registrar avances.',
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
 
                   ...List.generate(
                     _etapas.length,
@@ -158,12 +201,9 @@ class _AvancesPageState extends State<AvancesPage> {
                       child: EtapaCard(
                         numero: index + 1,
                         etapa: _etapas[index],
-                        onVerDetalles: () =>
-                            _verDetalles(index),
-                        onEditar: () =>
-                            _editarEtapa(index),
-                        onEliminar: () =>
-                            _eliminarEtapa(index),
+                        onVerDetalles: () => _verDetalles(index),
+                        onEditar: () => _editarEtapa(index),
+                        onEliminar: () => _eliminarEtapa(index),
                       ),
                     ),
                   ),
@@ -175,8 +215,10 @@ class _AvancesPageState extends State<AvancesPage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: scheme.primary,
                       foregroundColor: scheme.onPrimary,
-                      minimumSize:
-                          const Size(double.infinity, 52),
+                      minimumSize: const Size(
+                        double.infinity,
+                        52,
+                      ),
                     ),
                     child: const Text(
                       'Crear Etapa nueva',

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 import 'package:uncampusconnet/features/mis_proyectos/models/etapa_data.dart';
 import 'package:uncampusconnet/ui/widgets/screen_title.dart';
 
@@ -20,13 +20,12 @@ class AgregarAvancePage extends StatefulWidget {
       _AgregarAvancePageState();
 }
 
-class _AgregarAvancePageState
-    extends State<AgregarAvancePage> {
+class _AgregarAvancePageState extends State<AgregarAvancePage> {
   late final TextEditingController _etiquetaController;
   late final TextEditingController _descripcionController;
-  late final TextEditingController _encargadoController;
 
-  final List<String> _archivos = [];
+  late DateTime _fecha;
+  late String _responsable;
 
   @override
   void initState() {
@@ -40,118 +39,57 @@ class _AgregarAvancePageState
       text: widget.avance?.descripcion ?? '',
     );
 
-    _encargadoController = TextEditingController(
-      text: widget.avance?.autor ?? '',
-    );
+    _fecha = widget.avance?.fecha ?? DateTime.now();
 
-    _archivos.addAll(
-      widget.avance?.archivos ?? [],
-    );
+    // Temporal: se reemplazará por el usuario autenticado
+    // cuando se conecte esta interfaz con Roble.
+    _responsable =
+        widget.avance?.autor ?? 'Usuario de la sesión actual';
   }
 
   @override
   void dispose() {
     _etiquetaController.dispose();
     _descripcionController.dispose();
-    _encargadoController.dispose();
     super.dispose();
   }
 
-  void _adjuntarArchivo() {
-    showModalBottomSheet(
-      context: context,
-      builder: (sheetContext) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'Adjuntar archivo',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'Por ahora agregaremos un archivo de prueba. '
-                  'Después conectaremos el selector real de archivos.',
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      _archivos.add(
-                        'archivo_${_archivos.length + 1}.pdf',
-                      );
-                    });
-
-                    Navigator.pop(sheetContext);
-                  },
-                  icon: const Icon(
-                    Icons.upload_file,
-                  ),
-                  label: const Text(
-                    'Agregar archivo',
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+  String _formatearFecha(DateTime fecha) {
+    final dia = fecha.day.toString().padLeft(2, '0');
+    final mes = fecha.month.toString().padLeft(2, '0');
+    return '$dia/$mes/${fecha.year}';
   }
 
-  void _eliminarArchivo(int index) {
-    setState(() {
-      _archivos.removeAt(index);
-    });
-  }
+  void _guardarAvance() {
+    final etiqueta = _etiquetaController.text.trim();
+    final descripcion = _descripcionController.text.trim();
 
-  void _guardar() {
-    final etiqueta =
-        _etiquetaController.text.trim();
-
-    final descripcion =
-        _descripcionController.text.trim();
-
-    final encargado =
-        _encargadoController.text.trim();
-
-    if (etiqueta.isEmpty ||
-        descripcion.isEmpty ||
-        encargado.isEmpty) {
+    if (etiqueta.isEmpty || descripcion.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-            'Completa etiqueta, descripción y encargado.',
+            'Completa el título y la descripción del avance.',
           ),
         ),
       );
       return;
     }
 
-    final avance = AvanceData(
-      autor: encargado,
+    final nuevoAvance = AvanceData(
+      autor: _responsable,
       etiqueta: etiqueta,
       descripcion: descripcion,
-      fecha: widget.avance?.fecha ?? DateTime.now(),
-      archivos: List<String>.from(_archivos),
+      fecha: _fecha,
+      archivos: widget.avance?.archivos ?? [],
     );
 
-    Navigator.pop(
-      context,
-      avance,
-    );
+    Navigator.pop(context, nuevoAvance);
   }
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final esEdicion = widget.avance != null;
 
     return Scaffold(
       backgroundColor: scheme.surface,
@@ -159,21 +97,16 @@ class _AgregarAvancePageState
         child: Column(
           children: [
             AppScreenTitle(
-              title: 'Avances',
-              onBack: () {
-                Navigator.pop(context);
-              },
+              title: esEdicion
+                  ? 'Editar avance'
+                  : 'Crear nuevo avance',
+              onBack: () => Navigator.pop(context),
             ),
-
             const Divider(height: 1),
-
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(
-                  22,
-                  28,
-                  22,
-                  30,
+                  22, 26, 22, 30,
                 ),
                 children: [
                   Text(
@@ -185,214 +118,135 @@ class _AgregarAvancePageState
                     ),
                   ),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 12),
 
-                  _FormLabel(
-                    text: 'Etiqueta:',
+                  Text(
+                    esEdicion
+                        ? 'Actualiza la información del avance.'
+                        : 'Registra las actividades realizadas '
+                          'durante esta etapa.',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: scheme.onSurfaceVariant,
+                    ),
                   ),
 
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 30),
 
+                  const _FormLabel(
+                    text: 'Título del avance',
+                  ),
+                  const SizedBox(height: 8),
                   TextField(
                     controller: _etiquetaController,
+                    maxLength: 100,
                     decoration: _inputDecoration(
-                      'Etiqueta del avance',
+                      'Ej. Investigación inicial completada',
                     ),
                   ),
 
-                  const SizedBox(height: 26),
+                  const SizedBox(height: 22),
 
-                  _FormLabel(
-                    text: 'Descripción:',
+                  const _FormLabel(
+                    text: 'Responsable',
+                  ),
+                  const SizedBox(height: 8),
+                  _ReadOnlyField(
+                    icon: Icons.person_outline,
+                    text: _responsable,
                   ),
 
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 22),
 
+                  const _FormLabel(
+                    text: 'Fecha del avance',
+                  ),
+                  const SizedBox(height: 8),
+                  _ReadOnlyField(
+                    icon: Icons.calendar_today_outlined,
+                    text: _formatearFecha(_fecha),
+                  ),
+
+                  const SizedBox(height: 22),
+
+                  const _FormLabel(
+                    text: 'Descripción del avance',
+                  ),
+                  const SizedBox(height: 8),
                   TextField(
                     controller: _descripcionController,
-                    minLines: 3,
-                    maxLines: 5,
+                    minLines: 4,
+                    maxLines: 7,
+                    maxLength: 500,
                     decoration: _inputDecoration(
-                      'Durante esta etapa...',
+                      'Describe las actividades realizadas, '
+                      'los resultados obtenidos y el progreso '
+                      'alcanzado...',
                     ),
                   ),
 
-                  const SizedBox(height: 26),
+                  const SizedBox(height: 12),
 
-                  _FormLabel(
-                    text: 'Encargado:',
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  TextField(
-                    controller: _encargadoController,
-                    decoration: _inputDecoration(
-                      '@integrante',
-                    ),
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  _FormLabel(
-                    text: 'Adjuntar archivos:',
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  InkWell(
-                    borderRadius:
-                        BorderRadius.circular(12),
-                    onTap: _adjuntarArchivo,
-                    child: Container(
-                      padding:
-                          const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 17,
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.info_outline,
+                        size: 18,
+                        color: scheme.onSurfaceVariant,
                       ),
-                      decoration: BoxDecoration(
-                        color:
-                            scheme.surfaceContainerLowest,
-                        borderRadius:
-                            BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: scheme.shadow.withValues(
-                              alpha: 0.15,
-                            ),
-                            blurRadius: 5,
-                            offset:
-                                const Offset(0, 3),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'El responsable y la fecha se '
+                          'asignarán automáticamente.',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: scheme.onSurfaceVariant,
                           ),
-                        ],
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              '.png, .pdf, .zip',
-                              style: TextStyle(
-                                color:
-                                    scheme.onSurfaceVariant,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          Icon(
-                            Icons.upload_outlined,
-                            color: scheme.onSurface,
-                          ),
-                        ],
-                      ),
-                    ),
+                    ],
                   ),
 
-                  if (_archivos.isNotEmpty) ...[
-                    const SizedBox(height: 14),
-
-                    ...List.generate(
-                      _archivos.length,
-                      (index) {
-                        return Padding(
-                          padding:
-                              const EdgeInsets.only(
-                            bottom: 8,
-                          ),
-                          child: Container(
-                            padding:
-                                const EdgeInsets.symmetric(
-                              horizontal: 14,
-                              vertical: 10,
-                            ),
-                            decoration: BoxDecoration(
-                              color: scheme
-                                  .surfaceContainerHighest,
-                              borderRadius:
-                                  BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.attach_file,
-                                  size: 20,
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    _archivos[index],
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    _eliminarArchivo(
-                                      index,
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.close,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-
-                  const SizedBox(height: 60),
+                  const SizedBox(height: 36),
 
                   Row(
                     children: [
                       Expanded(
-                        child: SizedBox(
-                          height: 52,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            style:
-                                ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  scheme.primary,
-                              foregroundColor:
-                                  scheme.onPrimary,
-                            ),
-                            child: const Text(
-                              'Cancelar',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight:
-                                    FontWeight.bold,
-                              ),
+                        child: OutlinedButton(
+                          onPressed: () =>
+                              Navigator.pop(context),
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: const Size(0, 52),
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(12),
                             ),
                           ),
+                          child: const Text('Cancelar'),
                         ),
                       ),
-
-                      const SizedBox(width: 16),
-
+                      const SizedBox(width: 12),
                       Expanded(
-                        child: SizedBox(
-                          height: 52,
-                          child: ElevatedButton(
-                            onPressed: _guardar,
-                            style:
-                                ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  scheme.primary,
-                              foregroundColor:
-                                  scheme.onPrimary,
-                            ),
-                            child: Text(
-                              widget.avance == null
-                                  ? 'Guardar'
-                                  : 'Actualizar',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight:
-                                    FontWeight.bold,
-                              ),
+                        child: ElevatedButton.icon(
+                          onPressed: _guardarAvance,
+                          icon: Icon(
+                            esEdicion
+                                ? Icons.check
+                                : Icons.save_outlined,
+                          ),
+                          label: Text(
+                            esEdicion
+                                ? 'Actualizar'
+                                : 'Guardar avance',
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(0, 52),
+                            backgroundColor: scheme.primary,
+                            foregroundColor: scheme.onPrimary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(12),
                             ),
                           ),
                         ),
@@ -408,25 +262,25 @@ class _AgregarAvancePageState
     );
   }
 
-  InputDecoration _inputDecoration(
-    String hint,
-  ) {
+  InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
       filled: true,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
+      fillColor: Theme.of(context)
+          .colorScheme
+          .surfaceContainerLowest,
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 16,
       ),
-      enabledBorder: OutlineInputBorder(
+      border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(
-          color:
-              Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.primary,
         ),
       ),
     );
@@ -436,17 +290,59 @@ class _AgregarAvancePageState
 class _FormLabel extends StatelessWidget {
   final String text;
 
-  const _FormLabel({
-    required this.text,
-  });
+  const _FormLabel({required this.text});
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       style: const TextStyle(
-        fontSize: 18,
+        fontSize: 17,
         fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+}
+
+class _ReadOnlyField extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const _ReadOnlyField({
+    required this.icon,
+    required this.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 17,
+      ),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 20, color: scheme.primary),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 15),
+            ),
+          ),
+          Icon(
+            Icons.lock_outline,
+            size: 17,
+            color: scheme.onSurfaceVariant,
+          ),
+        ],
       ),
     );
   }

@@ -1,3 +1,5 @@
+
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import 'package:uncampusconnet/core/database/roble_client.dart';
@@ -7,13 +9,8 @@ import 'package:uncampusconnet/features/mis_proyectos/data/proyect_data.dart';
 class MyProjectsController extends GetxController {
   final SesionController _sesionController = Get.find<SesionController>();
 
-  /// Indicador de carga
   final cargando = false.obs;
-
-  /// Proyectos del usuario (desde Roble)
   final proyectos = <ProjectData>[].obs;
-
-  /// Texto de búsqueda
   final searchText = ''.obs;
 
   @override
@@ -22,54 +19,89 @@ class MyProjectsController extends GetxController {
     cargarProyectos();
   }
 
-  //Cargar proyectos
   Future<void> cargarProyectos() async {
     cargando.value = true;
 
     try {
-      // 1. ID del usuario
       final idUsuario = _sesionController.idUsuario;
+
       if (idUsuario == null) {
+        debugPrint('[MIS_PROYECTOS] Usuario sin perfil');
         proyectos.clear();
         return;
       }
 
-      // 2. Obtener los integrantes del usuario
+      debugPrint('[MIS_PROYECTOS] Usuario: $idUsuario');
+
+      // Proyectos creados por el usuario.
+      final proyectosCreados = await RobleClient.instance.read(
+        'proyecto',
+        filters: {'id_creador': idUsuario},
+      );
+
+      // Proyectos donde el usuario es integrante.
       final integrantes = await RobleClient.instance.read(
         'integrantes',
         filters: {'id_usuario': idUsuario},
       );
 
-      if (integrantes.isEmpty) {
-        proyectos.clear();
-        return;
-      }
+      debugPrint(
+        '[MIS_PROYECTOS] Creados: ${proyectosCreados.length}',
+      );
 
-      // 3. Construir la lista de ProjectData
-      final lista = <ProjectData>[];
+      debugPrint(
+        '[MIS_PROYECTOS] Participaciones: ${integrantes.length}',
+      );
+
+      // Evitar proyectos duplicados.
+      final idsProyectos = <int>{};
+
+      for (final proyecto in proyectosCreados) {
+        final idProyecto = int.tryParse(
+          proyecto['id_proyecto'].toString(),
+        );
+
+        if (idProyecto != null) {
+          idsProyectos.add(idProyecto);
+        }
+      }
 
       for (final integrante in integrantes) {
         final idProyecto = int.tryParse(
           integrante['id_proyecto'].toString(),
         );
-        final idRol = int.tryParse(
-          integrante['id_rol'].toString(),
-        );
 
-        if (idProyecto == null) continue;
+        if (idProyecto != null) {
+          idsProyectos.add(idProyecto);
+        }
+      }
 
-        final project = await _construirProjectData(
-          idProyecto: idProyecto,
-          idRol: idRol,
-        );
+      final lista = <ProjectData>[];
 
-        if (project != null) {
-          lista.add(project);
+      for (final idProyecto in idsProyectos) {
+        try {
+          final proyecto = await _construirProjectData(
+            idProyecto: idProyecto,
+          );
+
+          if (proyecto != null) {
+            lista.add(proyecto);
+          }
+        } catch (e) {
+          debugPrint(
+            '[MIS_PROYECTOS] Error en proyecto $idProyecto: $e',
+          );
         }
       }
 
       proyectos.assignAll(lista);
-    } catch (e) {
+
+      debugPrint(
+        '[MIS_PROYECTOS] Proyectos cargados: ${lista.length}',
+      );
+    } catch (e, stackTrace) {
+      debugPrint('[MIS_PROYECTOS] Error al cargar: $e');
+      debugPrint('$stackTrace');
       proyectos.clear();
     } finally {
       cargando.value = false;
@@ -78,9 +110,7 @@ class MyProjectsController extends GetxController {
 
   Future<ProjectData?> _construirProjectData({
     required int idProyecto,
-    int? idRol,
   }) async {
-    // 1. Obtener el proyecto
     final proyectosRaw = await RobleClient.instance.read(
       'proyecto',
       filters: {'id_proyecto': idProyecto},
@@ -90,19 +120,20 @@ class MyProjectsController extends GetxController {
 
     final proyecto = proyectosRaw.first;
 
-    // 2. Obtener el nombre del líder (id_creador → tabla usuario)
     final idCreador = int.tryParse(
       proyecto['id_creador'].toString(),
     );
+
     final nombreLider = await _obtenerNombreUsuario(idCreador);
 
-    // 3. Obtener el nombre de la categoría
     final idCategoria = int.tryParse(
       proyecto['id_categoria'].toString(),
     );
-    final nombreCategoria = await _obtenerNombreCategoria(idCategoria);
 
-    // 4. Construir ProjectData
+    final nombreCategoria = await _obtenerNombreCategoria(
+      idCategoria,
+    );
+
     return ProjectData(
       idProyecto: idProyecto,
       title: proyecto['nombre']?.toString() ?? 'Sin nombre',
@@ -121,7 +152,6 @@ class MyProjectsController extends GetxController {
     );
   }
 
-  //Helpers
   Future<String> _obtenerNombreUsuario(int? idUsuario) async {
     if (idUsuario == null) return '';
 
@@ -148,17 +178,15 @@ class MyProjectsController extends GetxController {
     return categorias.first['nombre_categoria']?.toString() ?? '';
   }
 
-  //Busqueda
   void search(String value) {
     searchText.value = value;
   }
 
-  /// Proyectos filtrados por búsqueda
   List<ProjectData> get filteredProjects {
     final query = searchText.value.trim().toLowerCase();
 
     if (query.isEmpty) {
-      return proyectos;
+      return proyectos.toList();
     }
 
     return proyectos.where((project) {
