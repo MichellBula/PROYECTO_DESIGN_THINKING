@@ -8,7 +8,12 @@ class SolicitudModel extends Solicitud {
     required super.fechaEnviada,
     required super.fechaRespuesta,
     required super.idProyectoRol,
+    super.comentario = '',
   });
+
+  // ==========================================================
+  // CONVERTIR ENTIDAD A MODELO
+  // ==========================================================
 
   factory SolicitudModel.fromEntity(
     Solicitud solicitud,
@@ -20,8 +25,13 @@ class SolicitudModel extends Solicitud {
       fechaEnviada: solicitud.fechaEnviada,
       fechaRespuesta: solicitud.fechaRespuesta,
       idProyectoRol: solicitud.idProyectoRol,
+      comentario: solicitud.comentario,
     );
   }
+
+  // ==========================================================
+  // CONVERTIR A MAPA PARA ROBLE
+  // ==========================================================
 
   Map<String, dynamic> toMap({
     required int idSolicitud,
@@ -31,13 +41,12 @@ class SolicitudModel extends Solicitud {
       'id_proyecto': idProyecto,
       'id_usuario': idUsuario,
       'estado': estado,
-      'fecha_enviada': fechaEnviada
-          .toUtc()
-          .toIso8601String(),
-      'fecha_respuesta': fechaRespuesta
-          ?.toUtc()
-          .toIso8601String(),
+      'fecha_enviada':
+          fechaEnviada.toUtc().toIso8601String(),
+      'fecha_respuesta':
+          fechaRespuesta?.toUtc().toIso8601String(),
       'id_proyecto_rol': idProyectoRol,
+      'comentario': comentario.trim(),
     };
   }
 }
