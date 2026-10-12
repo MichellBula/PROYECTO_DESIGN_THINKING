@@ -304,6 +304,7 @@ class _CompletarSolicitudPageState extends State<CompletarSolicitudPage> {
         fechaEnviada: DateTime.now(),
         fechaRespuesta: null,
         idProyectoRol: idProyectoRol,
+        comentario: motivo,
       );
 
       await createSolicitud(solicitud);

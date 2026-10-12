@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/core/theme/theme.dart';
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
+import 'package:uncampusconnet/features/solicitudes/controllers/solicitud_controller.dart';
 import 'package:uncampusconnet/features/solicitudes/data/solicitud_data.dart';
 import 'package:uncampusconnet/ui/widgets/info_field.dart';
 import 'package:uncampusconnet/ui/widgets/screen_title.dart';
@@ -17,12 +18,14 @@ class SolicitudDetallePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final mainController = Get.find<MainController>();
-
+    final solicitudesController = Get.find<SolicitudesController>();
     return Column(
       children: [
         // TÍTULO
         AppScreenTitle(
-          title: 'Solicitud #001',
+          title: solicitud.idSolicitud == null
+              ? 'Solicitud'
+              : 'Solicitud #${solicitud.idSolicitud}',
           onBack: () => mainController.closeSolicitudDetalle(),
         ),
 
@@ -92,35 +95,55 @@ class SolicitudDetallePage extends StatelessWidget {
               const SizedBox(height: 24),
 
               // BOTONES
-              Row(
-                children: [
-                  Expanded(
-                    child: _ActionButton(
-                      text: 'Rechazar',
-                      onPressed: () {
-                        Get.snackbar(
-                          'Rechazada',
-                          'Rechazaste la solicitud de ${solicitud.nombre}',
-                        );
-                        mainController.closeSolicitudDetalle();
-                      },
+              Obx(() {
+                final procesando =
+                    solicitudesController.procesandoSolicitudId.value;
+
+                final estaSolicitudEnProceso =
+                    procesando == solicitud.idSolicitud;
+
+                final hayOperacionEnCurso = procesando != null;
+
+                return Row(
+                  children: [
+                    Expanded(
+                      child: _ActionButton(
+                        text: estaSolicitudEnProceso
+                            ? 'Procesando...'
+                            : 'Rechazar',
+                        onPressed: hayOperacionEnCurso
+                            ? null
+                            : () async {
+                                final resultado = await solicitudesController
+                                    .rechazarSolicitud(solicitud);
+
+                                if (resultado) {
+                                  mainController.closeSolicitudDetalle();
+                                }
+                              },
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: _ActionButton(
-                      text: 'Aceptar',
-                      onPressed: () {
-                        Get.snackbar(
-                          'Aceptada',
-                          'Aceptaste la solicitud de ${solicitud.nombre}',
-                        );
-                        mainController.closeSolicitudDetalle();
-                      },
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: _ActionButton(
+                        text: estaSolicitudEnProceso
+                            ? 'Procesando...'
+                            : 'Aceptar',
+                        onPressed: hayOperacionEnCurso
+                            ? null
+                            : () async {
+                                final resultado = await solicitudesController
+                                    .aceptarSolicitud(solicitud);
+
+                                if (resultado) {
+                                  mainController.closeSolicitudDetalle();
+                                }
+                              },
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                );
+              }),
             ],
           ),
         ),
@@ -131,7 +154,7 @@ class SolicitudDetallePage extends StatelessWidget {
 
 class _ActionButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const _ActionButton({required this.text, required this.onPressed});
 

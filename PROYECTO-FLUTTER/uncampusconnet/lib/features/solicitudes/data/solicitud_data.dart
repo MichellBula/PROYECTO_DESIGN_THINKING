@@ -1,12 +1,24 @@
 class Solicitud {
+  // Datos que necesita la interfaz.
   final String nombre;
-  final String usuario;      // ← NUEVO
+  final String usuario;
   final String proyecto;
   final String cargo;
-  final String carrera;      // ← NUEVO
-  final String semestre;     // ← NUEVO
-  final String motivo;       // ← NUEVO
+  final String carrera;
+  final String semestre;
+  final String motivo;
   final String mensaje;
+
+  // Identificadores reales de Roble.
+  final int? idSolicitud;
+  final int? idProyecto;
+  final int? idUsuario;
+  final int? idProyectoRol;
+
+  // Estado y fechas de la solicitud.
+  final String estado;
+  final DateTime? fechaEnviada;
+  final DateTime? fechaRespuesta;
 
   const Solicitud({
     required this.nombre,
@@ -17,6 +29,13 @@ class Solicitud {
     required this.semestre,
     required this.motivo,
     required this.mensaje,
+    this.idSolicitud,
+    this.idProyecto,
+    this.idUsuario,
+    this.idProyectoRol,
+    this.estado = 'pendiente',
+    this.fechaEnviada,
+    this.fechaRespuesta,
   });
 }
 
@@ -114,8 +133,5 @@ class Mensaje {
   final String texto;
   final bool isMine;
 
-  const Mensaje({
-    required this.texto,
-    required this.isMine,
-  });
+  const Mensaje({required this.texto, required this.isMine});
 }
