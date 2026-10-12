@@ -9,14 +9,17 @@ import 'package:uncampusconnet/features/create_project/models/convocatoria_model
 import 'package:uncampusconnet/features/create_project/models/project_model.dart';
 import 'package:uncampusconnet/features/create_project/models/project_role_model.dart';
 import 'package:uncampusconnet/features/create_project/models/project_skill_model.dart';
+import 'package:uncampusconnet/features/integrantes/data/datasources/integrante_remote_datasource.dart';
 
+// Datasource que crea un proyecto completo en Roble. Se encarga de guardar el proyecto, sus roles, habilidades, la convocatoria y al creador como líder.
 class CreateProjectCompleteRemoteDatasource {
   final RobleApiDataBase roble;
-
+  // Datasources para cada tabla que se necesita
   final ProjectRemoteDatasource projectDatasource;
   final ProjectRolesRemoteDatasource rolesDatasource;
   final ProjectSkillsRemoteDatasource skillsDatasource;
   final ConvocatoriaRemoteDatasource convocatoriaDatasource;
+  final IntegranteRemoteDatasource integranteDatasource;
 
   CreateProjectCompleteRemoteDatasource({
     RobleApiDataBase? roble,
@@ -24,44 +27,33 @@ class CreateProjectCompleteRemoteDatasource {
     ProjectRolesRemoteDatasource? rolesDatasource,
     ProjectSkillsRemoteDatasource? skillsDatasource,
     ConvocatoriaRemoteDatasource? convocatoriaDatasource,
-  }) : roble = roble ?? RobleClient.instance,
-       projectDatasource =
-           projectDatasource ?? ProjectRemoteDatasource(roble: roble),
-       rolesDatasource =
-           rolesDatasource ?? ProjectRolesRemoteDatasource(roble: roble),
-       skillsDatasource =
-           skillsDatasource ?? ProjectSkillsRemoteDatasource(roble: roble),
-       convocatoriaDatasource =
-           convocatoriaDatasource ?? ConvocatoriaRemoteDatasource(roble: roble);
+    IntegranteRemoteDatasource? integranteDatasource,
+  })  : roble = roble ?? RobleClient.instance,
+        projectDatasource =
+            projectDatasource ?? ProjectRemoteDatasource(roble: roble),
+        rolesDatasource =
+            rolesDatasource ?? ProjectRolesRemoteDatasource(roble: roble),
+        skillsDatasource =
+            skillsDatasource ?? ProjectSkillsRemoteDatasource(roble: roble),
+        convocatoriaDatasource =
+            convocatoriaDatasource ?? ConvocatoriaRemoteDatasource(roble: roble),
+        integranteDatasource =
+            integranteDatasource ?? IntegranteRemoteDatasource(roble: roble);
 
-  // ==========================================================
-  // CONFIGURACIÓN
-  // ==========================================================
-
+  // Días antes del cierre que se bloquea el abandono
   static const Duration _diasAntesDeCierre = Duration(days: 2);
 
-  // ==========================================================
-  // USUARIO AUTENTICADO
-  // ==========================================================
+  // ID del rol Líder en la tabla rol
+  static const int _idRolLider = 1;
 
+  // Obtiene el id_usuario del usuario que está logueado
   Future<int> _obtenerIdUsuarioAutenticado() async {
-    print(
-      '[COMPLETE_PROJECT] '
-      'Obteniendo usuario autenticado...',
-    );
-
     final user = await roble.currentUser();
-
     final userId = user['userId']?.toString();
 
     if (userId == null || userId.isEmpty) {
       throw Exception('No fue posible obtener el usuario autenticado.');
     }
-
-    print(
-      '[COMPLETE_PROJECT] '
-      'Roble userId: $userId',
-    );
 
     final usuarios = await roble.read(
       'usuario',
@@ -78,29 +70,17 @@ class CreateProjectCompleteRemoteDatasource {
       throw Exception('El perfil autenticado no tiene un id_usuario válido.');
     }
 
-    print(
-      '[COMPLETE_PROJECT] '
-      'id_usuario autenticado: $idUsuario',
-    );
-
     return idUsuario;
   }
 
-  // ==========================================================
-  // RESOLVER IDS
-  // ==========================================================
-
+  // Busca el id de un registro por su nombre en una tabla
+  // Se usa para categorías, tipos de proyecto, roles y habilidades
   Future<int> _obtenerIdPorNombre({
     required String tabla,
     required String campoId,
     required String valor,
     required List<String> camposNombre,
   }) async {
-    print(
-      '[COMPLETE_PROJECT] '
-      'Buscando "$valor" en "$tabla"...',
-    );
-
     final registros = await roble.read(tabla);
 
     final buscado = valor.trim().toLowerCase();
@@ -113,11 +93,6 @@ class CreateProjectCompleteRemoteDatasource {
           final id = int.tryParse(registro[campoId].toString());
 
           if (id != null) {
-            print(
-              '[COMPLETE_PROJECT] '
-              '"$valor" → ID $id',
-            );
-
             return id;
           }
         }
@@ -127,36 +102,46 @@ class CreateProjectCompleteRemoteDatasource {
     throw Exception('No se encontró "$valor" en la tabla $tabla.');
   }
 
-  // ==========================================================
-  // NORMALIZAR FECHAS
-  // ==========================================================
-
+  // Devuelve la fecha sin hora (00:00:00)
   DateTime _inicioDelDia(DateTime fecha) {
     return DateTime(fecha.year, fecha.month, fecha.day);
   }
 
+  // Devuelve la fecha con hora final del día (23:59:59)
   DateTime _finalDelDia(DateTime fecha) {
     return DateTime(fecha.year, fecha.month, fecha.day, 23, 59, 59);
   }
 
-  // ==========================================================
-  // CREACIÓN COMPLETA
-  // ==========================================================
+  // Agrega al creador del proyecto como integrante con rol Líder
+  Future<void> _agregarCreadorComoLider({
+    required int idProyecto,
+    required int idCreador,
+  }) async {
+    // Si ya existe como integrante, no se agrega de nuevo
+    final existentes = await roble.read(
+      'integrantes',
+      filters: {
+        'id_usuario': idCreador,
+        'id_proyecto': idProyecto,
+      },
+    );
 
+    if (existentes.isNotEmpty) {
+      return;
+    }
+
+    await integranteDatasource.createIntegranteSimple(
+      idUsuario: idCreador,
+      idProyecto: idProyecto,
+      idRol: _idRolLider,
+    );
+  }
+
+  // Crea el proyecto completo en Roble
   Future<Map<String, dynamic>> crearProyectoCompleto(
     CreateProjectRequest request,
   ) async {
-    print('');
-    print('==================================================');
-    print('[COMPLETE_PROJECT] INICIANDO CREACIÓN COMPLETA');
-    print('==================================================');
-
-    // ========================================================
-    // VALIDACIONES
-    // ========================================================
-
-    print('[COMPLETE_PROJECT] Validando información...');
-
+    // Validaciones de los campos obligatorios
     if (request.nombreProyecto.trim().isEmpty) {
       throw Exception('El nombre del proyecto no puede estar vacío.');
     }
@@ -191,9 +176,9 @@ class CreateProjectCompleteRemoteDatasource {
       );
     }
 
-    final diasDuracion = request.fechaCierre
-        .difference(request.fechaInicio)
-        .inDays;
+    // El proyecto debe durar mínimo 7 días
+    final diasDuracion =
+        request.fechaCierre.difference(request.fechaInicio).inDays;
 
     if (diasDuracion < 7) {
       throw Exception(
@@ -201,18 +186,10 @@ class CreateProjectCompleteRemoteDatasource {
       );
     }
 
-    print('[COMPLETE_PROJECT] ✅ Validaciones correctas.');
-
-    // ========================================================
-    // USUARIO AUTENTICADO
-    // ========================================================
-
+    // Obtener el id del usuario que crea el proyecto
     final idCreador = await _obtenerIdUsuarioAutenticado();
 
-    // ========================================================
-    // RESOLVER CATEGORÍA
-    // ========================================================
-
+    // Resolver el id de la categoría
     final idCategoria = await _obtenerIdPorNombre(
       tabla: 'categoria',
       campoId: 'id_categoria',
@@ -220,10 +197,7 @@ class CreateProjectCompleteRemoteDatasource {
       camposNombre: const ['nombre_categoria', 'categoria', 'nombre'],
     );
 
-    // ========================================================
-    // RESOLVER TIPO DE PROYECTO
-    // ========================================================
-
+    // Resolver el id del tipo de proyecto
     final idTipoProyecto = await _obtenerIdPorNombre(
       tabla: 'tipo_proyecto',
       campoId: 'id_tipo_proyecto',
@@ -231,10 +205,7 @@ class CreateProjectCompleteRemoteDatasource {
       camposNombre: const ['nombre_tipo_proyecto', 'tipo_proyecto', 'nombre'],
     );
 
-    // ========================================================
-    // RESOLVER ROLES
-    // ========================================================
-
+    // Resolver los ids de todos los roles seleccionados
     final Map<String, int> idsRoles = {};
 
     for (final nombreRol in request.roles) {
@@ -246,10 +217,7 @@ class CreateProjectCompleteRemoteDatasource {
       );
     }
 
-    // ========================================================
-    // RESOLVER HABILIDADES
-    // ========================================================
-
+    // Resolver los ids de todas las habilidades seleccionadas
     final Map<String, int> idsHabilidades = {};
 
     for (final habilidad in request.habilidades) {
@@ -261,10 +229,7 @@ class CreateProjectCompleteRemoteDatasource {
       );
     }
 
-    // ========================================================
-    // CALCULAR TOTAL DE INTEGRANTES
-    // ========================================================
-
+    // Calcular el total de integrantes sumando las cantidades por rol
     int totalIntegrantes = 0;
 
     for (final nombreRol in request.roles) {
@@ -279,32 +244,14 @@ class CreateProjectCompleteRemoteDatasource {
       totalIntegrantes += cantidad;
     }
 
-    print(
-      '[COMPLETE_PROJECT] '
-      'Total de integrantes requeridos: '
-      '$totalIntegrantes',
-    );
-
-    // ========================================================
-    // FECHAS
-    // ========================================================
-
+    // Normalizar las fechas
     final fechaInicio = _inicioDelDia(request.fechaInicio);
-
     final fechaFinal = _finalDelDia(request.fechaCierre);
 
+    // Fecha límite para abandonar el proyecto
     final fechaLimiteAbandono = fechaFinal.subtract(_diasAntesDeCierre);
 
-    // ========================================================
-    // CREAR PROJECT
-    // ========================================================
-
-    print('');
-    print(
-      '[COMPLETE_PROJECT] '
-      '========== 1/4 PROYECTO ==========',
-    );
-
+    // Crear el modelo del proyecto
     final project = ProjectModel(
       nombre: request.nombreProyecto.trim(),
       descripcion: request.descripcion.trim(),
@@ -318,133 +265,57 @@ class CreateProjectCompleteRemoteDatasource {
       estado: 'activo',
     );
 
+    // Guardar el proyecto en la tabla proyecto
     final proyectoCreado = await projectDatasource.createProject(project);
 
     final idProyecto = int.parse(proyectoCreado['id_proyecto'].toString());
 
-    print(
-      '[COMPLETE_PROJECT] ✅ Proyecto listo. '
-      'id_proyecto=$idProyecto',
-    );
-
-    // ========================================================
-    // CREAR ROLES
-    // ========================================================
-
-    print('');
-    print(
-      '[COMPLETE_PROJECT] '
-      '========== 2/4 ROLES ==========',
-    );
-
+    // Guardar cada rol del proyecto en la tabla proyecto_rol
     for (final nombreRol in request.roles) {
       final idRol = idsRoles[nombreRol]!;
-
       final cantidad = request.cantidadesPorRol[nombreRol]!;
 
-      print(
-        '[COMPLETE_PROJECT] '
-        'Creando rol "$nombreRol" '
-        '(id=$idRol, cantidad=$cantidad)...',
-      );
-
-      final resultado = await rolesDatasource.createProjectRole(
+      await rolesDatasource.createProjectRole(
         ProjectRoleModel(
           idProyecto: idProyecto,
           idRol: idRol,
           cantidad: cantidad,
         ),
       );
-
-      print(
-        '[COMPLETE_PROJECT] ✅ Rol guardado: '
-        '${resultado['id_proyecto_rol']}',
-      );
     }
 
-    // ========================================================
-    // CREAR HABILIDADES
-    // ========================================================
-
-    print('');
-    print(
-      '[COMPLETE_PROJECT] '
-      '========== 3/4 HABILIDADES ==========',
-    );
-
+    // Guardar cada habilidad del proyecto en la tabla proyecto_habilidad
     for (final nombreHabilidad in request.habilidades) {
       final idHabilidad = idsHabilidades[nombreHabilidad]!;
 
-      print(
-        '[COMPLETE_PROJECT] '
-        'Creando habilidad "$nombreHabilidad" '
-        '(id=$idHabilidad)...',
-      );
-
-      final resultado = await skillsDatasource.createProjectSkill(
-        ProjectSkillModel(idProyecto: idProyecto, idHabilidad: idHabilidad),
-      );
-
-      print(
-        '[COMPLETE_PROJECT] ✅ Habilidad guardada: '
-        '${resultado['id_proyecto_habilidad']}',
+      await skillsDatasource.createProjectSkill(
+        ProjectSkillModel(
+          idProyecto: idProyecto,
+          idHabilidad: idHabilidad,
+        ),
       );
     }
 
-    // ========================================================
-    // CREAR CONVOCATORIA
-    // ========================================================
-
-    print('');
-    print(
-      '[COMPLETE_PROJECT] '
-      '========== 4/4 CONVOCATORIA ==========',
+    // Guardar la convocatoria del proyecto
+    await convocatoriaDatasource.createConvocatoria(
+      ConvocatoriaModel(
+        idProyecto: idProyecto,
+        fechaInicio: fechaInicio,
+        fechaFinal: fechaFinal,
+        estado: true,
+        fechaLimiteDeAbandono: fechaLimiteAbandono,
+      ),
     );
 
-    final resultadoConvocatoria = await convocatoriaDatasource
-        .createConvocatoria(
-          ConvocatoriaModel(
-            idProyecto: idProyecto,
-            fechaInicio: fechaInicio,
-            fechaFinal: fechaFinal,
-            estado: true,
-            fechaLimiteDeAbandono: fechaLimiteAbandono,
-          ),
-        );
-
-    print('[COMPLETE_PROJECT] ✅ Convocatoria guardada.');
-
-    print(
-      '[COMPLETE_PROJECT] '
-      'Resultado convocatoria: '
-      '$resultadoConvocatoria',
+    // Agregar al creador como líder del proyecto
+    await _agregarCreadorComoLider(
+      idProyecto: idProyecto,
+      idCreador: idCreador,
     );
 
-    // ========================================================
-    // FINAL
-    // ========================================================
-
-    print('');
-    print('==================================================');
-    print('[COMPLETE_PROJECT] ✅ PROYECTO COMPLETO CREADO');
-    print('==================================================');
-
-    print('[COMPLETE_PROJECT] id_proyecto: $idProyecto');
-
-    print('[COMPLETE_PROJECT] id_creador: $idCreador');
-
-    print(
-      '[COMPLETE_PROJECT] roles: '
-      '${request.roles.length}',
-    );
-
-    print(
-      '[COMPLETE_PROJECT] habilidades: '
-      '${request.habilidades.length}',
-    );
-
-    print('[COMPLETE_PROJECT] convocatoria: creada');
-
-    return {'proyecto': proyectoCreado, 'id_proyecto': idProyecto};
+    return {
+      'proyecto': proyectoCreado,
+      'id_proyecto': idProyecto,
+    };
   }
 }

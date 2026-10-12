@@ -14,16 +14,20 @@ class MainController extends GetxController {
   /// 5 = Detalle solicitud
   /// 6 = Chat con solicitante
   /// 7 = Detalle proyecto
+  /// 8 = Participantes
+  /// 9 = Avances
+  /// 10 = Eventos
   final currentIndex = 0.obs;
 
   final isDarkMode = false.obs;
 
   final selectedSolicitud = Rxn<Solicitud>();
 
-  /// Proyecto seleccionado actualmente.
   final selectedProject = Rxn<ProjectData>();
+  final selectedProjectForParticipantes = Rxn<ProjectData>();
+  final selectedProjectForAvances = Rxn<ProjectData>();
+  final selectedProjectForEventos = Rxn<ProjectData>();
 
-  //Acciones
   void changeTab(int index) {
     currentIndex.value = index;
   }
@@ -34,25 +38,21 @@ class MainController extends GetxController {
     Get.changeThemeMode(isDarkMode.value ? ThemeMode.dark : ThemeMode.light);
   }
 
-  /// Abrir el detalle de una solicitud
   void openSolicitudDetalle(Solicitud solicitud) {
     selectedSolicitud.value = solicitud;
     currentIndex.value = 5;
   }
 
-  /// Cerrar el detalle y volver a Solicitudes
   void closeSolicitudDetalle() {
     selectedSolicitud.value = null;
     currentIndex.value = 4;
   }
 
-  /// Abrir chat con el solicitante
   void openChatSolicitud(Solicitud solicitud) {
     selectedSolicitud.value = solicitud;
     currentIndex.value = 6;
   }
 
-  /// Cerrar chat y volver a detalles
   void closeChatSolicitud() {
     currentIndex.value = 5;
   }
@@ -62,14 +62,38 @@ class MainController extends GetxController {
     currentIndex.value = 7;
   }
 
-  /// Cierra el detalle del proyecto y vuelve a Mis proyectos.
   void closeProjectDetail() {
     selectedProject.value = null;
     currentIndex.value = 3;
   }
-}
 
-/// Abre el detalle del proyecto seleccionado.
-///
-/// Guarda el proyecto y cambia la vista a la pantalla
-/// de detalle de proyectos.
+  void openParticipantes(ProjectData project) {
+    selectedProjectForParticipantes.value = project;
+    currentIndex.value = 8;
+  }
+
+  void closeParticipantes() {
+    selectedProjectForParticipantes.value = null;
+    currentIndex.value = 7;
+  }
+
+  void openAvances(ProjectData project) {
+    selectedProjectForAvances.value = project;
+    currentIndex.value = 9;
+  }
+
+  void closeAvances() {
+    selectedProjectForAvances.value = null;
+    currentIndex.value = 7;
+  }
+
+  void openEventos(ProjectData project) {
+    selectedProjectForEventos.value = project;
+    currentIndex.value = 10;
+  }
+
+  void closeEventos() {
+    selectedProjectForEventos.value = null;
+    currentIndex.value = 7;
+  }
+}

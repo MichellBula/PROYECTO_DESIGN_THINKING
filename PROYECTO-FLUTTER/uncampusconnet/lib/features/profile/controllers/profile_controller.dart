@@ -3,38 +3,32 @@ import 'package:get/get.dart';
 
 import '../../auth/controllers/sesion_controller.dart';
 import '../data/datasources/profile_remote_datasource.dart';
+import '../data/models/proyecto_participacion_model.dart';
 import '../data/repositories/profile_repository_impl.dart';
 import '../domain/entities/profile.dart';
 import '../domain/usecases/get_my_profile.dart';
+import '../domain/usecases/get_mis_proyectos_participados.dart';
 
 class ProfileController extends GetxController {
-  final SesionController _sesionController =
-      Get.find<SesionController>();
+  final SesionController _sesionController = Get.find<SesionController>();
 
   late final GetMyProfile _getMyProfile;
+  late final GetMisProyectosParticipados _getProyectos;
 
   final cargando = false.obs;
-
   final perfil = Rxn<Profile>();
-
   final error = RxnString();
+  final proyectos = <ProyectoParticipacion>[].obs;
 
   @override
   void onInit() {
     super.onInit();
 
-    final datasource =
-        ProfileRemoteDatasource();
+    final datasource = ProfileRemoteDatasource();
+    final repository = ProfileRepositoryImpl(datasource: datasource);
 
-    final repository =
-        ProfileRepositoryImpl(
-      datasource: datasource,
-    );
-
-    _getMyProfile =
-        GetMyProfile(
-      repository: repository,
-    );
+    _getMyProfile = GetMyProfile(repository: repository);
+    _getProyectos = GetMisProyectosParticipados(repository: repository);
 
     cargarPerfil();
   }
@@ -44,34 +38,27 @@ class ProfileController extends GetxController {
     error.value = null;
 
     try {
-      final idUsuario =
-          _sesionController.idUsuario;
+      final idUsuario = _sesionController.idUsuario;
 
       if (idUsuario == null) {
-        error.value =
-            'No se encontró el usuario autenticado.';
+        error.value = 'No se encontró el usuario autenticado.';
         return;
       }
 
-      final resultado =
-          await _getMyProfile(
-        idUsuario,
-      );
+      final resultado = await _getMyProfile(idUsuario);
 
       if (resultado == null) {
-        error.value =
-            'No se encontró el perfil del usuario.';
+        error.value = 'No se encontró el perfil del usuario.';
         return;
       }
 
       perfil.value = resultado;
-    } catch (e) {
-      debugPrint(
-        'Error cargando perfil: $e',
-      );
 
-      error.value =
-          'No fue posible cargar el perfil.';
+      final proyectosUsuario = await _getProyectos(idUsuario);
+      proyectos.assignAll(proyectosUsuario);
+    } catch (e) {
+      debugPrint('Error cargando perfil: $e');
+      error.value = 'No fue posible cargar el perfil.';
     } finally {
       cargando.value = false;
     }
@@ -81,32 +68,16 @@ class ProfileController extends GetxController {
     await cargarPerfil();
   }
 
-  String obtenerIniciales(
-    String nombre,
-  ) {
+  String obtenerIniciales(String nombre) {
     final partes = nombre
         .trim()
-        .split(
-          RegExp(r'\s+'),
-        )
-        .where(
-          (parte) =>
-              parte.isNotEmpty,
-        )
+        .split(RegExp(r'\s+'))
+        .where((parte) => parte.isNotEmpty)
         .toList();
 
-    if (partes.isEmpty) {
-      return 'U';
-    }
+    if (partes.isEmpty) return 'U';
+    if (partes.length == 1) return partes.first[0].toUpperCase();
 
-    if (partes.length == 1) {
-      return partes.first[0]
-          .toUpperCase();
-    }
-
-    return (
-      '${partes.first[0]}'
-      '${partes.last[0]}'
-    ).toUpperCase();
+    return ('${partes.first[0]}${partes.last[0]}').toUpperCase();
   }
 }

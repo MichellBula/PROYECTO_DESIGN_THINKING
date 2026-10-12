@@ -5,9 +5,6 @@ import 'package:uncampusconnet/core/theme/text_styles.dart';
 import 'package:uncampusconnet/features/create_project/widgets/confirmaction_button.dart';
 import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 import 'package:uncampusconnet/features/mis_proyectos/data/proyect_data.dart';
-import 'package:uncampusconnet/features/mis_proyectos/pages/avances_page.dart';
-import 'package:uncampusconnet/features/mis_proyectos/pages/eventos_proyecto_page.dart';
-import 'package:uncampusconnet/features/mis_proyectos/pages/participantes_page.dart';
 import 'package:uncampusconnet/features/mis_proyectos/widgets/project_detail_header.dart';
 import 'package:uncampusconnet/ui/widgets/info_field.dart';
 import 'package:uncampusconnet/ui/widgets/screen_title.dart';
@@ -28,25 +25,21 @@ class ProjectDetailPage extends StatelessWidget {
       return SafeArea(
         child: Column(
           children: [
-            // TÍTULO
             AppScreenTitle(
               title: 'Mis proyectos',
               onBack: () => mainController.closeProjectDetail(),
             ),
 
-            // CONTENIDO
             Expanded(
               child: ListView(
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
                 padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
                 children: [
-                  // CABECERA
                   ProjectDetailHeader(project: project),
 
                   const SizedBox(height: 24),
 
-                  // DESCRIPCIÓN
                   InfoField(
                     label: 'Descripción:',
                     value: project.description,
@@ -55,7 +48,6 @@ class ProjectDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // REQUISITOS
                   InfoField(
                     label: 'Requisitos:',
                     value: project.requirements,
@@ -64,7 +56,6 @@ class ProjectDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  // ROLES DISPONIBLES
                   Text(
                     'Roles disponibles:',
                     style: AppTextStyles.fieldLabel.copyWith(
@@ -87,7 +78,6 @@ class ProjectDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 22),
 
-                  // FECHA DE CIERRE
                   Text(
                     'Fecha cierre convocatoria:',
                     style: AppTextStyles.fieldLabel.copyWith(
@@ -116,24 +106,21 @@ class ProjectDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 28),
 
-                  // ACCIONES
                   Row(
                     children: [
                       Expanded(
                         child: ConfirmationButton(
                           text: 'Participantes',
-                          onPressed: () => Get.to(
-                            () => ParticipantesPage(project: project),
-                          ),
+                          onPressed: () =>
+                              mainController.openParticipantes(project),
                         ),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: ConfirmationButton(
                           text: 'Eventos',
-                          onPressed: () => Get.to(
-                            () => EventosProyectoPage(project: project),
-                          ),
+                          onPressed: () =>
+                              mainController.openEventos(project),
                         ),
                       ),
                     ],
@@ -145,9 +132,7 @@ class ProjectDetailPage extends StatelessWidget {
                     width: double.infinity,
                     child: ConfirmationButton(
                       text: 'Avances',
-                      onPressed: () => Get.to(
-                        () => AvancesPage(project: project),
-                      ),
+                      onPressed: () => mainController.openAvances(project),
                     ),
                   ),
 
@@ -169,8 +154,6 @@ class ProjectDetailPage extends StatelessWidget {
         '${date.year}';
   }
 }
-
-//Tarjeta rol
 
 class _RoleVacancy extends StatelessWidget {
   final String role;

@@ -1,6 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import 'package:uncampusconnet/features/home/controllers/main_controller.dart';
 import 'package:uncampusconnet/features/mis_proyectos/data/proyect_data.dart';
 import 'package:uncampusconnet/features/mis_proyectos/models/etapa_data.dart';
 import 'package:uncampusconnet/features/mis_proyectos/models/etapas_local_store.dart';
@@ -22,6 +23,7 @@ class AvancesPage extends StatefulWidget {
 }
 
 class _AvancesPageState extends State<AvancesPage> {
+  final mainController = Get.find<MainController>();
   late List<EtapaData> _etapas;
 
   @override
@@ -127,9 +129,7 @@ class _AvancesPageState extends State<AvancesPage> {
           onChanged: (etapaActualizada) {
             if (!mounted) return;
 
-            final posicionActual = _etapas.indexOf(
-              etapaSeleccionada,
-            );
+            final posicionActual = _etapas.indexOf(etapaSeleccionada);
 
             if (posicionActual == -1) return;
 
@@ -146,94 +146,82 @@ class _AvancesPageState extends State<AvancesPage> {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
 
-    return Scaffold(
-      backgroundColor: scheme.surface,
-      body: SafeArea(
-        child: Column(
-          children: [
-            AppScreenTitle(
-              title: 'Avances',
-              onBack: () => Navigator.pop(context),
-            ),
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.all(20),
-                children: [
-                  _ProjectHeader(project: widget.project),
-
-                  const SizedBox(height: 30),
-
-                  if (_etapas.isEmpty)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 30,
-                      ),
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.layers_outlined,
-                              size: 55,
-                              color: scheme.primary,
-                            ),
-                            const SizedBox(height: 12),
-                            const Text(
-                              'Este proyecto aún no tiene etapas.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'Crea una etapa para comenzar a registrar avances.',
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                  ...List.generate(
-                    _etapas.length,
-                    (index) => Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 18,
-                      ),
-                      child: EtapaCard(
-                        numero: index + 1,
-                        etapa: _etapas[index],
-                        onVerDetalles: () => _verDetalles(index),
-                        onEditar: () => _editarEtapa(index),
-                        onEliminar: () => _eliminarEtapa(index),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  ElevatedButton(
-                    onPressed: _crearEtapa,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: scheme.primary,
-                      foregroundColor: scheme.onPrimary,
-                      minimumSize: const Size(
-                        double.infinity,
-                        52,
-                      ),
-                    ),
-                    child: const Text(
-                      'Crear Etapa nueva',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+    return Column(
+      children: [
+        AppScreenTitle(
+          title: 'Avances',
+          onBack: () => mainController.closeAvances(),
         ),
-      ),
+        Expanded(
+          child: ListView(
+            padding: const EdgeInsets.all(20),
+            children: [
+              _ProjectHeader(project: widget.project),
+
+              const SizedBox(height: 30),
+
+              if (_etapas.isEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.layers_outlined,
+                          size: 55,
+                          color: scheme.primary,
+                        ),
+                        const SizedBox(height: 12),
+                        const Text(
+                          'Este proyecto aún no tiene etapas.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Crea una etapa para comenzar a registrar avances.',
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+              ...List.generate(
+                _etapas.length,
+                (index) => Padding(
+                  padding: const EdgeInsets.only(bottom: 18),
+                  child: EtapaCard(
+                    numero: index + 1,
+                    etapa: _etapas[index],
+                    onVerDetalles: () => _verDetalles(index),
+                    onEditar: () => _editarEtapa(index),
+                    onEliminar: () => _eliminarEtapa(index),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              ElevatedButton(
+                onPressed: _crearEtapa,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: scheme.primary,
+                  foregroundColor: scheme.onPrimary,
+                  minimumSize: const Size(double.infinity, 52),
+                ),
+                child: const Text(
+                  'Crear Etapa nueva',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

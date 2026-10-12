@@ -1,5 +1,4 @@
 import 'package:roble/roble.dart';
-
 import '../../../../core/database/roble_client.dart';
 import '../../../../core/services/usuario_stats_service.dart';
 import '../../models/integrante_model.dart';
@@ -109,7 +108,7 @@ class IntegranteRemoteDatasource {
         );
 
         print(
-          '[INTEGRANTE] ✅ Integrante creado correctamente.',
+          '[INTEGRANTE] Integrante creado correctamente.',
         );
 
         print(
@@ -131,11 +130,11 @@ class IntegranteRemoteDatasource {
           );
 
           print(
-            '[INTEGRANTE] ✅ Estadísticas del usuario actualizadas.',
+            '[INTEGRANTE] Estadísticas del usuario actualizadas.',
           );
         } catch (e) {
           print(
-            '[INTEGRANTE] ⚠️ El integrante fue creado, '
+            '[INTEGRANTE] El integrante fue creado, '
             'pero no fue posible sincronizar sus estadísticas.',
           );
 
@@ -165,6 +164,53 @@ class IntegranteRemoteDatasource {
     );
   }
 
+  Future<Map<String, dynamic>> createIntegranteSimple({
+    required int idUsuario,
+    required int idProyecto,
+    required int idRol,
+  }) async {
+    for (
+      int intento = 1;
+      intento <= _maxIntentosCrearIntegrante;
+      intento++
+    ) {
+      final idUsuarioIntegrante = await _obtenerSiguienteId();
+
+      try {
+        final resultado = await roble.create(
+          'integrantes',
+          {
+            'id_usuario_integrante': idUsuarioIntegrante,
+            'id_usuario': idUsuario,
+            'id_proyecto': idProyecto,
+            'id_rol': idRol,
+          },
+        );
+
+        final integranteCreado = Map<String, dynamic>.from(resultado);
+
+        try {
+          await _statsService.sincronizarUsuario(idUsuario);
+        } catch (e) {
+          print(
+            '[INTEGRANTE] El integrante fue creado, '
+            'pero no fue posible sincronizar sus estadísticas.',
+          );
+        }
+
+        return integranteCreado;
+      } catch (e) {
+        final idFueOcupado = await _idExiste(idUsuarioIntegrante);
+
+        if (!idFueOcupado || intento == _maxIntentosCrearIntegrante) {
+          rethrow;
+        }
+      }
+    }
+
+    throw Exception('No fue posible crear el integrante.');
+  }
+
   Future<List<Map<String, dynamic>>> getIntegrantesByProject(
     int idProyecto,
   ) async {
@@ -182,8 +228,7 @@ class IntegranteRemoteDatasource {
         .toList();
   }
 
-  Future<Map<String, dynamic>?>
-      getIntegranteByUserAndProject({
+  Future<Map<String, dynamic>?> getIntegranteByUserAndProject({
     required int idUsuario,
     required int idProyecto,
   }) async {

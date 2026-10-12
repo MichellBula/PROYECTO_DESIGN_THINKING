@@ -3,8 +3,7 @@ import '../../domain/repositories/integrante_repository.dart';
 import '../../models/integrante_model.dart';
 import '../datasources/integrante_remote_datasource.dart';
 
-class IntegranteRepositoryImpl
-    implements IntegranteRepository {
+class IntegranteRepositoryImpl implements IntegranteRepository {
   final IntegranteRemoteDatasource datasource;
 
   IntegranteRepositoryImpl({
@@ -15,8 +14,7 @@ class IntegranteRepositoryImpl
   Future<Map<String, dynamic>> createIntegrante(
     Integrante integrante,
   ) async {
-    final model =
-        IntegranteModel.fromEntity(
+    final model = IntegranteModel.fromEntity(
       integrante,
     );
 
@@ -26,8 +24,7 @@ class IntegranteRepositoryImpl
   }
 
   @override
-  Future<List<Map<String, dynamic>>>
-      getIntegrantesByProject(
+  Future<List<Map<String, dynamic>>> getIntegrantesByProject(
     int idProyecto,
   ) {
     return datasource.getIntegrantesByProject(
@@ -36,14 +33,26 @@ class IntegranteRepositoryImpl
   }
 
   @override
-  Future<Map<String, dynamic>?>
-      getIntegranteByUserAndProject({
+  Future<Map<String, dynamic>?> getIntegranteByUserAndProject({
     required int idUsuario,
     required int idProyecto,
   }) {
     return datasource.getIntegranteByUserAndProject(
       idUsuario: idUsuario,
       idProyecto: idProyecto,
+    );
+  }
+
+  @override
+  Future<Map<String, dynamic>> createIntegranteSimple({
+    required int idUsuario,
+    required int idProyecto,
+    required int idRol,
+  }) {
+    return datasource.createIntegranteSimple(
+      idUsuario: idUsuario,
+      idProyecto: idProyecto,
+      idRol: idRol,
     );
   }
 }

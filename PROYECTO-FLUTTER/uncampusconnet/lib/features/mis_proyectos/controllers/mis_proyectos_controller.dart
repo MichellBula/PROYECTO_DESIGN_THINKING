@@ -1,5 +1,3 @@
-
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import 'package:uncampusconnet/core/database/roble_client.dart';
@@ -24,84 +22,54 @@ class MyProjectsController extends GetxController {
 
     try {
       final idUsuario = _sesionController.idUsuario;
+      print('[MIS_PROYECTOS] idUsuario: $idUsuario');
 
       if (idUsuario == null) {
-        debugPrint('[MIS_PROYECTOS] Usuario sin perfil');
         proyectos.clear();
         return;
       }
 
-      debugPrint('[MIS_PROYECTOS] Usuario: $idUsuario');
-
-      // Proyectos creados por el usuario.
-      final proyectosCreados = await RobleClient.instance.read(
-        'proyecto',
-        filters: {'id_creador': idUsuario},
-      );
-
-      // Proyectos donde el usuario es integrante.
       final integrantes = await RobleClient.instance.read(
         'integrantes',
         filters: {'id_usuario': idUsuario},
       );
 
-      debugPrint(
-        '[MIS_PROYECTOS] Creados: ${proyectosCreados.length}',
-      );
+      print('[MIS_PROYECTOS] integrantes: ${integrantes.length}');
 
-      debugPrint(
-        '[MIS_PROYECTOS] Participaciones: ${integrantes.length}',
-      );
-
-      // Evitar proyectos duplicados.
-      final idsProyectos = <int>{};
-
-      for (final proyecto in proyectosCreados) {
-        final idProyecto = int.tryParse(
-          proyecto['id_proyecto'].toString(),
-        );
-
-        if (idProyecto != null) {
-          idsProyectos.add(idProyecto);
-        }
+      if (integrantes.isEmpty) {
+        proyectos.clear();
+        return;
       }
+
+      final lista = <ProjectData>[];
 
       for (final integrante in integrantes) {
         final idProyecto = int.tryParse(
           integrante['id_proyecto'].toString(),
         );
+        final idRol = int.tryParse(
+          integrante['id_rol'].toString(),
+        );
 
-        if (idProyecto != null) {
-          idsProyectos.add(idProyecto);
-        }
-      }
+        if (idProyecto == null) continue;
 
-      final lista = <ProjectData>[];
+        print('[MIS_PROYECTOS] Procesando proyecto: $idProyecto');
 
-      for (final idProyecto in idsProyectos) {
-        try {
-          final proyecto = await _construirProjectData(
-            idProyecto: idProyecto,
-          );
+        final project = await _construirProjectData(
+          idProyecto: idProyecto,
+          idRol: idRol,
+        );
 
-          if (proyecto != null) {
-            lista.add(proyecto);
-          }
-        } catch (e) {
-          debugPrint(
-            '[MIS_PROYECTOS] Error en proyecto $idProyecto: $e',
-          );
+        if (project != null) {
+          lista.add(project);
+          print('[MIS_PROYECTOS] Proyecto agregado: ${project.title}');
         }
       }
 
       proyectos.assignAll(lista);
-
-      debugPrint(
-        '[MIS_PROYECTOS] Proyectos cargados: ${lista.length}',
-      );
     } catch (e, stackTrace) {
-      debugPrint('[MIS_PROYECTOS] Error al cargar: $e');
-      debugPrint('$stackTrace');
+      print('[MIS_PROYECTOS] ERROR: $e');
+      print('[MIS_PROYECTOS] StackTrace: $stackTrace');
       proyectos.clear();
     } finally {
       cargando.value = false;
@@ -110,46 +78,109 @@ class MyProjectsController extends GetxController {
 
   Future<ProjectData?> _construirProjectData({
     required int idProyecto,
+    int? idRol,
   }) async {
-    final proyectosRaw = await RobleClient.instance.read(
-      'proyecto',
+    try {
+      // 1. Obtener el proyecto
+      final proyectosRaw = await RobleClient.instance.read(
+        'proyecto',
+        filters: {'id_proyecto': idProyecto},
+      );
+
+      if (proyectosRaw.isEmpty) return null;
+
+      final proyecto = proyectosRaw.first;
+
+      // 2. Obtener el nombre del líder (id_creador → tabla usuario)
+      final idCreador = int.tryParse(
+        proyecto['id_creador'].toString(),
+      );
+      final nombreLider = await _obtenerNombreUsuario(idCreador);
+
+      // 3. Obtener el nombre de la categoría
+      final idCategoria = int.tryParse(
+        proyecto['id_categoria'].toString(),
+      );
+      final nombreCategoria = await _obtenerNombreCategoria(idCategoria);
+
+      // 4. Obtener los roles del proyecto
+      final vacancyRoles = await _obtenerRolesDelProyecto(idProyecto);
+
+      // 5. Obtener la fecha de cierre desde la convocatoria
+      final closingDate = await _obtenerFechaCierre(idProyecto);
+
+      // 6. Construir ProjectData
+      return ProjectData(
+        idProyecto: idProyecto,
+        title: proyecto['nombre']?.toString() ?? 'Sin nombre',
+        leader: '@$nombreLider',
+        description: proyecto['descripcion']?.toString() ?? '',
+        requirements: proyecto['requisitos']?.toString() ?? '',
+        category: nombreCategoria,
+        membersCount: int.tryParse(
+              proyecto['num_integrantes'].toString(),
+            ) ??
+            0,
+        vacancies: 0,
+        vacancyRoles: vacancyRoles,
+        closingDate: closingDate,
+        progress: 0.0,
+      );
+    } catch (e) {
+      print('[MIS_PROYECTOS] Error construyendo proyecto $idProyecto: $e');
+      return null;
+    }
+  }
+
+  Future<Map<String, int>> _obtenerRolesDelProyecto(int idProyecto) async {
+    final rolesRaw = await RobleClient.instance.read(
+      'proyecto_roles',
       filters: {'id_proyecto': idProyecto},
     );
 
-    if (proyectosRaw.isEmpty) return null;
+    if (rolesRaw.isEmpty) return {};
 
-    final proyecto = proyectosRaw.first;
+    final Map<String, int> roles = {};
 
-    final idCreador = int.tryParse(
-      proyecto['id_creador'].toString(),
+    for (final rolRaw in rolesRaw) {
+      final idRol = int.tryParse(
+        rolRaw['id_rol'].toString(),
+      );
+      final cantidad = int.tryParse(
+        rolRaw['cantidad'].toString(),
+      );
+
+      if (idRol == null || cantidad == null) continue;
+
+      final nombreRol = await _obtenerNombreRol(idRol);
+      roles[nombreRol] = cantidad;
+    }
+
+    return roles;
+  }
+
+  Future<DateTime?> _obtenerFechaCierre(int idProyecto) async {
+    final convocatorias = await RobleClient.instance.read(
+      'convocatoria',
+      filters: {'id_proyecto': idProyecto},
     );
 
-    final nombreLider = await _obtenerNombreUsuario(idCreador);
+    if (convocatorias.isEmpty) return null;
 
-    final idCategoria = int.tryParse(
-      proyecto['id_categoria'].toString(),
-    );
+    final convocatoria = convocatorias.first;
+    final fechaFinal = convocatoria['fecha_final'];
 
-    final nombreCategoria = await _obtenerNombreCategoria(
-      idCategoria,
-    );
+    if (fechaFinal == null) return null;
 
-    return ProjectData(
-      idProyecto: idProyecto,
-      title: proyecto['nombre']?.toString() ?? 'Sin nombre',
-      leader: '@$nombreLider',
-      description: proyecto['descripcion']?.toString() ?? '',
-      requirements: proyecto['requisitos']?.toString() ?? '',
-      category: nombreCategoria,
-      membersCount: int.tryParse(
-            proyecto['num_integrantes'].toString(),
-          ) ??
-          0,
-      vacancies: 0,
-      vacancyRoles: const {},
-      closingDate: null,
-      progress: 0.0,
-    );
+    if (fechaFinal is String) {
+      return DateTime.tryParse(fechaFinal);
+    }
+
+    if (fechaFinal is int) {
+      return DateTime.fromMillisecondsSinceEpoch(fechaFinal);
+    }
+
+    return null;
   }
 
   Future<String> _obtenerNombreUsuario(int? idUsuario) async {
@@ -178,6 +209,19 @@ class MyProjectsController extends GetxController {
     return categorias.first['nombre_categoria']?.toString() ?? '';
   }
 
+  Future<String> _obtenerNombreRol(int? idRol) async {
+    if (idRol == null) return '';
+
+    final roles = await RobleClient.instance.read(
+      'rol',
+      filters: {'id_rol': idRol},
+    );
+
+    if (roles.isEmpty) return '';
+
+    return roles.first['nombre_rol']?.toString() ?? '';
+  }
+
   void search(String value) {
     searchText.value = value;
   }
@@ -186,7 +230,7 @@ class MyProjectsController extends GetxController {
     final query = searchText.value.trim().toLowerCase();
 
     if (query.isEmpty) {
-      return proyectos.toList();
+      return proyectos;
     }
 
     return proyectos.where((project) {
