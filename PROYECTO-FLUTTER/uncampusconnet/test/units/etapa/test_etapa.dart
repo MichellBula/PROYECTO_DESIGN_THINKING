@@ -1,12 +1,11 @@
 import 'package:uncampusconnet/core/database/roble_client.dart';
 import 'package:uncampusconnet/features/etapa/data/datasource/etapa_remote_datasource.dart';
+import 'package:uncampusconnet/features/etapa/data/repositories/etapa_repository_impl.dart';
+import 'package:uncampusconnet/features/etapa/domain/entities/etapa.dart';
+import 'package:uncampusconnet/features/etapa/domain/usecases/create_etapa.dart';
+import 'package:uncampusconnet/features/etapa/domain/usecases/get_etapa_by_id.dart';
+import 'package:uncampusconnet/features/etapa/domain/usecases/get_etapas_by_project.dart';
 
-import 'data/repositories/etapa_repository_impl.dart';
-
-import 'domain/entities/etapa.dart';
-import 'domain/usecases/create_etapa.dart';
-import 'domain/usecases/get_etapa_by_id.dart';
-import 'domain/usecases/get_etapas_by_project.dart';
 
 Future<void> main() async {
   print('========================================');

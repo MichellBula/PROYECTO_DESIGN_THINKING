@@ -126,6 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       height: 48,
                       child: ElevatedButton(
+                        key: const Key('btn_login'),
                         onPressed: controller.cargando.value ? null : _login,
                         child: controller.cargando.value
                             ? const SizedBox(

@@ -1,12 +1,11 @@
 import 'package:uncampusconnet/core/database/roble_client.dart';
+import 'package:uncampusconnet/features/avance/data/datasources/avance_remote_datasource.dart';
+import 'package:uncampusconnet/features/avance/data/repositories/avance_repository_impl.dart';
+import 'package:uncampusconnet/features/avance/domain/entities/avance.dart';
+import 'package:uncampusconnet/features/avance/domain/usecases/create_avance.dart';
+import 'package:uncampusconnet/features/avance/domain/usecases/get_avance_by_id.dart';
+import 'package:uncampusconnet/features/avance/domain/usecases/get_avances_by_etapa.dart';
 
-import 'data/datasources/avance_remote_datasource.dart';
-import 'data/repositories/avance_repository_impl.dart';
-
-import 'domain/entities/avance.dart';
-import 'domain/usecases/create_avance.dart';
-import 'domain/usecases/get_avance_by_id.dart';
-import 'domain/usecases/get_avances_by_etapa.dart';
 
 Future<void> main() async {
   print('========================================');
