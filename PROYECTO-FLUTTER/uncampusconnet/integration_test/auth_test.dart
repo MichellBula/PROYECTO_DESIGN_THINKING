@@ -10,9 +10,8 @@ void main() {
   group('Pruebas de Integración - Login y Crear Proyecto', () {
     testWidgets('El usuario puede iniciar sesión y entrar a crear proyecto',
         (tester) async {
-      // 1. Iniciar la aplicación real
+      // 1. Iniciar la aplicación
       app.main();
-      // Esperar a que cargue la pantalla de login
       await tester.pumpAndSettle(const Duration(seconds: 5));
 
       // 2. Buscar los campos de texto (AppTextField usa TextField por dentro)
@@ -20,34 +19,32 @@ void main() {
       expect(camposTexto, findsNWidgets(2),
           reason: 'No se encontraron los 2 campos de login');
 
-      // 3. Escribir credenciales de prueba
+      // 3. Escribir credenciales
       await tester.enterText(camposTexto.at(0), 'prueba@correo.com');
       await tester.enterText(camposTexto.at(1), 'Prueba123!');
       await tester.pumpAndSettle();
 
-      // 4. Dar clic en el botón de Iniciar Sesión (usando la llave que pusimos)
+      // 4. Dar clic en el botón de Iniciar Sesión
       final btnLogin = find.byKey(const Key('btn_login'));
       expect(btnLogin, findsOneWidget,
           reason: 'No se encontró el botón de login');
 
       await tester.tap(btnLogin);
 
-      // 5. Esperar a que cargue el Home (conecta con Roble, por eso damos 10s)
+      // 5. Esperar a que cargue el Home (Roble tarda un poco)
       await tester.pumpAndSettle(const Duration(seconds: 10));
 
-      // Verificamos que ya no estamos en el login (el botón desapareció)
+      // Verificar que salió del login
       expect(btnLogin, findsNothing, reason: 'El login falló o no navegó');
 
-      // 6. Buscar el botón para ir a Crear Proyecto en la barra inferior
-      // Nota: Asegúrate de que tu BottomNavBar tenga este icono o usa find.text('Crear')
+      // 6. Buscar el botón para ir a Crear Proyecto
       final btnCrear = find.byIcon(Icons.add_circle);
       if (btnCrear.evaluate().isNotEmpty) {
         await tester.tap(btnCrear.first);
         await tester.pumpAndSettle(const Duration(seconds: 3));
       }
 
-      // 7. Verificar que estamos en la pantalla de Crear Proyecto
-      // (Asumiendo que la pantalla tiene algún texto con la palabra "Proyecto")
+      // 7. Verificar que llegamos a Crear Proyecto
       expect(find.textContaining('Proyecto'), findsWidgets,
           reason: 'No se llegó a crear proyecto');
     });

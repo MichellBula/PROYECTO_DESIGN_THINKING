@@ -1,0 +1,38 @@
+name: Integration Tests
+
+on:
+  push:
+    branches: [ main, PAULA_BRANCH ]
+  pull_request:
+    branches: [ main, PAULA_BRANCH ]
+  workflow_dispatch:
+
+jobs:
+  integration_test:
+    name: Pruebas de Integración (Chrome)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    # Le decimos a GitHub que entre a la subcarpeta donde está Flutter
+    defaults:
+      run:
+        working-directory: PROYECTO-FLUTTER/uncampusconnet
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Instalar dependencias
+        run: flutter pub get
+
+      - name: Iniciar ChromeDriver en segundo plano
+        run: chromedriver --port=4444 &
+
+      - name: Ejecutar pruebas de integración
+        run: flutter drive --driver=test_driver/integration_test.dart --target=integration_test/auth_test.dart -d chrome

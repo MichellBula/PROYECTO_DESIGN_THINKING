@@ -1,9 +1,9 @@
 import 'package:uncampusconnet/core/database/roble_client.dart';
+import 'package:uncampusconnet/features/create_project/data/datasources/project_remote_datasource.dart';
+import 'package:uncampusconnet/features/create_project/data/repositories/project_repository_impl.dart';
+import 'package:uncampusconnet/features/create_project/domain/entities/project.dart';
+import 'package:uncampusconnet/features/create_project/domain/usecases/create_project.dart';
 
-import 'data/datasources/project_remote_datasource.dart';
-import 'data/repositories/project_repository_impl.dart';
-import 'domain/entities/project.dart';
-import 'domain/usecases/create_project.dart';
 
 Future<void> main() async {
   print('========================================');
