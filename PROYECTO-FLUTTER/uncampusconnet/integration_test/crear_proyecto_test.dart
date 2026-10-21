@@ -66,10 +66,6 @@ void main() {
       // 7. Clic en Continuar de la pantalla 2
       await tester.tap(find.text('Continuar').last);
       await tester.pumpAndSettle(const Duration(seconds: 3));
-
-      // 8. FIN DE LA PRUEBA
-      // (Se elimina el expect final para evitar el error de "dispose" 
-      // al cerrar la pantalla en el entorno de pruebas)
     });
   });
 }
