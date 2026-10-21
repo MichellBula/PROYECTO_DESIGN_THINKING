@@ -2,9 +2,9 @@ name: Unit Tests
 
 on:
   push:
-    branches: [ main, PAULA_BRANCH ]
+    branches: [ main, PAULA_BRANCH,Sebastian_BRANCH, ]
   pull_request:
-    branches: [ main, PAULA_BRANCH ]
+    branches: [ main, PAULA_BRANCH,Sebastian_BRANCH, ]
   workflow_dispatch:
 
 jobs:
