@@ -32,4 +32,4 @@ jobs:
 
       # Este comando corre todo lo que esté en la carpeta test/
       - name: Ejecutar pruebas unitarias
-        run: flutter test test/units/auth
+        run: flutter test test/units
