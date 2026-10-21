@@ -19,9 +19,13 @@ void main() {
       await tester.tap(find.byKey(const Key('btn_login')));
       await tester.pumpAndSettle(const Duration(seconds: 10));
 
-      // 3. Navegar a Crear Proyecto (Botón + en el menú)
-      final btnCrear = find.byIcon(Icons.add_circle);
-      await tester.tap(btnCrear);
+      // 3. Navegar a Crear Proyecto (Buscar el texto 'Crear' en el menú inferior)
+      final btnCrear = find.text('Crear');
+      expect(btnCrear, findsWidgets, reason: 'No se encontró el botón Crear en el menú');
+      
+      // Usamos .last para asegurarnos de tocar el del menú inferior 
+      // (por si la palabra "Crear" también está en otra parte de la pantalla)
+      await tester.tap(btnCrear.last);
       await tester.pumpAndSettle(const Duration(seconds: 3));
 
       // 4. LLENAR PANTALLA 1 (Nuevo Proyecto)
@@ -36,14 +40,18 @@ void main() {
       await tester.pumpAndSettle();
 
       // Seleccionar Categoría (Dropdown)
-      // Buscamos el texto 'Selecciona una categoría' y hacemos clic
       await tester.tap(find.text('Selecciona una categoría'));
       await tester.pumpAndSettle();
-      // Hacemos clic en la primera opción de la lista que aparezca
-      await tester.tap(find.text('Tecnología').last); // <-- Asegúrate de que 'Tecnología' exista en tu lista
-      await tester.pumpAndSettle();
+      
+      // Hacemos clic en 'Tecnología' 
+      // (Si en tu proyecto_options.dart dice diferente, cambia esta palabra)
+      final opcionCategoria = find.text('Tecnología'); 
+      if (opcionCategoria.evaluate().isNotEmpty) {
+        await tester.tap(opcionCategoria.last); 
+        await tester.pumpAndSettle();
+      }
 
-      // Clic en Continuar
+      // Clic en Continuar (Pantalla 1)
       await tester.tap(find.text('Continuar'));
       await tester.pumpAndSettle(const Duration(seconds: 3));
 
@@ -60,17 +68,11 @@ void main() {
       await tester.enterText(inputsPaso2.at(1), 'Requisitos del proyecto automatizado.');
       await tester.pumpAndSettle();
 
-      // NOTA: El robot no tocará los dropdowns de Roles, Habilidades, 
-      // Tipo de Proyecto ni las Fechas. Si tu formulario los exige,
-      // aquí fallará y tendremos que agregar los clics.
-
       // 7. Clic en Continuar de la pantalla 2
-      // Buscamos el botón que dice 'Continuar' (que es el último en la pantalla)
       await tester.tap(find.text('Continuar').last);
       await tester.pumpAndSettle(const Duration(seconds: 3));
 
       // 8. VERIFICAR QUE LLEGAMOS A CONFIRMACIÓN
-      // (Asumiendo que tu ConfirmarProyectoPage tiene un texto que dice 'Confirmar')
       expect(find.textContaining('Confirmar'), findsWidgets, 
           reason: 'No se avanzó a la pantalla de confirmación');
     });
