@@ -31,9 +31,8 @@ class _RoleQuantityDropdownState extends State<RoleQuantityDropdown> {
 
   @override
   void dispose() {
-    // 1. Primero cerramos el dropdown (esto limpia el controlador de forma segura)
+    // Primero cerramos de forma segura y luego destruimos
     _closeDropdown();
-    // 2. Luego destruimos el controlador
     _searchController.dispose();
     super.dispose();
   }
@@ -80,16 +79,16 @@ class _RoleQuantityDropdownState extends State<RoleQuantityDropdown> {
     _overlayEntry?.remove();
     _overlayEntry = null;
 
-    // Evitamos el crash si la pantalla se está destruyendo
+    // Si la pantalla ya se está destruyendo, no hacemos NADA.
+    if (!mounted) return;
+
     try {
       _searchController.clear();
     } catch (_) {
-      // Ignoramos el error si el controlador ya fue destruido
+      // Ignoramos si el controlador ya fue destruido
     }
 
-    if (mounted) {
-      setState(() {});
-    }
+    setState(() {});
   }
 
   void _changeQuantity(String role, int change) {
