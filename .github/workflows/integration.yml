@@ -30,22 +30,19 @@ jobs:
       - name: Instalar dependencias de Flutter
         run: flutter pub get
 
-      # 1. Instalamos ChromeDriver
       - name: Instalar ChromeDriver
         uses: nanasess/setup-chromedriver@v2
 
-      # 2. Levantamos el ChromeDriver manualmente en segundo plano
       - name: Iniciar ChromeDriver en segundo plano
         run: |
           nohup chromedriver --port=4444 > /tmp/chromedriver.log 2>&1 &
           sleep 3
 
-      # 3. Ejecutamos la prueba con web-server y Chrome headless
       - name: Ejecutar pruebas de integración
         run: |
           flutter drive \
             --driver=test_driver/integration_test.dart \
-            --target=integration_test/auth_test.dart \
+            --target=integration_test/crear_proyecto_test.dart \
             -d web-server \
             --web-browser-flag="--headless" \
             --web-browser-flag="--no-sandbox" \
