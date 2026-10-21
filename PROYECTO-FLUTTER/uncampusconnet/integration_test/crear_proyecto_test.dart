@@ -19,7 +19,7 @@ void main() {
       await tester.tap(find.byKey(const Key('btn_login')));
       await tester.pumpAndSettle(const Duration(seconds: 10));
 
-      // 3. Navegar a Crear Proyecto (Usando el texto del menú inferior)
+      // 3. Navegar a Crear Proyecto
       final btnCrear = find.text('Crear');
       expect(btnCrear, findsWidgets, reason: 'No se encontró el botón Crear en el menú');
       await tester.tap(btnCrear.last);
@@ -66,6 +66,9 @@ void main() {
       // 7. Clic en Continuar de la pantalla 2
       await tester.tap(find.text('Continuar').last);
       await tester.pumpAndSettle(const Duration(seconds: 3));
+
+      // 8. TIEMPO DE GRACIA (Para que Flutter cierre la app limpiamente)
+      await tester.pumpAndSettle(const Duration(seconds: 2));
     });
   });
 }

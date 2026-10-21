@@ -31,9 +31,13 @@ class _RoleQuantityDropdownState extends State<RoleQuantityDropdown> {
 
   @override
   void dispose() {
-    // Primero cerramos de forma segura y luego destruimos
-    _closeDropdown();
+    // Removemos el overlay si está abierto, SIN llamar a setState ni clear()
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+
+    // Destruimos el controlador
     _searchController.dispose();
+    
     super.dispose();
   }
 
@@ -79,14 +83,12 @@ class _RoleQuantityDropdownState extends State<RoleQuantityDropdown> {
     _overlayEntry?.remove();
     _overlayEntry = null;
 
-    // Si la pantalla ya se está destruyendo, no hacemos NADA.
+    // Si el widget ya se está destruyendo, no hacemos NADA.
     if (!mounted) return;
 
     try {
       _searchController.clear();
-    } catch (_) {
-      // Ignoramos si el controlador ya fue destruido
-    }
+    } catch (_) {}
 
     setState(() {});
   }
