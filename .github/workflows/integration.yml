@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     
-    # Le decimos a GitHub que entre a la subcarpeta donde está Flutter
     defaults:
       run:
         working-directory: PROYECTO-FLUTTER/uncampusconnet
@@ -28,11 +27,13 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Instalar dependencias
+      - name: Instalar dependencias de Flutter
         run: flutter pub get
 
-      - name: Iniciar ChromeDriver en segundo plano
-        run: chromedriver --port=4444 &
+      # Esta acción oficial instala y levanta el chromedriver correctamente
+      - name: Configurar ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
 
-      - name: Ejecutar pruebas de integración
-        run: flutter drive --driver=test_driver/integration_test.dart --target=integration_test/auth_test.dart -d chrome
+      - name: Ejecutar pruebas de integración en Chrome
+        run: |
+          flutter drive --driver=test_driver/integration_test.dart --target=integration_test/auth_test.dart -d web-server --web-browser-flag="--headless"
