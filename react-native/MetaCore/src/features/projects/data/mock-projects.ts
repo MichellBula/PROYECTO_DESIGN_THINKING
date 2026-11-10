@@ -15,6 +15,11 @@ export type DemoProject = {
   skills: string[];
   roles: ProjectRole[];
   icon: 'fish' | 'pets' | 'transport' | 'eco' | 'study';
+  // Campos adicionales conservados al crear proyectos desde MetaCore.
+  objective?: string;
+  projectType?: string;
+  startDate?: string;
+  wantsAdvisor?: boolean;
 };
 
 export type RequestStatus = 'pendiente' | 'aceptada' | 'rechazada';

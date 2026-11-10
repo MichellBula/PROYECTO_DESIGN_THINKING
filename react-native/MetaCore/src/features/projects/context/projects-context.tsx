@@ -1,8 +1,12 @@
-import { createContext, useContext, useMemo, useState, type PropsWithChildren } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState, type PropsWithChildren } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   demoProjects, demoUser, initialReceivedRequests, isProjectOpen,
   type DemoApplication, type DemoProject, type RequestStatus,
 } from '../data/mock-projects';
+import {
+  validateCreateProject, type CreateProjectInput, type CreateProjectResult,
+} from '@/features/create-project/data/create-project-model';
 
 type SubmitResult = { ok: true } | { ok: false; message: string };
 
@@ -10,15 +14,91 @@ type ProjectsContextValue = {
   projects: DemoProject[];
   applications: DemoApplication[];
   currentUser: typeof demoUser;
+  createProject: (input: CreateProjectInput) => CreateProjectResult;
   submitApplication: (projectId: string, roleId: string, motivation: string) => SubmitResult;
   answerApplication: (requestId: string, decision: 'aceptada' | 'rechazada') => void;
 };
 
 const ProjectsContext = createContext<ProjectsContextValue | null>(null);
+const LOCAL_PROJECTS_KEY = '@metacore/demo-created-projects';
 
 export function DemoProjectsProvider({ children }: PropsWithChildren) {
-  const [projects] = useState(demoProjects);
+  const [projects, setProjects] = useState<DemoProject[]>(demoProjects);
   const [applications, setApplications] = useState<DemoApplication[]>(initialReceivedRequests);
+  const [storageLoaded, setStorageLoaded] = useState(false);
+
+  // Persistencia temporal local; cambiar por el repositorio Roble más adelante.
+  useEffect(() => {
+    let mounted = true;
+    async function loadLocalProjects() {
+      try {
+        const raw = await AsyncStorage.getItem(LOCAL_PROJECTS_KEY);
+        if (!raw || !mounted) return;
+        const parsed: unknown = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return;
+        const saved = parsed.filter((item): item is DemoProject =>
+          typeof item === 'object' && item !== null &&
+          'id' in item && typeof item.id === 'string' &&
+          item.id.startsWith('local-project-') &&
+          'name' in item && typeof item.name === 'string' &&
+          'roles' in item && Array.isArray(item.roles),
+        );
+        setProjects(current => {
+          const loadedIds = new Set(saved.map(item => item.id));
+          return [...saved, ...current.filter(item => !loadedIds.has(item.id))];
+        });
+      } catch (error) {
+        console.warn('No se pudieron leer los proyectos locales:', error);
+      } finally {
+        if (mounted) setStorageLoaded(true);
+      }
+    }
+    void loadLocalProjects();
+    return () => { mounted = false; };
+  }, []);
+
+  useEffect(() => {
+    if (!storageLoaded) return;
+    const created = projects.filter(item => item.id.startsWith('local-project-'));
+    void AsyncStorage.setItem(LOCAL_PROJECTS_KEY, JSON.stringify(created))
+      .catch(error => console.warn('No se pudieron guardar los proyectos locales:', error));
+  }, [projects, storageLoaded]);
+
+  // La misma entrada podrá enviarse después a un repositorio Roble.
+  function createProject(input: CreateProjectInput): CreateProjectResult {
+    const error = validateCreateProject(input);
+    if (error) return { ok: false, message: error };
+
+    const id = `local-project-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    const roles = Object.entries(input.roleQuantities).map(([name, quantity], index) => ({
+      id: `${id}-role-${index + 1}`, name, quantity,
+    }));
+    const requirements = input.requirements.split(/[,;\n]/).map(item => item.trim()).filter(Boolean);
+    const vacancies = roles.reduce((sum, role) => sum + role.quantity, 0);
+
+    const project: DemoProject = {
+      id,
+      name: input.name.trim(),
+      leader: `@${demoUser.name.replace(/\s+/g, '')}`,
+      leaderId: demoUser.id,
+      category: input.category,
+      members: 1,
+      vacancies,
+      closingDate: input.closingDate!,
+      description: input.description.trim(),
+      requirements,
+      skills: [...input.skills],
+      roles,
+      icon: 'study', // Icono temporal hasta permitir imágenes del usuario.
+      objective: input.objective.trim(),
+      projectType: input.projectType,
+      startDate: input.startDate!,
+      wantsAdvisor: input.wantsAdvisor,
+    };
+
+    setProjects(current => [project, ...current]);
+    return { ok: true, projectId: id };
+  }
 
   function submitApplication(projectId: string, roleId: string, motivation: string): SubmitResult {
     const project = projects.find(item => item.id === projectId);
@@ -55,7 +135,7 @@ export function DemoProjectsProvider({ children }: PropsWithChildren) {
 
   const value = useMemo(() => ({
     projects, applications, currentUser: demoUser,
-    submitApplication, answerApplication,
+    createProject, submitApplication, answerApplication,
   }), [projects, applications]);
 
   return <ProjectsContext.Provider value={value}>{children}</ProjectsContext.Provider>;
