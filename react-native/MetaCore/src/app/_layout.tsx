@@ -1,18 +1,95 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
+
+import '@/global.css';
+import { useMemo } from 'react';
+
+import {
+  DarkTheme,
+  DefaultTheme,
+  Stack,
+  ThemeProvider as NavigationThemeProvider,
+  usePathname,
+} from 'expo-router';
+
 import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { View } from 'react-native';
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import { AppHeader } from '@/components/navigation/app-header';
+import { BottomNavigation } from '@/components/navigation/bottom-navigation';
 
-SplashScreen.preventAutoHideAsync();
+import {
+  MetaCoreThemeProvider,
+  useAppThemeContext,
+} from '@/context/theme-context';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+import {
+  DemoProjectsProvider,
+} from '@/features/projects/context/projects-context';
+
+void SplashScreen.preventAutoHideAsync();
+
+function AppContent() {
+  const { colors, isDark } = useAppThemeContext();
+  const pathname = usePathname();
+
+  // Ocultamos la barra en las pantallas internas.
+  const hideBottomNavigation =
+    pathname.startsWith('/proyecto/') ||
+    pathname.startsWith('/postular/');
+
+  const navigationTheme = useMemo(() => {
+    const base = isDark ? DarkTheme : DefaultTheme;
+
+    return {
+      ...base,
+      colors: {
+        ...base.colors,
+        primary: colors.primary,
+        background: colors.background,
+        card: colors.card,
+        text: colors.text,
+        border: colors.border,
+        notification: colors.accent,
+      },
+    };
+  }, [colors, isDark]);
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <NavigationThemeProvider value={navigationTheme}>
+      <StatusBar style={isDark ? 'light' : 'dark'} />
+
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: colors.background,
+        }}
+      >
+        {/* Cabecera compartida */}
+        <AppHeader />
+
+        {/* Navegación con historial para regresar */}
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        />
+
+        {/* Navegación inferior de las pantallas principales */}
+        {!hideBottomNavigation && <BottomNavigation />}
+      </View>
+
       <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    </NavigationThemeProvider>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <MetaCoreThemeProvider>
+      <DemoProjectsProvider>
+        <AppContent />
+      </DemoProjectsProvider>
+    </MetaCoreThemeProvider>
   );
 }
