@@ -25,7 +25,8 @@ function AppContent() {
   const hideBottomNavigation =
     pathname.startsWith('/proyecto/') ||
     pathname.startsWith('/postular/') ||
-    pathname.startsWith('/chats/');
+    pathname.startsWith('/chats/') ||
+    pathname.startsWith('/tablero/');
 
   const navigationTheme = useMemo(() => {
     const base = isDark ? DarkTheme : DefaultTheme;

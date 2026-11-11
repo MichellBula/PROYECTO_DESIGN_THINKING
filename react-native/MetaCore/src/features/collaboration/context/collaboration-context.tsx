@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDemoProjects } from '@/features/projects/context/projects-context';
 import { getProjectMembers, type ProjectMember } from '../data/demo-members';
 import { validateGroupMembers } from '../data/chat-rules';
+import { removeBoard } from '@/features/board/data/board-storage';
 
 export type ChatRoom = {
   id: string;
@@ -214,6 +215,9 @@ export function CollaborationProvider({ children }: PropsWithChildren) {
     }
     setRoomsSafe(roomsRef.current.filter(item => item.id !== roomId));
     setMessages(current => current.filter(message => message.roomId !== roomId));
+    // El tablero pertenece al grupo: eliminarlo impide reabrir datos huérfanos.
+    void removeBoard(room.projectId, room.id).catch(error =>
+      console.warn('No se pudo eliminar el tablero del grupo:', error));
     return { ok: true };
   }
 

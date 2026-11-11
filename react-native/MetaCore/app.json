@@ -21,7 +21,8 @@
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "name": "MetaCore",
+      "favicon": "./assets/images/metacore-logo.png"
     },
     "plugins": [
       "expo-router",
